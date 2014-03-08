@@ -10,5 +10,5 @@
 #import <MapKit/MapKit.h>
 
 @interface BHMapViewController : UIViewController
-
+@property (nonatomic,strong) NSArray *annotations;  // of id <MKAnnotation>
 @end

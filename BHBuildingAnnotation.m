@@ -10,25 +10,34 @@
 
 @implementation BHBuildingAnnotation
 
+@synthesize building;
+
++(BHBuildingAnnotation *)annotationForBuilding:(BHBuilding *)building
+{
+    BHBuildingAnnotation *annotation = [[BHBuildingAnnotation alloc] init];
+    annotation.building = building;
+    return annotation;
+}
+
 //MKAnnotation protocol 的方法， title的setter
 -(NSString *)title
 {
-    return @"Clough (288)";
+    return self.building.name;
 }
 
 //MKAnnotation protocol 的方法， subtitle的setter
 - (NSString *)subtitle
 {
     
-    return @"Best time to go: 5 min later";
+    return self.building.description;
 }
 
 //MKAnnotation protocol 的方法， coordinate的setter
 - (CLLocationCoordinate2D)coordinate
 {
     CLLocationCoordinate2D coordinate;
-    coordinate.latitude = 33.777179;
-    coordinate.longitude = -84.399627;
+    coordinate.latitude = [self.building.latitude doubleValue];
+    coordinate.longitude = [self.building.longitude doubleValue];
     
     return coordinate;
 }

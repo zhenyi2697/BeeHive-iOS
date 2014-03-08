@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - Map-->
         <scene sceneID="QZr-VS-FXY">
             <objects>
                 <navigationController definesPresentationContext="YES" id="bpH-LK-DNh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="gtf-nh-XJY"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map-paper.png" id="gtf-nh-XJY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UM7-Rm-fpd">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -70,11 +70,11 @@
             </objects>
             <point key="canvasLocation" x="-52" y="148"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - List-->
         <scene sceneID="NAC-wz-J5J">
             <objects>
                 <navigationController definesPresentationContext="YES" id="yP5-GF-5Br" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="V6Y-ke-z06"/>
+                    <tabBarItem key="tabBarItem" title="List" image="list-star.png" id="V6Y-ke-z06"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fkw-sR-NaX">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -86,7 +86,7 @@
             </objects>
             <point key="canvasLocation" x="648" y="585"/>
         </scene>
-        <!--List View Controller - Buildings-->
+        <!--List View Controller - Locations-->
         <scene sceneID="7mz-fw-dd9">
             <objects>
                 <viewController id="066-oP-BLn" customClass="BHListViewController" sceneMemberID="viewController">
@@ -103,7 +103,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BuildingCell" id="iN6-a2-3yc">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LocationCell" id="iN6-a2-3yc">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iN6-a2-3yc" id="Dtu-tS-AMX">
@@ -111,7 +111,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="k9T-f8-1IQ" kind="push" id="o1k-dj-mDR"/>
+                                            <segue destination="rcr-x4-Ep4" kind="push" identifier="showBuildingDetailFromListView" id="fn9-fE-7As"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -124,7 +124,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="second" id="SfM-Tm-IJ1"/>
-                    <navigationItem key="navigationItem" title="Buildings" id="J9B-79-gVm">
+                    <navigationItem key="navigationItem" title="Locations" id="J9B-79-gVm">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="X2B-2f-ZWk"/>
                     </navigationItem>
                     <connections>
@@ -134,50 +134,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GII-eM-6wd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1144" y="585"/>
-        </scene>
-        <!--Location List View Controller - Locations-->
-        <scene sceneID="BUK-JG-xYR">
-            <objects>
-                <viewController id="k9T-f8-1IQ" customClass="BHLocationListViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="s5R-sR-jEc"/>
-                        <viewControllerLayoutGuide type="bottom" id="Nz5-G5-Dfh"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3ig-6D-UzI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1eK-9p-NPC">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LocationCell" id="hQt-6y-9fT">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hQt-6y-9fT" id="fQM-RN-2gw">
-                                            <rect key="frame" x="0.0" y="0.0" width="273" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="rcr-x4-Ep4" kind="push" id="RzB-J3-FMd"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <sections/>
-                                <connections>
-                                    <outlet property="dataSource" destination="k9T-f8-1IQ" id="1yj-EK-YYv"/>
-                                    <outlet property="delegate" destination="k9T-f8-1IQ" id="rPi-PY-DEs"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Locations" id="0vk-tj-ybY"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bye-rd-UH0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1623" y="585"/>
         </scene>
         <!--Plot Example View Controller - Statistics-->
         <scene sceneID="SEG-Qh-bBl">
@@ -206,10 +162,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZd-bL-KP0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2090" y="585"/>
+            <point key="canvasLocation" x="1863" y="267"/>
         </scene>
     </scenes>
     <resources>
+        <image name="list-star.png" width="30" height="30"/>
+        <image name="map-paper.png" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -218,6 +176,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xdo-ga-tkr"/>
+        <segue reference="fn9-fE-7As"/>
     </inferredMetricsTieBreakers>
 </document>

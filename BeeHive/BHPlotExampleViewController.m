@@ -8,7 +8,8 @@
 
 #import "BHPlotExampleViewController.h"
 #import <RestKit/RestKit.h>
-#import "BHStudent.h"
+#import "BHBuilding.h"
+#import "BHLocation.h"
 
 @interface BHPlotExampleViewController ()
 @property (nonatomic, strong) IBOutlet CPTGraphHostingView *hostView;
@@ -50,23 +51,50 @@ CGFloat const CPDBarInitialX = 0.25f;
 
 - (void)testRest
 {
-    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[BHStudent class]];
+    // Building mapping
+    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[BHBuilding class]];
     [mapping addAttributeMappingsFromDictionary:@{
-                                                  @"name":   @"name",
-                                                  @"age":     @"age",
-                                                  @"sex":        @"sex"
-                                                  }];
+                                                  @"id" : @"bdId",
+                                                  @"name": @"name",
+                                                  @"description": @"description",
+                                                  @"url_photo" : @"photoUrl",
+                                                  @"longitude" : @"longitude",
+                                                  @"latitude" : @"latitude"
+                                                }];
     
+    // Location mapping
+    RKObjectMapping *locationMapping = [RKObjectMapping mappingForClass:[BHLocation class]];
+    [locationMapping addAttributeMappingsFromDictionary:@{
+                                                          @"id" : @"locId",
+                                                          @"name": @"name",
+                                                          @"description": @"description",
+                                                          @"url_photo" : @"photoUrl",
+                                                          @"longitude" : @"longitude",
+                                                          @"latitude" : @"latitude"
+                                                        }];
+
     // !IMPORTANT!
     // Should add this line to accept plain text response from server
     [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
     
+    // Define the relationship mapping
+    [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"locations"
+                                                                            toKeyPath:@"locations"
+                                                                          withMapping:locationMapping]];
+    
+    
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
-    NSURL *url = [NSURL URLWithString:@"http://127.0.0.1:5000"];
+    
+    NSURL *url = [NSURL URLWithString:@"http://beehive.exenon.tk/buildings/listall"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
-        NSLog(@"Student is: %@", [result array]);
+        NSArray *buildings = [result array];
+        for (int i = 0; i < 2; i++) {
+            BHBuilding * bd = [buildings objectAtIndex:i];
+            NSLog(@"locations are: %@", bd.locations);
+        }
+        NSLog(@"Buildings are: %@", [result array]);
     } failure:nil];
     [operation start];
 }

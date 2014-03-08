@@ -7,6 +7,12 @@
 //
 
 #import "BHListViewController.h"
+#import "BHBuilding.h"
+#import "BHLocation.h"
+#import "BHDataController.h"
+
+//RefreshControl Library
+#import "ODRefreshControl.h"
 
 @interface BHListViewController ()
 @property (strong,nonatomic) NSArray *buildingArray;
@@ -34,9 +40,24 @@
 //    return self;
 //}
 
+- (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
+{
+    double delayInSeconds = 3.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        NSLog(@"Refreshed");
+        [refreshControl endRefreshing];
+    });
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // IMPORTANT!
+    // Added this line so that refresh control can properly be showed
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        self.edgesForExtendedLayout = UIRectEdgeNone;
     
 //    self.edgesForExtendedLayout=UIRectEdgeNone;
 //    self.extendedLayoutIncludesOpaqueBars=NO;
@@ -47,6 +68,10 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    //Refresh Control
+    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
+    [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewDidAppear
@@ -65,22 +90,35 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    BHDataController *sharedDataController = [BHDataController sharedDataController];
+    return [sharedDataController.buildingList count];
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    BHDataController *dataController = [BHDataController sharedDataController];
+    BHBuilding *bd = [dataController.buildingList objectAtIndex:section];
+    return bd.name;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 10;
+    BHDataController *dataController = [BHDataController sharedDataController];
+    BHBuilding *bd = [dataController.buildingList objectAtIndex:section];
+    return [bd.locations count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"BuildingCell";
+    static NSString *CellIdentifier = @"LocationCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell here
-    cell.textLabel.text = [self.buildingArray objectAtIndex:indexPath.row];
+//    cell.textLabel.text = [self.buildingArray objectAtIndex:indexPath.row];
+    BHDataController *dataController = [BHDataController sharedDataController];
+    BHBuilding *bd = [dataController.buildingList objectAtIndex:indexPath.section];
+    BHLocation *loc = [bd.locations objectAtIndex:indexPath.row];
+    cell.textLabel.text = loc.name;
     return cell;
 }
 
