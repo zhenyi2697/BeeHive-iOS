@@ -11,4 +11,6 @@
 
 @interface BHMapViewController : UIViewController
 @property (nonatomic,strong) NSArray *annotations;  // of id <MKAnnotation>
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
+
 @end

@@ -40,10 +40,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Campus Map" id="C07-L9-4Wr">
+                        <barButtonItem key="leftBarButtonItem" title="Refresh" id="s7p-hX-oIP"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="mrD-q3-gjg"/>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="teJ-3n-Hsi" id="u7e-v9-33J"/>
+                        <outlet property="refreshButton" destination="s7p-hX-oIP" id="l2x-vr-Ayk"/>
                         <segue destination="rcr-x4-Ep4" kind="push" identifier="showBuildingDetailFromMapView" id="xdo-ga-tkr"/>
                     </connections>
                 </viewController>
@@ -176,6 +178,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="fn9-fE-7As"/>
+        <segue reference="xdo-ga-tkr"/>
     </inferredMetricsTieBreakers>
 </document>

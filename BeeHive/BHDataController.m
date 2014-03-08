@@ -10,7 +10,7 @@
 
 @implementation BHDataController
 
-@synthesize buildingList;
+@synthesize buildingList = _buildingList, locationList = _locationList;
 
 + (id)sharedDataController {
     static BHDataController *sharedDataController = nil;

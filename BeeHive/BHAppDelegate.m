@@ -63,14 +63,26 @@
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
         
         dataController.buildingList = [result array];
+        
+        NSMutableArray *locationList = [[NSMutableArray alloc] init];
         NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:[dataController.buildingList count]];
         for (BHBuilding *bd in dataController.buildingList) {
             [annotations addObject:[BHBuildingAnnotation annotationForBuilding:bd]];
+            for (BHLocation *loc in bd.locations) {
+                [locationList addObject:loc];
+            }
         }
+        
+        dataController.locationList = locationList;
         mapViewController.annotations = annotations;
+        mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
         
     } failure:nil];
     
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinner startAnimating];
+    mapViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
     [operation start];
 
 }

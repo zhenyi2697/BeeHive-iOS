@@ -11,6 +11,7 @@
 @interface BHDataController : NSObject
 
 @property (nonatomic, strong) NSArray *buildingList;
+@property (nonatomic, strong) NSArray *locationList;
 +(id)sharedDataController;
 
 @end
