@@ -9,6 +9,7 @@
 #import "BHListViewController.h"
 #import "BHBuilding.h"
 #import "BHLocation.h"
+#import "BHLocationStat.h"
 #import "BHDataController.h"
 
 //RefreshControl Library
@@ -118,7 +119,9 @@
     BHDataController *dataController = [BHDataController sharedDataController];
     BHBuilding *bd = [dataController.buildingList objectAtIndex:indexPath.section];
     BHLocation *loc = [bd.locations objectAtIndex:indexPath.row];
+    BHLocationStat *locStat = [dataController.locationStats objectForKey:loc.locId];
     cell.textLabel.text = loc.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Occupancy: %@. Best to go after %@", locStat.occupancy, locStat.bestTime];
     return cell;
 }
 

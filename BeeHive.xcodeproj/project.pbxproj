@@ -48,6 +48,7 @@
 		BCB30E6618B3CEF6009A3669 /* BHListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB30E6518B3CEF6009A3669 /* BHListViewController.m */; };
 		BCD05DC618B6D94A005077AA /* CPDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD05DC318B6D94A005077AA /* CPDConstants.m */; };
 		BCD05DC718B6D94A005077AA /* CPDStockPriceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD05DC518B6D94A005077AA /* CPDStockPriceStore.m */; };
+		BCF24B6118CB6D35006BA03A /* BHLocationStat.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF24B6018CB6D35006BA03A /* BHLocationStat.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +135,8 @@
 		BCD05DC318B6D94A005077AA /* CPDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDConstants.m; sourceTree = "<group>"; };
 		BCD05DC418B6D94A005077AA /* CPDStockPriceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDStockPriceStore.h; sourceTree = "<group>"; };
 		BCD05DC518B6D94A005077AA /* CPDStockPriceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDStockPriceStore.m; sourceTree = "<group>"; };
+		BCF24B5F18CB6D35006BA03A /* BHLocationStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationStat.h; sourceTree = "<group>"; };
+		BCF24B6018CB6D35006BA03A /* BHLocationStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationStat.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +246,8 @@
 				BC0A377218C8FE4000566D5D /* BHBuilding.m */,
 				BC0A377618C8FE5400566D5D /* BHLocation.h */,
 				BC0A377718C8FE5400566D5D /* BHLocation.m */,
+				BCF24B5F18CB6D35006BA03A /* BHLocationStat.h */,
+				BCF24B6018CB6D35006BA03A /* BHLocationStat.m */,
 				BC676C5E18B2881800A46750 /* BHAppDelegate.h */,
 				BC676C5F18B2881800A46750 /* BHAppDelegate.m */,
 				BC676C6118B2881800A46750 /* Main_iPhone.storyboard */,
@@ -469,6 +474,7 @@
 				BC676C5C18B2881800A46750 /* main.m in Sources */,
 				BCAD56A918CA50AE009436B8 /* BHDataController.m in Sources */,
 				BCD05DC718B6D94A005077AA /* CPDStockPriceStore.m in Sources */,
+				BCF24B6118CB6D35006BA03A /* BHLocationStat.m in Sources */,
 				BCB30E6618B3CEF6009A3669 /* BHListViewController.m in Sources */,
 				BCAD56BC18CA82C7009436B8 /* ODRefreshControl.m in Sources */,
 				BC676C8C18B2893B00A46750 /* BHMapViewController.m in Sources */,

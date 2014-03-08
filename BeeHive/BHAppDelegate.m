@@ -23,68 +23,12 @@
     UINavigationController *navigationController = [[tabBarController viewControllers] objectAtIndex:0];
     BHMapViewController *mapViewController = [[navigationController viewControllers] objectAtIndex:0];
     
-    // Building mapping
-    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[BHBuilding class]];
-    [mapping addAttributeMappingsFromDictionary:@{
-                                                  @"id" : @"bdId",
-                                                  @"name": @"name",
-                                                  @"description": @"description",
-                                                  @"url_photo" : @"photoUrl",
-                                                  @"longitude" : @"longitude",
-                                                  @"latitude" : @"latitude"
-                                                  }];
+    //Fetch building List for mapView
+    [dataController fetchBuildingsForViewController:mapViewController];
     
-    // Location mapping
-    RKObjectMapping *locationMapping = [RKObjectMapping mappingForClass:[BHLocation class]];
-    [locationMapping addAttributeMappingsFromDictionary:@{
-                                                          @"id" : @"locId",
-                                                          @"name": @"name",
-                                                          @"description": @"description",
-                                                          @"url_photo" : @"photoUrl",
-                                                          @"longitude" : @"longitude",
-                                                          @"latitude" : @"latitude"
-                                                          }];
+    //Fetch locations statistic for mapView
+    [dataController fetchLocationStatForViewController:mapViewController];
     
-    // !IMPORTANT!
-    // Should add this line to accept plain text response from server
-    [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
-    
-    // Define the relationship mapping
-    [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"locations"
-                                                                            toKeyPath:@"locations"
-                                                                          withMapping:locationMapping]];
-    
-    
-    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
-    
-    NSURL *url = [NSURL URLWithString:@"http://beehive.exenon.tk/buildings/listall"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
-        
-        dataController.buildingList = [result array];
-        
-        NSMutableArray *locationList = [[NSMutableArray alloc] init];
-        NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:[dataController.buildingList count]];
-        for (BHBuilding *bd in dataController.buildingList) {
-            [annotations addObject:[BHBuildingAnnotation annotationForBuilding:bd]];
-            for (BHLocation *loc in bd.locations) {
-                [locationList addObject:loc];
-            }
-        }
-        
-        dataController.locationList = locationList;
-        mapViewController.annotations = annotations;
-        mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
-        
-    } failure:nil];
-    
-    
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [spinner startAnimating];
-    mapViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
-    [operation start];
-
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

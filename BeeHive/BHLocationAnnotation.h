@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 #import "BHLocation.h"
+#import "BHLocationStat.h"
 
 @interface BHLocationAnnotation : NSObject
 +(BHLocationAnnotation *)annotationForLocation:(BHLocation *)location;
 @property (nonatomic,strong) BHLocation *location;
+@property (nonatomic,strong) BHLocationStat *locationStat;
 @end

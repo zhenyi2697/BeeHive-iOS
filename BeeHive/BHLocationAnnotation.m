@@ -7,14 +7,17 @@
 //
 
 #import "BHLocationAnnotation.h"
+#import "BHDataController.h"
 
 @implementation BHLocationAnnotation
 
-@synthesize location = _location;
+@synthesize location = _location, locationStat = _locationStat;
 
 +(BHLocationAnnotation *)annotationForLocation:(BHLocation *)location
 {
     BHLocationAnnotation *annotation = [[BHLocationAnnotation alloc] init];
+    BHDataController *dataController = [BHDataController sharedDataController];
+    annotation.locationStat = [dataController.locationStats objectForKey:location.locId];
     annotation.location = location;
     return annotation;
 }
@@ -22,14 +25,16 @@
 //MKAnnotation protocol 的方法， title的setter
 -(NSString *)title
 {
-    return self.location.name;
+//    return self.location.name;
+    return [NSString stringWithFormat:@"%@ ( %@ )", self.location.name, self.locationStat.occupancy];
 }
 
 //MKAnnotation protocol 的方法， subtitle的setter
 - (NSString *)subtitle
 {
     
-    return self.location.description;
+//    return self.location.description;
+    return [NSString stringWithFormat:@"Best time to go: %@", self.locationStat.bestTime];
 }
 
 //MKAnnotation protocol 的方法， coordinate的setter
