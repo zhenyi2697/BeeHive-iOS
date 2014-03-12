@@ -35,6 +35,8 @@
 {
     // Override point for customization after application launch.
     
+    self.window.frame = CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
+    
     [self loadDataFromRemoteServer];
     
     return YES;

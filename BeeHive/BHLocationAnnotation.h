@@ -11,7 +11,7 @@
 #import "BHLocation.h"
 #import "BHLocationStat.h"
 
-@interface BHLocationAnnotation : NSObject
+@interface BHLocationAnnotation : NSObject <MKAnnotation>
 +(BHLocationAnnotation *)annotationForLocation:(BHLocation *)location;
 @property (nonatomic,strong) BHLocation *location;
 @property (nonatomic,strong) BHLocationStat *locationStat;

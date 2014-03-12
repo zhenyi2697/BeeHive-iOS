@@ -75,7 +75,7 @@
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
     
-    NSURL *url = [NSURL URLWithString:@"http://beehive.exenon.tk/buildings/listall"];
+    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/zones/listall"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
@@ -149,7 +149,7 @@
     [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:locationMapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
     
-    NSURL *url = [NSURL URLWithString:@"http://beehive.exenon.tk/locations/stats"];
+    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/locations/stats"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
@@ -164,6 +164,14 @@
         // Should update location annotation's statistic object
         for (BHLocationAnnotation *locAnnotation in mapViewController.locationAnnotations) {
             locAnnotation.locationStat = [statDic objectForKey:locAnnotation.location.locId];
+        }
+        
+        if (isForMapViewController) {// update mapview
+            mapViewController.annotations = mapViewController.buildingAnnotations;
+            mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
+        } else {
+            [listViewController.tableView reloadData];
+            [listViewController.refreshControl endRefreshing];
         }
         
     } failure:nil];

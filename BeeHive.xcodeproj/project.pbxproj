@@ -14,9 +14,7 @@
 		BC2AA54D18BC68C40001BA98 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA54C18BC68C40001BA98 /* CFNetwork.framework */; };
 		BC2AA54F18BC68CE0001BA98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */; };
 		BC2AA55118BC68D50001BA98 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA55018BC68D50001BA98 /* CoreData.framework */; };
-		BC2F04A318BC63D3003E550E /* BHStudent.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2F04A218BC63D3003E550E /* BHStudent.m */; };
 		BC324E5718BD1A9A005997C5 /* Beehive.png in Resources */ = {isa = PBXBuildFile; fileRef = BC324E5618BD1A9A005997C5 /* Beehive.png */; };
-		BC5B1E9D18B675E7004C4BFA /* BHPlotExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5B1E9C18B675E7004C4BFA /* BHPlotExampleViewController.m */; };
 		BC676C5018B2881800A46750 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C4F18B2881800A46750 /* Foundation.framework */; };
 		BC676C5218B2881800A46750 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C5118B2881800A46750 /* CoreGraphics.framework */; };
 		BC676C5418B2881800A46750 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C5318B2881800A46750 /* UIKit.framework */; };
@@ -37,6 +35,8 @@
 		BC6AA28A18BDA190004674F2 /* BHBuildingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6AA28918BDA190004674F2 /* BHBuildingAnnotation.m */; };
 		BC6AA28E18BDA1D6004674F2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6AA28D18BDA1D6004674F2 /* CoreLocation.framework */; };
 		BC6AA29018BDAC75004674F2 /* disclosure.png in Resources */ = {isa = PBXBuildFile; fileRef = BC6AA28F18BDAC75004674F2 /* disclosure.png */; };
+		BC74DD8B18CF82D6002359B7 /* BHLocationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */; };
+		BC74DD9018CF84B0002359B7 /* BHContributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */; };
 		BCAD56A918CA50AE009436B8 /* BHDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAD56A818CA50AE009436B8 /* BHDataController.m */; };
 		BCAD56B518CA5952009436B8 /* map-paper.png in Resources */ = {isa = PBXBuildFile; fileRef = BCAD56B418CA5952009436B8 /* map-paper.png */; };
 		BCAD56B718CA5982009436B8 /* list-star.png in Resources */ = {isa = PBXBuildFile; fileRef = BCAD56B618CA5982009436B8 /* list-star.png */; };
@@ -87,11 +87,7 @@
 		BC2AA54C18BC68C40001BA98 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC2AA55018BC68D50001BA98 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		BC2F04A118BC63D3003E550E /* BHStudent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHStudent.h; sourceTree = "<group>"; };
-		BC2F04A218BC63D3003E550E /* BHStudent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHStudent.m; sourceTree = "<group>"; };
 		BC324E5618BD1A9A005997C5 /* Beehive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Beehive.png; sourceTree = "<group>"; };
-		BC5B1E9B18B675E7004C4BFA /* BHPlotExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHPlotExampleViewController.h; sourceTree = "<group>"; };
-		BC5B1E9C18B675E7004C4BFA /* BHPlotExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHPlotExampleViewController.m; sourceTree = "<group>"; };
 		BC676C4C18B2881800A46750 /* BeeHive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeeHive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC676C4F18B2881800A46750 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BC676C5118B2881800A46750 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -118,6 +114,10 @@
 		BC6AA28918BDA190004674F2 /* BHBuildingAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BHBuildingAnnotation.m; path = ../BHBuildingAnnotation.m; sourceTree = "<group>"; };
 		BC6AA28D18BDA1D6004674F2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BC6AA28F18BDAC75004674F2 /* disclosure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosure.png; sourceTree = "<group>"; };
+		BC74DD8918CF82D6002359B7 /* BHLocationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationDetailViewController.h; sourceTree = "<group>"; };
+		BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationDetailViewController.m; sourceTree = "<group>"; };
+		BC74DD8E18CF84B0002359B7 /* BHContributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHContributionViewController.h; sourceTree = "<group>"; };
+		BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHContributionViewController.m; sourceTree = "<group>"; };
 		BC8D7E2E27904A349983B3BD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCAD56A718CA50AE009436B8 /* BHDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHDataController.h; sourceTree = "<group>"; };
 		BCAD56A818CA50AE009436B8 /* BHDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHDataController.m; sourceTree = "<group>"; };
@@ -236,12 +236,12 @@
 				BCAD56C018CADD90009436B8 /* BHLocationAnnotation.m */,
 				BCB30E6418B3CEF6009A3669 /* BHListViewController.h */,
 				BCB30E6518B3CEF6009A3669 /* BHListViewController.m */,
-				BC5B1E9B18B675E7004C4BFA /* BHPlotExampleViewController.h */,
-				BC5B1E9C18B675E7004C4BFA /* BHPlotExampleViewController.m */,
+				BC74DD8918CF82D6002359B7 /* BHLocationDetailViewController.h */,
+				BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */,
+				BC74DD8E18CF84B0002359B7 /* BHContributionViewController.h */,
+				BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */,
 				BCAD56A718CA50AE009436B8 /* BHDataController.h */,
 				BCAD56A818CA50AE009436B8 /* BHDataController.m */,
-				BC2F04A118BC63D3003E550E /* BHStudent.h */,
-				BC2F04A218BC63D3003E550E /* BHStudent.m */,
 				BC0A377118C8FE4000566D5D /* BHBuilding.h */,
 				BC0A377218C8FE4000566D5D /* BHBuilding.m */,
 				BC0A377618C8FE5400566D5D /* BHLocation.h */,
@@ -468,8 +468,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC5B1E9D18B675E7004C4BFA /* BHPlotExampleViewController.m in Sources */,
 				BC676C6018B2881800A46750 /* BHAppDelegate.m in Sources */,
+				BC74DD9018CF84B0002359B7 /* BHContributionViewController.m in Sources */,
+				BC74DD8B18CF82D6002359B7 /* BHLocationDetailViewController.m in Sources */,
 				BC0A377818C8FE5400566D5D /* BHLocation.m in Sources */,
 				BC676C5C18B2881800A46750 /* main.m in Sources */,
 				BCAD56A918CA50AE009436B8 /* BHDataController.m in Sources */,
@@ -482,7 +483,6 @@
 				BC0A377318C8FE4000566D5D /* BHBuilding.m in Sources */,
 				BCD05DC618B6D94A005077AA /* CPDConstants.m in Sources */,
 				BC6AA28A18BDA190004674F2 /* BHBuildingAnnotation.m in Sources */,
-				BC2F04A318BC63D3003E550E /* BHStudent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

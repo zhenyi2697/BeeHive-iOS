@@ -15,21 +15,34 @@
 //RefreshControl Library
 #import "ODRefreshControl.h"
 
-@interface BHListViewController ()
-@property (strong,nonatomic) NSArray *buildingArray;
-@end
-
 
 @implementation BHListViewController
+@synthesize tableView = _tableView;
+@synthesize refreshControl = _refreshControl;
+@synthesize locationSearchBar = _locationSearchBar, filteredLocations = _filteredLocations, filteredBuildings = _filteredBuildings;
 
-@synthesize buildingArray = _buildingArray;
-
-- (NSArray *)buildingArray
+-(ODRefreshControl *)refreshControl
 {
-    if (!_buildingArray) {
-        _buildingArray = [[NSArray alloc] initWithObjects:@"Academy of Medicine", @"College of Compting", @"Van Leer", @"Klaus", @"Lyman Hall", @"Student Center", @"Clough", @"CRC", @"Tech Tower", @"Tutoring", @"Housing Office",nil];
+    if (!_refreshControl) {
+        _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
     }
-    return _buildingArray;
+    return _refreshControl;
+}
+
+-(NSMutableArray *)filteredLocations
+{
+    if (!_filteredLocations) {
+        _filteredLocations = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _filteredLocations;
+}
+
+-(NSMutableArray *)filteredBuildings
+{
+    if (!_filteredBuildings) {
+        _filteredBuildings = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _filteredBuildings;
 }
 
 //- (id)initWithStyle:(UITableViewStyle)style
@@ -41,28 +54,32 @@
 //    return self;
 //}
 
-- (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
-{
-    double delayInSeconds = 3.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        NSLog(@"Refreshed");
-        [refreshControl endRefreshing];
-    });
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    [self.locationSearchBar setShowsScopeBar:NO];
+    [self.locationSearchBar sizeToFit];
+    
+    // Hide the search bar until user scrolls up
+    CGRect newBounds = self.tableView.bounds;
+    newBounds.origin.y = newBounds.origin.y + self.locationSearchBar.bounds.size.height;
+    self.tableView.bounds = newBounds;
+    
     // IMPORTANT!
     // Added this line so that refresh control can properly be showed
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     
 //    self.edgesForExtendedLayout=UIRectEdgeNone;
 //    self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=YES;
+    
+    // Add a footer so that the tabbar do not cover the tableView bottom
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 152)];
+    footer.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = footer;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -71,8 +88,8 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     //Refresh Control
-    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
-    [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+
 }
 
 - (void)viewDidAppear
@@ -91,37 +108,95 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    BHDataController *sharedDataController = [BHDataController sharedDataController];
-    return [sharedDataController.buildingList count];
+
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return [self.filteredBuildings count];
+//        return 1;
+    } else {
+        BHDataController *sharedDataController = [BHDataController sharedDataController];
+        return [sharedDataController.buildingList count];
+    }
+    
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    BHDataController *dataController = [BHDataController sharedDataController];
-    BHBuilding *bd = [dataController.buildingList objectAtIndex:section];
-    return bd.name;
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        BHBuilding *bd = [self.filteredBuildings objectAtIndex:section];
+        return bd.name;
+    } else {
+        BHDataController *dataController = [BHDataController sharedDataController];
+        BHBuilding *bd = [dataController.buildingList objectAtIndex:section];
+        return bd.name;
+    }
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    BHDataController *dataController = [BHDataController sharedDataController];
-    BHBuilding *bd = [dataController.buildingList objectAtIndex:section];
-    return [bd.locations count];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        BHBuilding *bd = [self.filteredBuildings objectAtIndex:section];
+        return [bd.locations count];
+    } else {
+        BHDataController *dataController = [BHDataController sharedDataController];
+        BHBuilding *bd = [dataController.buildingList objectAtIndex:section];
+        return [bd.locations count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"LocationCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    } else {
+        cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    }
     
     // Configure the cell here
-//    cell.textLabel.text = [self.buildingArray objectAtIndex:indexPath.row];
     BHDataController *dataController = [BHDataController sharedDataController];
-    BHBuilding *bd = [dataController.buildingList objectAtIndex:indexPath.section];
-    BHLocation *loc = [bd.locations objectAtIndex:indexPath.row];
+    BHLocation *loc;
+    
+    // Check to see whether the normal table or search results table is being displayed and set the Candy object from the appropriate array
+    BHBuilding *bd;
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        bd = [self.filteredBuildings objectAtIndex:indexPath.section];
+    } else {
+        bd = [dataController.buildingList objectAtIndex:indexPath.section];
+    }
+    
+    loc = [bd.locations objectAtIndex:indexPath.row];
+    
     BHLocationStat *locStat = [dataController.locationStats objectForKey:loc.locId];
     cell.textLabel.text = loc.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Occupancy: %@. Best to go after %@", locStat.occupancy, locStat.bestTime];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Occupancy: %@. Best to go: %@", locStat.occupancy, locStat.bestTime];
+//    cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:loc.photoUrl]]];
+    
+    dispatch_queue_t kBgQueue = dispatch_queue_create("Location Image Download", NULL);
+    dispatch_async(kBgQueue, ^{
+        NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:loc.photoUrl]];
+        if (imgData) {
+            UIImage *image = [UIImage imageWithData:imgData];
+            
+            #warning thumbnail image processor needs to be changed
+            CGSize itemSize = CGSizeMake(40, 40);
+            UIGraphicsBeginImageContext(itemSize);
+            CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+            [image drawInRect:imageRect];
+            image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            if (image) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UITableViewCell *blockCell = [tableView cellForRowAtIndexPath:indexPath];
+                    blockCell.imageView.image = image;
+                    [blockCell setNeedsLayout];
+                });
+            }
+        }
+    });
     return cell;
 }
 
@@ -181,4 +256,88 @@
 
  */
 
+// Refresh when dropping down
+- (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
+{
+    BHDataController *dataController = [BHDataController sharedDataController];
+    
+    //Fetch locations statistic for mapView
+    [dataController fetchLocationStatForViewController:self];
+    
+    //    double delayInSeconds = 1.5;
+    //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    //    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    //        NSLog(@"Refreshed");
+    //        [refreshControl endRefreshing];
+    //    });
+}
+
+// search delegate method
+#pragma mark Content Filtering
+#pragma mark Content Filtering
+-(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
+    // Update the filtered array based on the search text and scope.
+    // Remove all objects from the filtered search array
+    [self.filteredLocations removeAllObjects];
+    [self.filteredBuildings removeAllObjects];
+    
+    // Filter the array using NSPredicate
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchText];
+    BHDataController *dataController = [BHDataController sharedDataController];
+//
+//    
+
+//    self.filteredLocations = [NSMutableArray arrayWithArray:[locationList filteredArrayUsingPredicate:predicate]];
+
+    NSArray *buildingList = dataController.buildingList;
+    
+    for (BHBuilding *bud in buildingList) {
+        BOOL addBuilding = NO;
+        // copy the old building object
+        BHBuilding *newBud = [[BHBuilding alloc] init];
+        newBud.name = bud.name;
+        newBud.description = bud.description;
+        
+        if ([bud.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
+            newBud.locations = bud.locations;
+            [self.filteredBuildings addObject:newBud];
+        } else {
+            NSMutableArray *newLocList = [[NSMutableArray alloc] init];
+            for (BHLocation *loc in bud.locations) {
+                if ([loc.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                    [newLocList addObject:loc];
+                    addBuilding = YES;
+                    
+                }
+            }
+            
+            if (addBuilding) {
+                newBud.locations = newLocList;
+                [self.filteredBuildings addObject:newBud];
+            }
+        }
+    }
+    
+}
+
+#pragma mark - UISearchDisplayController Delegate Methods
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    // Tells the table data source to reload when text changes
+    [self filterContentForSearchText:searchString scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+    // Tells the table data source to reload when scope bar selection changes
+    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+- (IBAction)searchLocation:(id)sender {
+    [self.locationSearchBar becomeFirstResponder];
+}
 @end

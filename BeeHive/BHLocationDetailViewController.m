@@ -1,17 +1,18 @@
 //
-//  BHPlotExampleViewController.m
+//  BHLocationDetailViewController.m
 //  BeeHive
 //
-//  Created by Zhenyi ZHANG on 2/20/2014.
+//  Created by Zhenyi ZHANG on 2014-03-11.
 //  Copyright (c) 2014 Zhenyi Zhang. All rights reserved.
 //
 
-#import "BHPlotExampleViewController.h"
+#import "BHLocationDetailViewController.h"
 #import <RestKit/RestKit.h>
 #import "BHBuilding.h"
 #import "BHLocation.h"
 
-@interface BHPlotExampleViewController ()
+@interface BHLocationDetailViewController ()
+- (IBAction)contribute:(UIBarButtonItem *)sender;
 @property (nonatomic, strong) IBOutlet CPTGraphHostingView *hostView;
 @property (nonatomic, strong) CPTBarPlot *aaplPlot;
 @property (nonatomic, strong) CPTBarPlot *googPlot;
@@ -26,7 +27,7 @@
 
 @end
 
-@implementation BHPlotExampleViewController
+@implementation BHLocationDetailViewController
 
 @synthesize hostView = hostView_;
 @synthesize aaplPlot    = aaplPlot_;
@@ -49,62 +50,11 @@ CGFloat const CPDBarInitialX = 0.25f;
     [super viewDidLoad];
 }
 
-- (void)testRest
-{
-    // Building mapping
-    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[BHBuilding class]];
-    [mapping addAttributeMappingsFromDictionary:@{
-                                                  @"id" : @"bdId",
-                                                  @"name": @"name",
-                                                  @"description": @"description",
-                                                  @"url_photo" : @"photoUrl",
-                                                  @"longitude" : @"longitude",
-                                                  @"latitude" : @"latitude"
-                                                }];
-    
-    // Location mapping
-    RKObjectMapping *locationMapping = [RKObjectMapping mappingForClass:[BHLocation class]];
-    [locationMapping addAttributeMappingsFromDictionary:@{
-                                                          @"id" : @"locId",
-                                                          @"name": @"name",
-                                                          @"description": @"description",
-                                                          @"url_photo" : @"photoUrl",
-                                                          @"longitude" : @"longitude",
-                                                          @"latitude" : @"latitude"
-                                                        }];
-
-    // !IMPORTANT!
-    // Should add this line to accept plain text response from server
-    [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
-    
-    // Define the relationship mapping
-    [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"locations"
-                                                                            toKeyPath:@"locations"
-                                                                          withMapping:locationMapping]];
-    
-    
-    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
-    
-    NSURL *url = [NSURL URLWithString:@"http://beehive.exenon.tk/buildings/listall"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
-        NSArray *buildings = [result array];
-        for (int i = 0; i < 2; i++) {
-            BHBuilding * bd = [buildings objectAtIndex:i];
-            NSLog(@"locations are: %@", bd.locations);
-        }
-        NSLog(@"Buildings are: %@", [result array]);
-    } failure:nil];
-    [operation start];
-}
-
 #pragma mark - UIViewController lifecycle methods
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // The plot is initialized here, since the view bounds have not transformed for landscape until now
     [self initPlot];
-//    [self testRest];
 }
 
 #pragma mark - Chart behavior
@@ -164,12 +114,12 @@ CGFloat const CPDBarInitialX = 0.25f;
     CGFloat barX = CPDBarInitialX;
     NSArray *plots = [NSArray arrayWithObjects:self.aaplPlot, self.googPlot, self.msftPlot, nil];
     
-//    self.googPlot.dataSource = self;
-//    self.googPlot.delegate = self;
-//    self.googPlot.barWidth = CPTDecimalFromDouble(CPDBarWidth*2);
-//    self.googPlot.barOffset = CPTDecimalFromDouble(barX);
-//    self.googPlot.lineStyle = barLineStyle;
-//    [graph addPlot:self.googPlot toPlotSpace:graph.defaultPlotSpace];
+    //    self.googPlot.dataSource = self;
+    //    self.googPlot.delegate = self;
+    //    self.googPlot.barWidth = CPTDecimalFromDouble(CPDBarWidth*2);
+    //    self.googPlot.barOffset = CPTDecimalFromDouble(barX);
+    //    self.googPlot.lineStyle = barLineStyle;
+    //    [graph addPlot:self.googPlot toPlotSpace:graph.defaultPlotSpace];
     
     for (CPTBarPlot *plot in plots) {
         plot.dataSource = self;
@@ -277,7 +227,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     CGFloat y = [price floatValue] + 40.0f;
     NSNumber *anchorY = [NSNumber numberWithFloat:y];
     self.priceAnnotation.anchorPlotPoint = [NSArray arrayWithObjects:anchorX, anchorY, nil];
-    // 8 - Add the annotation 
+    // 8 - Add the annotation
     [plot.graph.plotAreaFrame.plotArea addAnnotation:self.priceAnnotation];
 }
 
@@ -288,5 +238,7 @@ CGFloat const CPDBarInitialX = 0.25f;
 }
 
 
-
+- (IBAction)contribute:(UIBarButtonItem *)sender {
+    
+}
 @end

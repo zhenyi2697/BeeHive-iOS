@@ -9,18 +9,20 @@
 #import "BHMapViewController.h"
 #import "BHBuildingAnnotation.h"
 #import "BHLocationAnnotation.h"
-#import "BHPlotExampleViewController.h"
 #import "BHDataController.h"
 
 @interface BHMapViewController () <MKMapViewDelegate>
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic) BOOL isInLocationMode;
+@property (strong, nonatomic) BHBuildingAnnotation *selectedAnnotation;
+- (IBAction)searchLocation:(id)sender;
 @end
 
 @implementation BHMapViewController
 @synthesize mapView = _mapView, annotations = _annotations, locationAnnotations = _locationAnnotations, buildingAnnotations = _buildingAnnotations;
 @synthesize isInLocationMode;
 @synthesize refreshButton = _refreshButton;
+@synthesize selectedAnnotation = _selectedAnnotation;
 
 //以下几个方法一般都要写
 -(void)updateMapView
@@ -44,10 +46,15 @@
     [self updateMapView];
 }
 
-
+// Selector functions
 -(void)showLocationDetailFromMapView
 {
     [self performSegueWithIdentifier: @"showBuildingDetailFromMapView" sender:self];
+}
+
+-(void)showLocationsForBuilding
+{
+    [self zoomInToBuilding:self.selectedAnnotation];
 }
 
 -(void)zoomInToBuilding:(BHBuildingAnnotation *)annotation
@@ -102,6 +109,7 @@
 
 }
 
+
 //MKMapViewDelegate 方法
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
@@ -110,18 +118,37 @@
     if([annotation isKindOfClass: [MKUserLocation class]]) {
         return nil;
     } else if ([annotation isKindOfClass:[BHBuildingAnnotation class]]) {
-        MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"BdAnno"];
+//        MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"BdAnno"];
         
-        if (!aView) {
-            aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"BdAnno"];
-        }
+//        if (!aView) {
+            MKAnnotationView *aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"BdAnno"];
+            aView.canShowCallout = YES;// DON'T FORGET THIS LINE OF CODE !!
+            
+            // create left view and download image from remote server in a seperage process
+            dispatch_queue_t downloadQueue = dispatch_queue_create("Building Image Download", NULL);
+            dispatch_async(downloadQueue, ^{
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+                imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:((BHBuildingAnnotation *)annotation).building.photoUrl]]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    aView.leftCalloutAccessoryView = imageView;
+                    // Add setNeedsDisplay to refresh view
+                    
+                });
+            });
+            
+            // create right view
+            aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
+            UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            [aView.rightCalloutAccessoryView addSubview:showDetailButton];
+            [showDetailButton addTarget:self action:@selector(showLocationsForBuilding) forControlEvents:UIControlEventTouchUpInside];
+//        }
 
         return aView;
         
     } else if ([annotation isKindOfClass:[BHLocationAnnotation class]]) {
-        MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"LocAnno"];
-        if (!aView) {
-            aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"LocAnno"];
+//        MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"LocAnno"];
+//        if (!aView) {
+            MKAnnotationView *aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"LocAnno"];
             aView.canShowCallout = YES;// DON'T FORGET THIS LINE OF CODE !!
             
             // create left view and download image from remote server in a seperage process
@@ -131,6 +158,7 @@
                 imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl]]];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     aView.leftCalloutAccessoryView = imageView;
+                    [aView setNeedsDisplay];
                 });
             });
 
@@ -141,7 +169,7 @@
             UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
             [aView.rightCalloutAccessoryView addSubview:showDetailButton];
             [showDetailButton addTarget:self action:@selector(showLocationDetailFromMapView) forControlEvents:UIControlEventTouchUpInside];
-        }
+//        }
         
         aView.annotation = annotation;
         
@@ -157,19 +185,21 @@
     if ([view.annotation isKindOfClass:[BHBuildingAnnotation class]]) {
 //        NSLog(@"Clicked building annotation");
         //center to center point
-        [self zoomInToBuilding:view.annotation];
+        
+//        [self zoomInToBuilding:view.annotation];
+        self.selectedAnnotation = view.annotation;
         
     } else if ([view.annotation isKindOfClass:[BHLocationAnnotation class]]){
 //        NSLog(@"Clicked location annotation");
     }
 }
 
-- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
-{
-    if ([view.annotation isKindOfClass:[BHBuildingAnnotation class]]) {
-//        [self centerToGT];
-    }
-}
+//- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
+//{
+//    if ([view.annotation isKindOfClass:[BHBuildingAnnotation class]]) {
+////        [self centerToGT];
+//    }
+//}
 
 - (void)showBuildingAnnotations
 {
@@ -248,8 +278,41 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([[segue identifier] isEqualToString:@"showBuildingDetailFromMapView"]) {
-        BHPlotExampleViewController *photoViewController = (BHPlotExampleViewController *)segue.destinationViewController;
+
     }
 }
 
+- (IBAction)refreshMap:(UIBarButtonItem *)sender {
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinner startAnimating];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+    
+    
+    BHDataController *dataController = [BHDataController sharedDataController];
+    
+//    //Fetch building List for mapView
+//    [dataController fetchBuildingsForViewController:self];
+    
+    //Fetch locations statistic for mapView
+    [dataController fetchLocationStatForViewController:self];
+    
+    [self centerToGT];
+    
+//    double delayInSeconds = 2.0;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        self.navigationItem.leftBarButtonItem = sender;
+//    });
+}
+
+- (IBAction)searchLocation:(id)sender {
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 320.0, 44.0)];
+    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
+    searchBarView.autoresizingMask = 0;
+    searchBar.delegate = self;
+    [searchBarView addSubview:searchBar];
+    self.navigationItem.titleView = searchBarView;
+}
 @end
