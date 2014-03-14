@@ -11,6 +11,9 @@
 #import "BHLocationAnnotation.h"
 #import "BHDataController.h"
 
+//SDWebImage Library
+#import <SDWebImage/UIImageView+WebCache.h>
+
 @interface BHMapViewController () <MKMapViewDelegate>
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic) BOOL isInLocationMode;
@@ -123,18 +126,11 @@
 //        if (!aView) {
             MKAnnotationView *aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"BdAnno"];
             aView.canShowCallout = YES;// DON'T FORGET THIS LINE OF CODE !!
-            
-            // create left view and download image from remote server in a seperage process
-            dispatch_queue_t downloadQueue = dispatch_queue_create("Building Image Download", NULL);
-            dispatch_async(downloadQueue, ^{
-                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
-                imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:((BHBuildingAnnotation *)annotation).building.photoUrl]]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    aView.leftCalloutAccessoryView = imageView;
-                    // Add setNeedsDisplay to refresh view
-                    
-                });
-            });
+        
+        // Using SDWebImage to load image
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+        [imageView setImageWithURL:[NSURL URLWithString:((BHBuildingAnnotation *)annotation).building.photoUrl] placeholderImage:[UIImage imageNamed:@"beehive_icon.png"]];
+        aView.leftCalloutAccessoryView = imageView;
             
             // create right view
             aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
@@ -150,19 +146,10 @@
 //        if (!aView) {
             MKAnnotationView *aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"LocAnno"];
             aView.canShowCallout = YES;// DON'T FORGET THIS LINE OF CODE !!
-            
-            // create left view and download image from remote server in a seperage process
-            dispatch_queue_t downloadQueue = dispatch_queue_create("Image Download", NULL);
-            dispatch_async(downloadQueue, ^{
-                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
-                imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl]]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    aView.leftCalloutAccessoryView = imageView;
-                    [aView setNeedsDisplay];
-                });
-            });
-
-//            aView.leftCalloutAccessoryView = imageView;
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+        [imageView setImageWithURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl] placeholderImage:[UIImage imageNamed:@"beehive_icon.png"]];
+        aView.leftCalloutAccessoryView = imageView;
             
             // create right view
             aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
@@ -299,11 +286,6 @@
     
     [self centerToGT];
     
-//    double delayInSeconds = 2.0;
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        self.navigationItem.leftBarButtonItem = sender;
-//    });
 }
 
 - (IBAction)searchLocation:(id)sender {

@@ -121,7 +121,7 @@
                                     </connections>
                                 </searchBar>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LocationCell" textLabel="2un-G2-Bii" detailTextLabel="uEw-fG-nsj" style="IBUITableViewCellStyleSubtitle" id="iN6-a2-3yc">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LocationCell" textLabel="2un-G2-Bii" detailTextLabel="uEw-fG-nsj" style="IBUITableViewCellStyleSubtitle" id="iN6-a2-3yc" customClass="BHLocationTableViewCell">
                                         <rect key="frame" x="0.0" y="130" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iN6-a2-3yc" id="Dtu-tS-AMX">

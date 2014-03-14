@@ -15,6 +15,9 @@
 		BC2AA54F18BC68CE0001BA98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */; };
 		BC2AA55118BC68D50001BA98 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA55018BC68D50001BA98 /* CoreData.framework */; };
 		BC324E5718BD1A9A005997C5 /* Beehive.png in Resources */ = {isa = PBXBuildFile; fileRef = BC324E5618BD1A9A005997C5 /* Beehive.png */; };
+		BC620D9818D28B7100D409A2 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC620D9718D28B7100D409A2 /* SDWebImage.framework */; };
+		BC620D9C18D28BAF00D409A2 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC620D9B18D28BAF00D409A2 /* ImageIO.framework */; };
+		BC620D9F18D28D6000D409A2 /* BHLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC620D9E18D28D6000D409A2 /* BHLocationTableViewCell.m */; };
 		BC676C5018B2881800A46750 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C4F18B2881800A46750 /* Foundation.framework */; };
 		BC676C5218B2881800A46750 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C5118B2881800A46750 /* CoreGraphics.framework */; };
 		BC676C5418B2881800A46750 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C5318B2881800A46750 /* UIKit.framework */; };
@@ -88,6 +91,10 @@
 		BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC2AA55018BC68D50001BA98 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BC324E5618BD1A9A005997C5 /* Beehive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Beehive.png; sourceTree = "<group>"; };
+		BC620D9718D28B7100D409A2 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
+		BC620D9B18D28BAF00D409A2 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		BC620D9D18D28D6000D409A2 /* BHLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationTableViewCell.h; sourceTree = "<group>"; };
+		BC620D9E18D28D6000D409A2 /* BHLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationTableViewCell.m; sourceTree = "<group>"; };
 		BC676C4C18B2881800A46750 /* BeeHive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeeHive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC676C4F18B2881800A46750 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BC676C5118B2881800A46750 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -144,10 +151,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC620D9C18D28BAF00D409A2 /* ImageIO.framework in Frameworks */,
 				BC6AA28E18BDA1D6004674F2 /* CoreLocation.framework in Frameworks */,
 				BC676C5218B2881800A46750 /* CoreGraphics.framework in Frameworks */,
 				BC676C5018B2881800A46750 /* Foundation.framework in Frameworks */,
 				BC676C5418B2881800A46750 /* UIKit.framework in Frameworks */,
+				BC620D9818D28B7100D409A2 /* SDWebImage.framework in Frameworks */,
 				BC2AA55118BC68D50001BA98 /* CoreData.framework in Frameworks */,
 				BC2AA54F18BC68CE0001BA98 /* SystemConfiguration.framework in Frameworks */,
 				BC2AA54D18BC68C40001BA98 /* CFNetwork.framework in Frameworks */,
@@ -206,6 +215,7 @@
 		BC676C4E18B2881800A46750 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC620D9B18D28BAF00D409A2 /* ImageIO.framework */,
 				BC6AA28D18BDA1D6004674F2 /* CoreLocation.framework */,
 				BC2AA55018BC68D50001BA98 /* CoreData.framework */,
 				BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */,
@@ -227,6 +237,7 @@
 		BC676C5518B2881800A46750 /* BeeHive */ = {
 			isa = PBXGroup;
 			children = (
+				BC620D9718D28B7100D409A2 /* SDWebImage.framework */,
 				BCAD56B918CA82C7009436B8 /* ODRefreshControl */,
 				BC676C8A18B2893B00A46750 /* BHMapViewController.h */,
 				BC676C8B18B2893B00A46750 /* BHMapViewController.m */,
@@ -236,6 +247,8 @@
 				BCAD56C018CADD90009436B8 /* BHLocationAnnotation.m */,
 				BCB30E6418B3CEF6009A3669 /* BHListViewController.h */,
 				BCB30E6518B3CEF6009A3669 /* BHListViewController.m */,
+				BC620D9D18D28D6000D409A2 /* BHLocationTableViewCell.h */,
+				BC620D9E18D28D6000D409A2 /* BHLocationTableViewCell.m */,
 				BC74DD8918CF82D6002359B7 /* BHLocationDetailViewController.h */,
 				BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */,
 				BC74DD8E18CF84B0002359B7 /* BHContributionViewController.h */,
@@ -478,6 +491,7 @@
 				BCF24B6118CB6D35006BA03A /* BHLocationStat.m in Sources */,
 				BCB30E6618B3CEF6009A3669 /* BHListViewController.m in Sources */,
 				BCAD56BC18CA82C7009436B8 /* ODRefreshControl.m in Sources */,
+				BC620D9F18D28D6000D409A2 /* BHLocationTableViewCell.m in Sources */,
 				BC676C8C18B2893B00A46750 /* BHMapViewController.m in Sources */,
 				BCAD56C118CADD90009436B8 /* BHLocationAnnotation.m in Sources */,
 				BC0A377318C8FE4000566D5D /* BHBuilding.m in Sources */,
@@ -629,6 +643,10 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BeeHive",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeeHive/BeeHive-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -661,6 +679,10 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BeeHive",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeeHive/BeeHive-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

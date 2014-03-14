@@ -11,9 +11,13 @@
 #import "BHLocation.h"
 #import "BHLocationStat.h"
 #import "BHDataController.h"
+#import "BHLocationTableViewCell.h"
 
 //RefreshControl Library
 #import "ODRefreshControl.h"
+
+//SDWebImage Library
+#import <SDWebImage/UIImageView+WebCache.h>
 
 
 @implementation BHListViewController
@@ -148,7 +152,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"LocationCell";
-    UITableViewCell *cell;
+    BHLocationTableViewCell *cell;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     } else {
@@ -173,30 +177,11 @@
     BHLocationStat *locStat = [dataController.locationStats objectForKey:loc.locId];
     cell.textLabel.text = loc.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Occupancy: %@. Best to go: %@", locStat.occupancy, locStat.bestTime];
-//    cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:loc.photoUrl]]];
     
-    dispatch_queue_t kBgQueue = dispatch_queue_create("Location Image Download", NULL);
-    dispatch_async(kBgQueue, ^{
-        NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:loc.photoUrl]];
-        if (imgData) {
-            UIImage *image = [UIImage imageWithData:imgData];
-            
-            #warning thumbnail image processor needs to be changed
-            CGSize itemSize = CGSizeMake(40, 40);
-            UIGraphicsBeginImageContext(itemSize);
-            CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-            [image drawInRect:imageRect];
-            image = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-            if (image) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    UITableViewCell *blockCell = [tableView cellForRowAtIndexPath:indexPath];
-                    blockCell.imageView.image = image;
-                    [blockCell setNeedsLayout];
-                });
-            }
-        }
-    });
+    // Using SDWebImage to load image
+    [cell.imageView setImageWithURL:[NSURL URLWithString:loc.photoUrl]
+                   placeholderImage:[UIImage imageNamed:@"beehive_icon.png"]];
+    
     return cell;
 }
 
