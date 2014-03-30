@@ -7,15 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BHLocationDetailViewController.h"
+
+@class BHLocationDetailViewController;
 
 @interface BHDataController : NSObject
 
 @property (nonatomic, strong) NSArray *buildingList;
 @property (nonatomic, strong) NSArray *locationList;
 @property (nonatomic, strong) NSDictionary *locationStats;
+@property (assign) BOOL connectionLost;
 +(id)sharedDataController;
 
 -(void)fetchBuildingsForViewController:(UIViewController *)viewController;
 -(void)fetchLocationStatForViewController:(UIViewController *)viewController;
+-(void)fetchStatForLocation:(BHLocationDetailViewController *)locationDetailViewController;
 
 @end

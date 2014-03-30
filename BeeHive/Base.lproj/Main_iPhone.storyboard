@@ -36,6 +36,15 @@
                                 <rect key="frame" x="0.0" y="61" width="320" height="459"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" text="" placeholder="Search location by name" translatesAutoresizingMaskIntoConstraints="NO" id="e8F-W7-TY7">
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -45,13 +54,9 @@
                                 <action selector="refreshMap:" destination="OCN-JD-Prk" id="lFB-iL-yCE"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="mrD-q3-gjg">
-                            <connections>
-                                <action selector="searchLocation:" destination="OCN-JD-Prk" id="6vU-hW-yM2"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="locationSearchBar" destination="e8F-W7-TY7" id="jre-kX-tIS"/>
                         <outlet property="mapView" destination="teJ-3n-Hsi" id="u7e-v9-33J"/>
                         <outlet property="refreshButton" destination="s7p-hX-oIP" id="l2x-vr-Ayk"/>
                         <segue destination="rcr-x4-Ep4" kind="push" identifier="showBuildingDetailFromMapView" id="xdo-ga-tkr"/>
@@ -145,7 +150,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="rcr-x4-Ep4" kind="push" identifier="showBuildingDetailFromListView" id="fn9-fE-7As"/>
+                                            <segue destination="rcr-x4-Ep4" kind="push" identifier="showLocationDetailFromListView" id="fn9-fE-7As"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -205,8 +210,29 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LVA-kw-JDN" customClass="CPTGraphHostingView">
-                                <rect key="frame" x="0.0" y="65" width="320" height="180"/>
+                                <rect key="frame" x="0.0" y="153" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GtL-bZ-TE6">
+                                <rect key="frame" x="96" y="84" width="204" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ee-IF-b8F">
+                                <rect key="frame" x="96" y="107" width="204" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cBV-WE-EGa">
+                                <rect key="frame" x="20" y="76" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kuu-xC-fjd" customClass="CPTGraphHostingView">
+                                <rect key="frame" x="0.0" y="291" width="320" height="130"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -221,7 +247,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="hostView" destination="LVA-kw-JDN" id="GDQ-pb-QT2"/>
+                        <outlet property="btgLabel" destination="6ee-IF-b8F" id="aCk-aM-PyA"/>
+                        <outlet property="dailyHostView" destination="LVA-kw-JDN" id="BLm-Y7-4No"/>
+                        <outlet property="hourlyHostView" destination="kuu-xC-fjd" id="KjG-vC-j85"/>
+                        <outlet property="locationImageView" destination="cBV-WE-EGa" id="mUV-ZD-3QR"/>
+                        <outlet property="occupancyLabel" destination="GtL-bZ-TE6" id="kWC-L2-QJU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZd-bL-KP0" userLabel="First Responder" sceneMemberID="firstResponder"/>

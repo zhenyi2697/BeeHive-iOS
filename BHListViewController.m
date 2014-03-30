@@ -12,6 +12,7 @@
 #import "BHLocationStat.h"
 #import "BHDataController.h"
 #import "BHLocationTableViewCell.h"
+#import "BHLocationDetailViewController.h"
 
 //RefreshControl Library
 #import "ODRefreshControl.h"
@@ -187,7 +188,15 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+    if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        
+        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
+        BHDataController *dataController = [BHDataController sharedDataController];
+        BHBuilding *bd = [dataController.buildingList objectAtIndex:indexPath.section];
+        detailViewController.location = [bd.locations objectAtIndex:indexPath.row];
+        [dataController fetchStatForLocation:detailViewController];
+    }
 }
 
 /*
@@ -245,6 +254,11 @@
 - (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
 {
     BHDataController *dataController = [BHDataController sharedDataController];
+    
+    if (dataController.connectionLost) {
+        //Fetch building List for mapView
+        [dataController fetchBuildingsForViewController:self];
+    }
     
     //Fetch locations statistic for mapView
     [dataController fetchLocationStatForViewController:self];

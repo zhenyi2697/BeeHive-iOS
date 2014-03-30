@@ -14,10 +14,13 @@
 #import "BHLocationAnnotation.h"
 #import "BHMapViewController.h"
 #import "BHListViewController.h"
+#import "BHDailyStat.h"
+#import "BHHourlyStat.h"
 
 @implementation BHDataController
 
 @synthesize buildingList = _buildingList, locationList = _locationList;
+@synthesize connectionLost = _connectionLost;
 
 + (id)sharedDataController {
     static BHDataController *sharedDataController = nil;
@@ -80,11 +83,15 @@
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
         
+        // Don't forget to set this
+        self.connectionLost = NO;
+        
         self.buildingList = [result array];
         
-        NSMutableArray *locationList = [[NSMutableArray alloc] init];
-        NSMutableArray *annotations;
-        NSMutableArray *locationAnnotations;
+        NSMutableArray *locationList = [[NSMutableArray alloc] init];  // location list for self
+        NSMutableArray *annotations;  //building annotations for mapview
+        NSMutableArray *locationAnnotations;  //location annotations for mapview
+        
         if (isForMapViewController) {
             annotations = [NSMutableArray arrayWithCapacity:[self.buildingList count]];
             locationAnnotations = [[NSMutableArray alloc] init];
@@ -98,7 +105,9 @@
             
             for (BHLocation *loc in bd.locations) {
                 [locationList addObject:loc];
-                [locationAnnotations addObject:[BHLocationAnnotation annotationForLocation:loc]];
+                if (isForMapViewController) {
+                    [locationAnnotations addObject:[BHLocationAnnotation annotationForLocation:loc]];
+                }
             }
         }
         
@@ -108,10 +117,29 @@
             mapViewController.locationAnnotations = locationAnnotations;
             mapViewController.annotations = annotations;
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
+        } else {
+            [listViewController.tableView reloadData];
+            [listViewController.refreshControl endRefreshing];
         }
         
-    } failure:nil];
-    
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed with error: %@", [error localizedDescription]);
+        
+        self.connectionLost = YES;
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
+                                                        message:@"You must be connected to the internet to use this app."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+        // Reset Refresh Button
+        if (isForMapViewController) {
+            mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
+        }
+
+    }];
     
     if (isForMapViewController) {
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -161,20 +189,97 @@
         }
         
         self.locationStats = statDic;
+        
         // Should update location annotation's statistic object
         for (BHLocationAnnotation *locAnnotation in mapViewController.locationAnnotations) {
             locAnnotation.locationStat = [statDic objectForKey:locAnnotation.location.locId];
         }
         
         if (isForMapViewController) {// update mapview
-            mapViewController.annotations = mapViewController.buildingAnnotations;
+            mapViewController.annotations = mapViewController.buildingAnnotations;// set annotations to buildingAnnotations
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
         } else {
             [listViewController.tableView reloadData];
             [listViewController.refreshControl endRefreshing];
         }
         
-    } failure:nil];
+    }failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Failed with error: %@", [error localizedDescription]);
+        
+        self.connectionLost = YES;
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
+                                                        message:@"You must be connected to the internet to use this app."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+        // Reset Refresh Button
+        if (isForMapViewController) {
+            mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
+        }
+        
+    }];
+    
+    [operation start];
+
+}
+
+-(void)fetchStatForLocation:(BHLocationDetailViewController *)locationDetailViewController
+{
+    // Building mapping
+    RKObjectMapping *dayMapping = [RKObjectMapping mappingForClass:[BHDailyStat class]];
+    [dayMapping addAttributeMappingsFromDictionary:@{
+                                                  @"day" : @"day"
+                                                  }];
+    
+    // Location mapping
+    RKObjectMapping *hourMapping = [RKObjectMapping mappingForClass:[BHHourlyStat class]];
+    [hourMapping addAttributeMappingsFromDictionary:@{
+                                                          @"hour" : @"hour",
+                                                          @"clients": @"clients"
+                                                          }];
+    
+    // !IMPORTANT!
+    // Should add this line to accept plain text response from server
+    [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
+    
+    // Define the relationship mapping
+    [dayMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"hours"
+                                                                            toKeyPath:@"hours"
+                                                                          withMapping:hourMapping]];
+    
+    
+    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:dayMapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://api.letsbeehive.tk/hourlydailystats/location/%@", locationDetailViewController.location.locId];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
+    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        
+        // Don't forget to set this
+        self.connectionLost = NO;
+        NSArray *weeklyStat = [result array];
+        locationDetailViewController.weeklyStat = weeklyStat;
+        
+        
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed with error: %@", [error localizedDescription]);
+        
+        self.connectionLost = YES;
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
+                                                        message:@"You must be connected to the internet to use this app."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+    }];
     
     [operation start];
 

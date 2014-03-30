@@ -14,16 +14,17 @@
 //SDWebImage Library
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface BHMapViewController () <MKMapViewDelegate>
+@interface BHMapViewController () <MKMapViewDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic) BOOL isInLocationMode;
 @property (strong, nonatomic) BHBuildingAnnotation *selectedAnnotation;
 - (IBAction)searchLocation:(id)sender;
+@property (strong, nonatomic) IBOutlet UISearchBar *locationSearchBar;
 @end
 
 @implementation BHMapViewController
 @synthesize mapView = _mapView, annotations = _annotations, locationAnnotations = _locationAnnotations, buildingAnnotations = _buildingAnnotations;
-@synthesize isInLocationMode;
+@synthesize isInLocationMode =_isInLocationMode;
 @synthesize refreshButton = _refreshButton;
 @synthesize selectedAnnotation = _selectedAnnotation;
 
@@ -200,20 +201,19 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-//    NSLog(@"region changed");
-//    NSLog(@"%f", mapView.region.span.latitudeDelta);
+
     double spanDelta = mapView.region.span.latitudeDelta;
     
     if (spanDelta < 0.01) {
-        if (!isInLocationMode) {
+        if (!self.isInLocationMode) {
             [self showLocationAnnotations];
         }
-        isInLocationMode = YES;
+        self.isInLocationMode = YES;
     } else {
-        if (isInLocationMode) {
+        if (self.isInLocationMode) {
             [self showBuildingAnnotations];
         }
-        isInLocationMode = NO;
+        self.isInLocationMode = NO;
     }
 }
 
@@ -230,8 +230,10 @@
 {
     [super viewDidLoad];
     
+    self.locationSearchBar.delegate = self;
+    
     // Update annotations if is not been set
-    // annotations should be set in AppDelegate when REST request finished loading
+    // annotations should have been set in AppDelegate when REST request finished loading
     if (!self.annotations) {
         BHDataController *sharedDataController = [BHDataController sharedDataController];
         NSArray *bdList = sharedDataController.buildingList;
@@ -243,11 +245,6 @@
     }
     
     [self centerToGT];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-//    self.mapView.centerCoordinate = self.mapView.userLocation.location.coordinate;
 }
 
 // triggered when user location changed
@@ -275,11 +272,12 @@
     [spinner startAnimating];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
     
-    
     BHDataController *dataController = [BHDataController sharedDataController];
     
-//    //Fetch building List for mapView
-//    [dataController fetchBuildingsForViewController:self];
+    if (dataController.connectionLost) {
+        //Fetch building List for mapView
+        [dataController fetchBuildingsForViewController:self];
+    }
     
     //Fetch locations statistic for mapView
     [dataController fetchLocationStatForViewController:self];
@@ -289,12 +287,37 @@
 }
 
 - (IBAction)searchLocation:(id)sender {
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 320.0, 44.0)];
-    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
-    searchBarView.autoresizingMask = 0;
-    searchBar.delegate = self;
-    [searchBarView addSubview:searchBar];
-    self.navigationItem.titleView = searchBarView;
+//    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 320.0, 44.0)];
+//    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
+//    searchBarView.autoresizingMask = 0;
+//    searchBar.delegate = self;
+//    [searchBarView addSubview:searchBar];
+//    self.navigationItem.titleView = searchBarView;
+    
 }
+
+//Method to handle the UISearchBar "Search",
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+}
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:NO animated:YES];
+}
+
+-(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    //Hide the keyboard.
+    [searchBar resignFirstResponder];
+}
+
 @end

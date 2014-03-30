@@ -38,6 +38,8 @@
 		BC6AA28A18BDA190004674F2 /* BHBuildingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6AA28918BDA190004674F2 /* BHBuildingAnnotation.m */; };
 		BC6AA28E18BDA1D6004674F2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6AA28D18BDA1D6004674F2 /* CoreLocation.framework */; };
 		BC6AA29018BDAC75004674F2 /* disclosure.png in Resources */ = {isa = PBXBuildFile; fileRef = BC6AA28F18BDAC75004674F2 /* disclosure.png */; };
+		BC70B83518E73DB400B4F33E /* BHDailyStat.m in Sources */ = {isa = PBXBuildFile; fileRef = BC70B83418E73DB400B4F33E /* BHDailyStat.m */; };
+		BC70B83A18E73DFD00B4F33E /* BHHourlyStat.m in Sources */ = {isa = PBXBuildFile; fileRef = BC70B83918E73DFD00B4F33E /* BHHourlyStat.m */; };
 		BC74DD8B18CF82D6002359B7 /* BHLocationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */; };
 		BC74DD9018CF84B0002359B7 /* BHContributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */; };
 		BCAD56A918CA50AE009436B8 /* BHDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAD56A818CA50AE009436B8 /* BHDataController.m */; };
@@ -121,6 +123,10 @@
 		BC6AA28918BDA190004674F2 /* BHBuildingAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BHBuildingAnnotation.m; path = ../BHBuildingAnnotation.m; sourceTree = "<group>"; };
 		BC6AA28D18BDA1D6004674F2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BC6AA28F18BDAC75004674F2 /* disclosure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosure.png; sourceTree = "<group>"; };
+		BC70B83318E73DB400B4F33E /* BHDailyStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHDailyStat.h; sourceTree = "<group>"; };
+		BC70B83418E73DB400B4F33E /* BHDailyStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHDailyStat.m; sourceTree = "<group>"; };
+		BC70B83818E73DFD00B4F33E /* BHHourlyStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHHourlyStat.h; sourceTree = "<group>"; };
+		BC70B83918E73DFD00B4F33E /* BHHourlyStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHHourlyStat.m; sourceTree = "<group>"; };
 		BC74DD8918CF82D6002359B7 /* BHLocationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationDetailViewController.h; sourceTree = "<group>"; };
 		BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationDetailViewController.m; sourceTree = "<group>"; };
 		BC74DD8E18CF84B0002359B7 /* BHContributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHContributionViewController.h; sourceTree = "<group>"; };
@@ -261,6 +267,10 @@
 				BC0A377718C8FE5400566D5D /* BHLocation.m */,
 				BCF24B5F18CB6D35006BA03A /* BHLocationStat.h */,
 				BCF24B6018CB6D35006BA03A /* BHLocationStat.m */,
+				BC70B83318E73DB400B4F33E /* BHDailyStat.h */,
+				BC70B83418E73DB400B4F33E /* BHDailyStat.m */,
+				BC70B83818E73DFD00B4F33E /* BHHourlyStat.h */,
+				BC70B83918E73DFD00B4F33E /* BHHourlyStat.m */,
 				BC676C5E18B2881800A46750 /* BHAppDelegate.h */,
 				BC676C5F18B2881800A46750 /* BHAppDelegate.m */,
 				BC676C6118B2881800A46750 /* Main_iPhone.storyboard */,
@@ -481,6 +491,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC70B83A18E73DFD00B4F33E /* BHHourlyStat.m in Sources */,
+				BC70B83518E73DB400B4F33E /* BHDailyStat.m in Sources */,
 				BC676C6018B2881800A46750 /* BHAppDelegate.m in Sources */,
 				BC74DD9018CF84B0002359B7 /* BHContributionViewController.m in Sources */,
 				BC74DD8B18CF82D6002359B7 /* BHLocationDetailViewController.m in Sources */,
