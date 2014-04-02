@@ -21,4 +21,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *occupancyLabel;
 @property (strong, nonatomic) IBOutlet UILabel *btgLabel;
 
+-(int)currentWeeday;
+-(void)initDailyPlot;
+-(void)initHourlyStatPlotForDay:(int)dayIndex;
+
 @end

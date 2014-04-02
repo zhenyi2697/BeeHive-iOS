@@ -16,10 +16,12 @@
 #import "BHListViewController.h"
 #import "BHDailyStat.h"
 #import "BHHourlyStat.h"
+#import "BHLocationHourlyStat.h"
 
 @implementation BHDataController
 
 @synthesize buildingList = _buildingList, locationList = _locationList;
+@synthesize locationStats = _locationStats, locationHourlyStats = _locationHourlyStats;
 @synthesize connectionLost = _connectionLost;
 
 + (id)sharedDataController {
@@ -227,15 +229,85 @@
 
 }
 
--(void)fetchStatForLocation:(BHLocationDetailViewController *)locationDetailViewController
+-(void)fetchAllLocationHourlyStats
 {
     // Building mapping
+    RKObjectMapping *locationMapping = [RKObjectMapping mappingForClass:[BHLocationHourlyStat class]];
+    [locationMapping addAttributeMappingsFromDictionary:@{
+                                                     @"id" : @"locId"
+                                                     }];
+    
+    // Daily stat mapping
+    RKObjectMapping *dayMapping = [RKObjectMapping mappingForClass:[BHDailyStat class]];
+    [dayMapping addAttributeMappingsFromDictionary:@{
+                                                     @"day" : @"day"
+                                                     }];
+    
+    // Hourly stat mapping
+    RKObjectMapping *hourMapping = [RKObjectMapping mappingForClass:[BHHourlyStat class]];
+    [hourMapping addAttributeMappingsFromDictionary:@{
+                                                      @"hour" : @"hour",
+                                                      @"clients": @"clients"
+                                                      }];
+    
+    // Define the relationship mapping
+    [dayMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"hours"
+                                                                               toKeyPath:@"hours"
+                                                                             withMapping:hourMapping]];
+    
+    [locationMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"stat"
+                                                                               toKeyPath:@"weeklyStat"
+                                                                             withMapping:dayMapping]];
+    
+    // !IMPORTANT!
+    // Should add this line to accept plain text response from server
+    [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
+    
+    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:locationMapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
+    
+    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/hourlydailystats/locations"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
+    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        
+        // Don't forget to set this
+        self.connectionLost = NO;
+        NSArray *locationHourlyStats = [result array];
+        
+        NSMutableDictionary *statDic = [[NSMutableDictionary alloc] initWithCapacity:[locationHourlyStats count]];
+        for (BHLocationHourlyStat *locStat in locationHourlyStats) {
+            [statDic setObject:locStat.weeklyStat forKey:locStat.locId];
+        }
+        self.locationHourlyStats = statDic;
+        
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed with error: %@", [error localizedDescription]);
+        
+        self.connectionLost = YES;
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
+                                                        message:@"You must be connected to the internet to use this app."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+    }];
+    
+    [operation start];
+    
+}
+
+-(void)fetchStatForLocation:(BHLocationDetailViewController *)locationDetailViewController
+{
+    // Daily stat mapping
     RKObjectMapping *dayMapping = [RKObjectMapping mappingForClass:[BHDailyStat class]];
     [dayMapping addAttributeMappingsFromDictionary:@{
                                                   @"day" : @"day"
                                                   }];
     
-    // Location mapping
+    // Hourly stat mapping
     RKObjectMapping *hourMapping = [RKObjectMapping mappingForClass:[BHHourlyStat class]];
     [hourMapping addAttributeMappingsFromDictionary:@{
                                                           @"hour" : @"hour",
@@ -264,8 +336,11 @@
         // Don't forget to set this
         self.connectionLost = NO;
         NSArray *weeklyStat = [result array];
-        locationDetailViewController.weeklyStat = weeklyStat;
         
+        // set weeklyStat for locationDetailViewController and also reinit plot
+        locationDetailViewController.weeklyStat = weeklyStat;
+        [locationDetailViewController initDailyPlot];
+        [locationDetailViewController initHourlyStatPlotForDay:[locationDetailViewController currentWeeday]];
         
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"Failed with error: %@", [error localizedDescription]);

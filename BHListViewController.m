@@ -181,21 +181,44 @@
     
     // Using SDWebImage to load image
     [cell.imageView setImageWithURL:[NSURL URLWithString:loc.photoUrl]
-                   placeholderImage:[UIImage imageNamed:@"beehive_icon.png"]];
+                   placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Perform segue to candy detail
+    [self performSegueWithIdentifier:@"showLocationDetailFromListView" sender:tableView];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        
+
         BHLocationDetailViewController *detailViewController = [segue destinationViewController];
         BHDataController *dataController = [BHDataController sharedDataController];
-        BHBuilding *bd = [dataController.buildingList objectAtIndex:indexPath.section];
+        NSIndexPath *indexPath;
+        BHBuilding *bd;
+        
+        if (sender == self.searchDisplayController.searchResultsTableView) {
+            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+            bd = [self.filteredBuildings objectAtIndex:indexPath.section];
+            
+        } else {
+            indexPath = [self.tableView indexPathForSelectedRow];
+            bd = [dataController.buildingList objectAtIndex:indexPath.section];
+            
+        }
+        
         detailViewController.location = [bd.locations objectAtIndex:indexPath.row];
-        [dataController fetchStatForLocation:detailViewController];
+        
+        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
+        detailViewController.weeklyStat = weeklyStat;
+        
+        if (!weeklyStat) {
+            [dataController fetchStatForLocation:detailViewController];
+        }
+        
     }
 }
 
@@ -238,17 +261,6 @@
 }
 */
 
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
 
 // Refresh when dropping down
 - (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl

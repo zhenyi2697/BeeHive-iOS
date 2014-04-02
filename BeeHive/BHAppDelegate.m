@@ -29,6 +29,9 @@
     //Fetch locations statistic for mapView
     [dataController fetchLocationStatForViewController:mapViewController];
     
+    //Fetch all location hourly statictic for location detail view
+    [dataController fetchAllLocationHourlyStats];
+    
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

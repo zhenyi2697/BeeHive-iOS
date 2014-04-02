@@ -10,6 +10,7 @@
 #import "BHBuildingAnnotation.h"
 #import "BHLocationAnnotation.h"
 #import "BHDataController.h"
+#import "BHLocationDetailViewController.h"
 
 //SDWebImage Library
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -18,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic) BOOL isInLocationMode;
 @property (strong, nonatomic) BHBuildingAnnotation *selectedAnnotation;
+@property (strong, nonatomic) BHLocationAnnotation *selectedLocationAnnotation;
 - (IBAction)searchLocation:(id)sender;
 @property (strong, nonatomic) IBOutlet UISearchBar *locationSearchBar;
 @end
@@ -26,7 +28,7 @@
 @synthesize mapView = _mapView, annotations = _annotations, locationAnnotations = _locationAnnotations, buildingAnnotations = _buildingAnnotations;
 @synthesize isInLocationMode =_isInLocationMode;
 @synthesize refreshButton = _refreshButton;
-@synthesize selectedAnnotation = _selectedAnnotation;
+@synthesize selectedAnnotation = _selectedAnnotation, selectedLocationAnnotation = _selectedLocationAnnotation;
 
 //以下几个方法一般都要写
 -(void)updateMapView
@@ -53,7 +55,7 @@
 // Selector functions
 -(void)showLocationDetailFromMapView
 {
-    [self performSegueWithIdentifier: @"showBuildingDetailFromMapView" sender:self];
+    [self performSegueWithIdentifier: @"showLocationDetailFromMapView" sender:self];
 }
 
 -(void)showLocationsForBuilding
@@ -100,7 +102,7 @@
                          region.span=span;
                          CLLocationCoordinate2D centerLocation;
                          centerLocation.latitude = 33.777179;
-                         centerLocation.longitude = -84.399627;
+                         centerLocation.longitude = -84.398027;
                          region.center= centerLocation;
                          [self.mapView setCenterCoordinate:centerLocation animated:YES];
                          [self.mapView setRegion:region animated:YES];
@@ -179,6 +181,7 @@
         
     } else if ([view.annotation isKindOfClass:[BHLocationAnnotation class]]){
 //        NSLog(@"Clicked location annotation");
+        self.selectedLocationAnnotation = view.annotation;
     }
 }
 
@@ -261,8 +264,18 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([[segue identifier] isEqualToString:@"showBuildingDetailFromMapView"]) {
-
+    if([[segue identifier] isEqualToString:@"showLocationDetailFromMapView"]) {
+        
+        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
+        BHDataController *dataController = [BHDataController sharedDataController];
+        detailViewController.location = self.selectedLocationAnnotation.location;
+        
+        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
+        detailViewController.weeklyStat = weeklyStat;
+        
+        if (!weeklyStat) {
+            [dataController fetchStatForLocation:detailViewController];
+        }
     }
 }
 

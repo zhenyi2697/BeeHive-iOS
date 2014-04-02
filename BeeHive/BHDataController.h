@@ -16,11 +16,13 @@
 @property (nonatomic, strong) NSArray *buildingList;
 @property (nonatomic, strong) NSArray *locationList;
 @property (nonatomic, strong) NSDictionary *locationStats;
+@property (nonatomic, strong) NSDictionary *locationHourlyStats;
 @property (assign) BOOL connectionLost;
 +(id)sharedDataController;
 
 -(void)fetchBuildingsForViewController:(UIViewController *)viewController;
 -(void)fetchLocationStatForViewController:(UIViewController *)viewController;
 -(void)fetchStatForLocation:(BHLocationDetailViewController *)locationDetailViewController;
+-(void)fetchAllLocationHourlyStats;
 
 @end

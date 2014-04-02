@@ -72,20 +72,28 @@ CGFloat const CPDBarInitialX = 0.25f;
     _location = location;
 }
 
--(void)setWeeklyStat:(NSArray *)weeklyStat
+-(int)currentWeeday
 {
-    _weeklyStat = weeklyStat;
-    [self calculateDayAverage:weeklyStat];
-    
     // get current day number
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
     int weekday = [comps weekday];
     weekday = (weekday + 5) % 7;
+    
+    return weekday;
+}
+
+-(void)setWeeklyStat:(NSArray *)weeklyStat
+{
+    _weeklyStat = weeklyStat;
+    
+    // calculate average people for everyday
+    [self calculateDayAverage:weeklyStat];
+    int weekday = [self currentWeeday];
     self.selectedDayIndex = weekday;
     
-    [self initDailyPlot];
-    [self initHourlyStatPlotForDay:weekday];
+//    [self initDailyPlot];
+//    [self initHourlyStatPlotForDay:[self currentWeeday]];
 
 }
 
@@ -112,7 +120,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     
     // Using SDWebImage to load image
     [self.locationImageView setImageWithURL:[NSURL URLWithString:self.location.photoUrl]
-                           placeholderImage:[UIImage imageNamed:@"beehive_icon.png"]];
+                           placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
     
     self.occupancyLabel.text = self.locationStat.occupancy;
     self.btgLabel.text = self.locationStat.bestTime;
@@ -123,7 +131,9 @@ CGFloat const CPDBarInitialX = 0.25f;
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // The plot is initialized here, since the view bounds have not transformed for landscape until now
-//    [self initDailyPlot];
+    
+    [self initDailyPlot];
+    [self initHourlyStatPlotForDay:[self currentWeeday]];
 }
 
 #pragma mark - Chart behavior
@@ -162,10 +172,10 @@ CGFloat const CPDBarInitialX = 0.25f;
     graph.title = title;
     graph.titleTextStyle = titleStyle;
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
-    graph.titleDisplacement = CGPointMake(-60.0f, 0.0f); // title position
+    graph.titleDisplacement = CGPointMake(-65.0f, 5.0f); // title position
     
     // 5 - Set up plot space
-    CGFloat xMin = 0.0f;
+    CGFloat xMin = -0.3f;
     CGFloat xMax = [self.weeklyStat count];
     CGFloat yMin = 0.0f;
     CGFloat yMax = self.max_clients * 1.4;  // should determine dynamically based on max number of people
@@ -402,7 +412,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
     x.majorGridLineStyle = majorGridLineStyle;
     x.labelTextStyle = lablingStyle;
-    x.labelOffset = -8.0f;
+    x.labelOffset = 2.0f;
     x.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0];
     
     CGFloat hourCount = [dailyStat.hours count];
@@ -542,7 +552,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     // 7 - Get the anchor point for annotation
     CGFloat x = index + CPDBarInitialX + (plotIndex * CPDBarWidth);
     NSNumber *anchorX = [NSNumber numberWithFloat:x];
-    CGFloat y = [price floatValue] * 1.2;  // control location of annotation
+    CGFloat y = [price floatValue] + (self.max_clients*1.4)/15;  // control location of annotation
     NSNumber *anchorY = [NSNumber numberWithFloat:y];
     self.priceAnnotation.anchorPlotPoint = [NSArray arrayWithObjects:anchorX, anchorY, nil];
     

@@ -59,7 +59,7 @@
                         <outlet property="locationSearchBar" destination="e8F-W7-TY7" id="jre-kX-tIS"/>
                         <outlet property="mapView" destination="teJ-3n-Hsi" id="u7e-v9-33J"/>
                         <outlet property="refreshButton" destination="s7p-hX-oIP" id="l2x-vr-Ayk"/>
-                        <segue destination="rcr-x4-Ep4" kind="push" identifier="showBuildingDetailFromMapView" id="xdo-ga-tkr"/>
+                        <segue destination="rcr-x4-Ep4" kind="push" identifier="showLocationDetailFromMapView" id="xdo-ga-tkr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lEv-l3-eP1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -149,9 +149,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="rcr-x4-Ep4" kind="push" identifier="showLocationDetailFromListView" id="fn9-fE-7As"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -174,6 +171,7 @@
                         <outlet property="locationSearchBar" destination="9BH-xe-iIY" id="EkR-Mg-Hor"/>
                         <outlet property="searchDisplayController" destination="ctt-5k-eEO" id="39b-0g-jFA"/>
                         <outlet property="tableView" destination="jJY-ib-Rgl" id="Lba-FW-wc4"/>
+                        <segue destination="rcr-x4-Ep4" kind="push" identifier="showLocationDetailFromListView" id="DtF-5X-fBy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GII-eM-6wd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -384,6 +382,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="fn9-fE-7As"/>
+        <segue reference="DtF-5X-fBy"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -42,6 +42,7 @@
 		BC70B83A18E73DFD00B4F33E /* BHHourlyStat.m in Sources */ = {isa = PBXBuildFile; fileRef = BC70B83918E73DFD00B4F33E /* BHHourlyStat.m */; };
 		BC74DD8B18CF82D6002359B7 /* BHLocationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */; };
 		BC74DD9018CF84B0002359B7 /* BHContributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */; };
+		BC86AC8A18EBAD88001068B0 /* BHLocationHourlyStat.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86AC8918EBAD88001068B0 /* BHLocationHourlyStat.m */; };
 		BCAD56A918CA50AE009436B8 /* BHDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAD56A818CA50AE009436B8 /* BHDataController.m */; };
 		BCAD56B518CA5952009436B8 /* map-paper.png in Resources */ = {isa = PBXBuildFile; fileRef = BCAD56B418CA5952009436B8 /* map-paper.png */; };
 		BCAD56B718CA5982009436B8 /* list-star.png in Resources */ = {isa = PBXBuildFile; fileRef = BCAD56B618CA5982009436B8 /* list-star.png */; };
@@ -131,6 +132,8 @@
 		BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationDetailViewController.m; sourceTree = "<group>"; };
 		BC74DD8E18CF84B0002359B7 /* BHContributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHContributionViewController.h; sourceTree = "<group>"; };
 		BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHContributionViewController.m; sourceTree = "<group>"; };
+		BC86AC8818EBAD88001068B0 /* BHLocationHourlyStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationHourlyStat.h; sourceTree = "<group>"; };
+		BC86AC8918EBAD88001068B0 /* BHLocationHourlyStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationHourlyStat.m; sourceTree = "<group>"; };
 		BC8D7E2E27904A349983B3BD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCAD56A718CA50AE009436B8 /* BHDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHDataController.h; sourceTree = "<group>"; };
 		BCAD56A818CA50AE009436B8 /* BHDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHDataController.m; sourceTree = "<group>"; };
@@ -267,6 +270,8 @@
 				BC0A377718C8FE5400566D5D /* BHLocation.m */,
 				BCF24B5F18CB6D35006BA03A /* BHLocationStat.h */,
 				BCF24B6018CB6D35006BA03A /* BHLocationStat.m */,
+				BC86AC8818EBAD88001068B0 /* BHLocationHourlyStat.h */,
+				BC86AC8918EBAD88001068B0 /* BHLocationHourlyStat.m */,
 				BC70B83318E73DB400B4F33E /* BHDailyStat.h */,
 				BC70B83418E73DB400B4F33E /* BHDailyStat.m */,
 				BC70B83818E73DFD00B4F33E /* BHHourlyStat.h */,
@@ -494,6 +499,7 @@
 				BC70B83A18E73DFD00B4F33E /* BHHourlyStat.m in Sources */,
 				BC70B83518E73DB400B4F33E /* BHDailyStat.m in Sources */,
 				BC676C6018B2881800A46750 /* BHAppDelegate.m in Sources */,
+				BC86AC8A18EBAD88001068B0 /* BHLocationHourlyStat.m in Sources */,
 				BC74DD9018CF84B0002359B7 /* BHContributionViewController.m in Sources */,
 				BC74DD8B18CF82D6002359B7 /* BHLocationDetailViewController.m in Sources */,
 				BC0A377818C8FE5400566D5D /* BHLocation.m in Sources */,
