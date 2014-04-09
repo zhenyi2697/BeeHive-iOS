@@ -42,6 +42,10 @@
 		BC70B83A18E73DFD00B4F33E /* BHHourlyStat.m in Sources */ = {isa = PBXBuildFile; fileRef = BC70B83918E73DFD00B4F33E /* BHHourlyStat.m */; };
 		BC74DD8B18CF82D6002359B7 /* BHLocationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */; };
 		BC74DD9018CF84B0002359B7 /* BHContributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */; };
+		BC7C177218F4D8E500DF1ACA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BC7C177118F4D8E500DF1ACA /* Default.png */; };
+		BC83438718F485F20023BC9B /* BHLocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC83438618F485F20023BC9B /* BHLocationAnnotationView.m */; };
+		BC83438D18F496610023BC9B /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = BC83438C18F496610023BC9B /* pin.png */; };
+		BC83438F18F49B240023BC9B /* pin_orange_small.png in Resources */ = {isa = PBXBuildFile; fileRef = BC83438E18F49B240023BC9B /* pin_orange_small.png */; };
 		BC86AC8A18EBAD88001068B0 /* BHLocationHourlyStat.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86AC8918EBAD88001068B0 /* BHLocationHourlyStat.m */; };
 		BCAD56A918CA50AE009436B8 /* BHDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAD56A818CA50AE009436B8 /* BHDataController.m */; };
 		BCAD56B518CA5952009436B8 /* map-paper.png in Resources */ = {isa = PBXBuildFile; fileRef = BCAD56B418CA5952009436B8 /* map-paper.png */; };
@@ -132,6 +136,11 @@
 		BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationDetailViewController.m; sourceTree = "<group>"; };
 		BC74DD8E18CF84B0002359B7 /* BHContributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHContributionViewController.h; sourceTree = "<group>"; };
 		BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHContributionViewController.m; sourceTree = "<group>"; };
+		BC7C177118F4D8E500DF1ACA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		BC83438518F485F20023BC9B /* BHLocationAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationAnnotationView.h; sourceTree = "<group>"; };
+		BC83438618F485F20023BC9B /* BHLocationAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationAnnotationView.m; sourceTree = "<group>"; };
+		BC83438C18F496610023BC9B /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		BC83438E18F49B240023BC9B /* pin_orange_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_orange_small.png; sourceTree = "<group>"; };
 		BC86AC8818EBAD88001068B0 /* BHLocationHourlyStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationHourlyStat.h; sourceTree = "<group>"; };
 		BC86AC8918EBAD88001068B0 /* BHLocationHourlyStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationHourlyStat.m; sourceTree = "<group>"; };
 		BC8D7E2E27904A349983B3BD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -254,6 +263,8 @@
 				BC6AA28918BDA190004674F2 /* BHBuildingAnnotation.m */,
 				BCAD56BF18CADD90009436B8 /* BHLocationAnnotation.h */,
 				BCAD56C018CADD90009436B8 /* BHLocationAnnotation.m */,
+				BC83438518F485F20023BC9B /* BHLocationAnnotationView.h */,
+				BC83438618F485F20023BC9B /* BHLocationAnnotationView.m */,
 				BCB30E6418B3CEF6009A3669 /* BHListViewController.h */,
 				BCB30E6518B3CEF6009A3669 /* BHListViewController.m */,
 				BC620D9D18D28D6000D409A2 /* BHLocationTableViewCell.h */,
@@ -289,6 +300,9 @@
 		BC676C5618B2881800A46750 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BC7C177118F4D8E500DF1ACA /* Default.png */,
+				BC83438E18F49B240023BC9B /* pin_orange_small.png */,
+				BC83438C18F496610023BC9B /* pin.png */,
 				BCAD56B618CA5982009436B8 /* list-star.png */,
 				BCAD56B418CA5952009436B8 /* map-paper.png */,
 				BC6AA28F18BDAC75004674F2 /* disclosure.png */,
@@ -437,10 +451,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC324E5718BD1A9A005997C5 /* Beehive.png in Resources */,
+				BC83438F18F49B240023BC9B /* pin_orange_small.png in Resources */,
 				BC676C9318B28AC600A46750 /* beehive_icon.png in Resources */,
 				BC6AA29018BDAC75004674F2 /* disclosure.png in Resources */,
+				BC83438D18F496610023BC9B /* pin.png in Resources */,
 				BC676C6618B2881800A46750 /* Main_iPad.storyboard in Resources */,
 				BCAD56B718CA5982009436B8 /* list-star.png in Resources */,
+				BC7C177218F4D8E500DF1ACA /* Default.png in Resources */,
 				BCAD56B518CA5952009436B8 /* map-paper.png in Resources */,
 				BC676C6E18B2881900A46750 /* Images.xcassets in Resources */,
 				BC676C6318B2881800A46750 /* Main_iPhone.storyboard in Resources */,
@@ -514,6 +531,7 @@
 				BCAD56C118CADD90009436B8 /* BHLocationAnnotation.m in Sources */,
 				BC0A377318C8FE4000566D5D /* BHBuilding.m in Sources */,
 				BCD05DC618B6D94A005077AA /* CPDConstants.m in Sources */,
+				BC83438718F485F20023BC9B /* BHLocationAnnotationView.m in Sources */,
 				BC6AA28A18BDA190004674F2 /* BHBuildingAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

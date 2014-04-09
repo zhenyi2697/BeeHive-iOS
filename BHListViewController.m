@@ -177,7 +177,26 @@
     
     BHLocationStat *locStat = [dataController.locationStats objectForKey:loc.locId];
     cell.textLabel.text = loc.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Occupancy: %@. Best to go: %@", locStat.occupancy, locStat.bestTime];
+//    cell.textLabel.text = [NSString stringWithFormat:@"%@(%@)", loc.name, locStat.occupancyRaw];
+    
+    // Determine label color
+    UIColor *titleColor;
+    int percentage = [locStat.occupancyPercent integerValue];
+    int lowThreshold = [locStat.thresholdMin integerValue];
+    int highThreshold = [locStat.thresholdMax integerValue];
+    if (percentage <= lowThreshold) {
+//        titleColor = [UIColor greenColor];
+        titleColor = [UIColor colorWithRed:0 green:150 blue:0 alpha:1]; //green
+    } else if(percentage > lowThreshold && percentage < highThreshold) {
+        titleColor =[UIColor orangeColor];
+    } else {
+//        titleColor = [UIColor redColor];
+        titleColor = [UIColor colorWithRed:180 green:0 blue:0 alpha:1]; //red
+    }
+    cell.textLabel.textColor = titleColor;
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% Qu: %@. Go: %@", locStat.occupancyPercent, locStat.queue, locStat.bestTime];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
     
     // Using SDWebImage to load image
     [cell.imageView setImageWithURL:[NSURL URLWithString:loc.photoUrl]

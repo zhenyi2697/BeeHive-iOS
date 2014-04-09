@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *locationImageView;
 @property (strong, nonatomic) IBOutlet UILabel *occupancyLabel;
 @property (strong, nonatomic) IBOutlet UILabel *btgLabel;
+@property (strong, nonatomic) IBOutlet UILabel *queueLabel;
 
 -(int)currentWeeday;
 -(void)initDailyPlot;

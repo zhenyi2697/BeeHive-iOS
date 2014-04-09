@@ -80,7 +80,7 @@
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/zones/listall"];
+    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/static"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
@@ -172,6 +172,12 @@
                                                           @"id" : @"locId",
                                                           @"occupancy": @"occupancy",
                                                           @"best_time": @"bestTime",
+                                                          @"max_capacity": @"maxCapacity",
+                                                          @"queue": @"queue",
+                                                          @"occupancy_raw":@"occupancyRaw",
+                                                          @"occupancy_percent":@"occupancyPercent",
+                                                          @"threshold_min": @"thresholdMin",
+                                                          @"threshold_max": @"thresholdMax"
                                                           }];
     
     // !IMPORTANT!
@@ -179,7 +185,7 @@
     [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:locationMapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/locations/stats"];
+    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/dynamic/now"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
@@ -265,7 +271,7 @@
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:locationMapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/hourlydailystats/locations"];
+    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/dynamic/daily"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
@@ -326,7 +332,7 @@
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:dayMapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"http://api.letsbeehive.tk/hourlydailystats/location/%@", locationDetailViewController.location.locId];
+    NSString *urlString = [NSString stringWithFormat:@"http://api.letsbeehive.tk/dynamic/daily/%@", locationDetailViewController.location.locId];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     

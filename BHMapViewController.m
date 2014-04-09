@@ -11,6 +11,7 @@
 #import "BHLocationAnnotation.h"
 #import "BHDataController.h"
 #import "BHLocationDetailViewController.h"
+#import "BHLocationAnnotationView.h"
 
 //SDWebImage Library
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -126,43 +127,54 @@
     } else if ([annotation isKindOfClass:[BHBuildingAnnotation class]]) {
 //        MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"BdAnno"];
         
-//        if (!aView) {
-            MKAnnotationView *aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"BdAnno"];
-            aView.canShowCallout = YES;// DON'T FORGET THIS LINE OF CODE !!
+        MKAnnotationView *aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"BdAnno"];
+        aView.canShowCallout = YES;// DON'T FORGET THIS LINE OF CODE !!
         
         // Using SDWebImage to load image
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
         [imageView setImageWithURL:[NSURL URLWithString:((BHBuildingAnnotation *)annotation).building.photoUrl] placeholderImage:[UIImage imageNamed:@"beehive_icon.png"]];
         aView.leftCalloutAccessoryView = imageView;
             
-            // create right view
-            aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
-            UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-            [aView.rightCalloutAccessoryView addSubview:showDetailButton];
-            [showDetailButton addTarget:self action:@selector(showLocationsForBuilding) forControlEvents:UIControlEventTouchUpInside];
-//        }
+        // create right view
+        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
+        UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [aView.rightCalloutAccessoryView addSubview:showDetailButton];
+        [showDetailButton addTarget:self action:@selector(showLocationsForBuilding) forControlEvents:UIControlEventTouchUpInside];
+        
+//        aView.image = [UIImage imageNamed:@"pin.jpg"];
+        aView.image = [UIImage imageNamed:@"pin_orange_small.png"];
+        aView.calloutOffset = CGPointMake(0, 0);
 
         return aView;
         
     } else if ([annotation isKindOfClass:[BHLocationAnnotation class]]) {
-//        MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"LocAnno"];
-//        if (!aView) {
-            MKAnnotationView *aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"LocAnno"];
-            aView.canShowCallout = YES;// DON'T FORGET THIS LINE OF CODE !!
+
+        MKAnnotationView *aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"LocAnno"];
+        aView.canShowCallout = YES;// DON'T FORGET THIS LINE OF CODE !!
+        
+//        // custom annotation view (unuseful...)
+//        BHLocationAnnotationView *locView =[[BHLocationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"LocAnno"];
+//        [locView.annotationImage setImageWithURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl] placeholderImage:[UIImage imageNamed:@"beehive_icon.png"]];
+//        locView.annotationLabel.text = @"Test";
+//        locView.canShowCallout = YES;
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
         [imageView setImageWithURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl] placeholderImage:[UIImage imageNamed:@"beehive_icon.png"]];
         aView.leftCalloutAccessoryView = imageView;
-            
-            // create right view
-            aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
-            UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-            [aView.rightCalloutAccessoryView addSubview:showDetailButton];
-            [showDetailButton addTarget:self action:@selector(showLocationDetailFromMapView) forControlEvents:UIControlEventTouchUpInside];
-//        }
+        
+
+        // create right view
+        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
+        UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [aView.rightCalloutAccessoryView addSubview:showDetailButton];
+        [showDetailButton addTarget:self action:@selector(showLocationDetailFromMapView) forControlEvents:UIControlEventTouchUpInside];
         
         aView.annotation = annotation;
+        aView.image = [UIImage imageNamed:@"pin_orange_small.png"];
         
+//        aView.centerOffset = CGPointMake(0, 15);
+        aView.calloutOffset = CGPointMake(0,0);
+
         return aView;
 
     }
@@ -310,7 +322,7 @@
     
 }
 
-//Method to handle the UISearchBar "Search",
+//Method to handle the UISearchBar "Search"
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
@@ -331,6 +343,10 @@
 {
     //Hide the keyboard.
     [searchBar resignFirstResponder];
+    BHDataController *dataController = [BHDataController sharedDataController];
+    NSArray *locationList = dataController.locationList;
+    
+    NSLog(@"%@", searchBar.text);
 }
 
 @end

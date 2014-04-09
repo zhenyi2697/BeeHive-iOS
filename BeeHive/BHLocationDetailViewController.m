@@ -122,8 +122,28 @@ CGFloat const CPDBarInitialX = 0.25f;
     [self.locationImageView setImageWithURL:[NSURL URLWithString:self.location.photoUrl]
                            placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
     
-    self.occupancyLabel.text = self.locationStat.occupancy;
-    self.btgLabel.text = self.locationStat.bestTime;
+//    self.occupancyLabel.text = self.locationStat.occupancyPercent;
+//    self.btgLabel.text = self.locationStat.bestTime;
+    self.occupancyLabel.text = [NSString stringWithFormat:@"%@%%", self.locationStat.occupancyPercent];
+    self.btgLabel.text = [NSString stringWithFormat:@"%@", self.locationStat.bestTime];
+//    self.queueLabel.text = self.locationStat.queue;
+    self.queueLabel.text = self.locationStat.queue;
+    
+    // Determine label color
+    UIColor *titleColor;
+    int percentage = [self.locationStat.occupancyPercent integerValue];
+    int lowThreshold = [self.locationStat.thresholdMin integerValue];
+    int highThreshold = [self.locationStat.thresholdMax integerValue];
+    if (percentage <= lowThreshold) {
+//        titleColor = [UIColor greenColor];
+//        titleColor = [UIColor colorWithRed:0 green:150 blue:0 alpha:1]; //green
+    } else if(percentage > lowThreshold && percentage < highThreshold) {
+        titleColor =[UIColor orangeColor];
+    } else {
+//        titleColor = [UIColor redColor];
+        titleColor = [UIColor colorWithRed:180 green:0 blue:0 alpha:1]; //red
+    }
+    self.occupancyLabel.textColor = titleColor;
 
 }
 
@@ -168,11 +188,11 @@ CGFloat const CPDBarInitialX = 0.25f;
     titleStyle.fontSize = 14.0f;
     
     // 4 - Set up title
-    NSString *title = @"Average # of people";
+    NSString *title = @"Average occupancy (%)";
     graph.title = title;
     graph.titleTextStyle = titleStyle;
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
-    graph.titleDisplacement = CGPointMake(-65.0f, 5.0f); // title position
+    graph.titleDisplacement = CGPointMake(-55.0f, 5.0f); // title position
     
     // 5 - Set up plot space
     CGFloat xMin = -0.3f;
@@ -313,7 +333,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     // 2 - Set graph title
 
     NSArray *dayOfWeek = [NSArray arrayWithObjects:@"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday", @"Sunday", nil];
-    NSString *title = [NSString stringWithFormat:@"Occupancy for %@", [dayOfWeek objectAtIndex:self.selectedDayIndex]];
+    NSString *title = [NSString stringWithFormat:@"%@ (%%)", [dayOfWeek objectAtIndex:self.selectedDayIndex]];
     graph.title = title;
     
     // 3 - Create and set text style
@@ -323,7 +343,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     titleStyle.fontSize = 14.0f;
     graph.titleTextStyle = titleStyle;
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
-    graph.titleDisplacement = CGPointMake(-50.0f, 10.0f);
+    graph.titleDisplacement = CGPointMake(-95.0f, 10.0f);
     
     // 4 - Set padding for plot area
 //    [graph.plotAreaFrame setPaddingLeft:30.0f];
@@ -540,8 +560,9 @@ CGFloat const CPDBarInitialX = 0.25f;
     }
     
     // 5 - Create text layer for annotation
-    NSString *priceValue = [formatter stringFromNumber:price];
-    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:priceValue style:style];
+//    NSString *priceValue = [formatter stringFromNumber:price];
+    NSString *occupancyValue = [NSString stringWithFormat:@"%@%%", price];
+    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:occupancyValue style:style];
     self.priceAnnotation.contentLayer = textLayer;
     // 6 - Get plot index based on identifier
     NSInteger plotIndex = 0;
@@ -560,7 +581,6 @@ CGFloat const CPDBarInitialX = 0.25f;
     [plot.graph.plotAreaFrame.plotArea addAnnotation:self.priceAnnotation];
     
     // 9 - reload data for hourly stat
-
     self.selectedDayIndex = index;
     [self initHourlyStatPlotForDay:index];
 //    [self.hourlyPlot reloadData];

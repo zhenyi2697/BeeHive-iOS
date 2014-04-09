@@ -26,7 +26,7 @@
 -(NSString *)title
 {
 //    return self.location.name;
-    return [NSString stringWithFormat:@"%@ ( %@ )", self.location.name, self.locationStat.occupancy];
+    return [NSString stringWithFormat:@"%@", self.location.name];
 }
 
 //MKAnnotation protocol 的方法， subtitle的setter
@@ -34,7 +34,8 @@
 {
     
 //    return self.location.description;
-    return [NSString stringWithFormat:@"Best time to go: %@", self.locationStat.bestTime];
+//    return [NSString stringWithFormat:@"Oc: %@%% Qu: %@ Go: %@", self.locationStat.occupancyPercent, self.locationStat.queue, self.locationStat.bestTime];
+    return [NSString stringWithFormat:@"Oc: %@%% Qu: %@ Go: %@", self.locationStat.occupancyPercent, self.locationStat.queue, self.locationStat.bestTime];
 }
 
 //MKAnnotation protocol 的方法， coordinate的setter
