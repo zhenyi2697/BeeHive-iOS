@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		43CD5EE741C74DF98367930C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8D7E2E27904A349983B3BD /* libPods.a */; };
+		BC066EFC18F637CA00F96604 /* BHQueueRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066EFB18F637CA00F96604 /* BHQueueRequest.m */; };
+		BC066EFF18F6382E00F96604 /* BHQueueResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066EFE18F6382E00F96604 /* BHQueueResponse.m */; };
+		BC066F0718F6418A00F96604 /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066F0218F6418900F96604 /* JDStatusBarNotification.m */; };
+		BC066F0818F6418A00F96604 /* JDStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066F0418F6418900F96604 /* JDStatusBarStyle.m */; };
+		BC066F0918F6418A00F96604 /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066F0618F6418900F96604 /* JDStatusBarView.m */; };
 		BC0A377318C8FE4000566D5D /* BHBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A377218C8FE4000566D5D /* BHBuilding.m */; };
 		BC0A377818C8FE5400566D5D /* BHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A377718C8FE5400566D5D /* BHLocation.m */; };
 		BC2AA54B18BC68BC0001BA98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA54A18BC68BC0001BA98 /* Security.framework */; };
@@ -15,6 +20,7 @@
 		BC2AA54F18BC68CE0001BA98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */; };
 		BC2AA55118BC68D50001BA98 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA55018BC68D50001BA98 /* CoreData.framework */; };
 		BC324E5718BD1A9A005997C5 /* Beehive.png in Resources */ = {isa = PBXBuildFile; fileRef = BC324E5618BD1A9A005997C5 /* Beehive.png */; };
+		BC3CAAC718F718E0003FF73B /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3CAAC618F7183C003FF73B /* libCorePlot-CocoaTouch.a */; };
 		BC620D9818D28B7100D409A2 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC620D9718D28B7100D409A2 /* SDWebImage.framework */; };
 		BC620D9C18D28BAF00D409A2 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC620D9B18D28BAF00D409A2 /* ImageIO.framework */; };
 		BC620D9F18D28D6000D409A2 /* BHLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC620D9E18D28D6000D409A2 /* BHLocationTableViewCell.m */; };
@@ -51,7 +57,6 @@
 		BCAD56B718CA5982009436B8 /* list-star.png in Resources */ = {isa = PBXBuildFile; fileRef = BCAD56B618CA5982009436B8 /* list-star.png */; };
 		BCAD56BC18CA82C7009436B8 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAD56BB18CA82C7009436B8 /* ODRefreshControl.m */; };
 		BCAD56C118CADD90009436B8 /* BHLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAD56C018CADD90009436B8 /* BHLocationAnnotation.m */; };
-		BCAE8B7A18B6666D006D052D /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC16623A18B663D4003FA77A /* libCorePlot-CocoaTouch.a */; };
 		BCAE8B7C18B66768006D052D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCAE8B7B18B66768006D052D /* QuartzCore.framework */; };
 		BCAE8B7E18B66772006D052D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCAE8B7D18B66772006D052D /* Accelerate.framework */; };
 		BCB30E6618B3CEF6009A3669 /* BHListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB30E6518B3CEF6009A3669 /* BHListViewController.m */; };
@@ -61,18 +66,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BC16623918B663D4003FA77A /* PBXContainerItemProxy */ = {
+		BC3CAAC518F7183C003FF73B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BC16623318B663D4003FA77A /* CorePlot-CocoaTouch.xcodeproj */;
+			containerPortal = BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
-			remoteInfo = "CorePlot-CocoaTouch";
-		};
-		BC16623B18B664E0003FA77A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BC16623318B663D4003FA77A /* CorePlot-CocoaTouch.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 		BC676C7818B2881900A46750 /* PBXContainerItemProxy */ = {
@@ -86,17 +84,27 @@
 
 /* Begin PBXFileReference section */
 		B95F5CF4F9F34E78B42E7B38 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		BC066EFA18F637CA00F96604 /* BHQueueRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHQueueRequest.h; sourceTree = "<group>"; };
+		BC066EFB18F637CA00F96604 /* BHQueueRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHQueueRequest.m; sourceTree = "<group>"; };
+		BC066EFD18F6382E00F96604 /* BHQueueResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHQueueResponse.h; sourceTree = "<group>"; };
+		BC066EFE18F6382E00F96604 /* BHQueueResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHQueueResponse.m; sourceTree = "<group>"; };
+		BC066F0118F6418900F96604 /* JDStatusBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarNotification.h; sourceTree = "<group>"; };
+		BC066F0218F6418900F96604 /* JDStatusBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarNotification.m; sourceTree = "<group>"; };
+		BC066F0318F6418900F96604 /* JDStatusBarStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarStyle.h; sourceTree = "<group>"; };
+		BC066F0418F6418900F96604 /* JDStatusBarStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarStyle.m; sourceTree = "<group>"; };
+		BC066F0518F6418900F96604 /* JDStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarView.h; sourceTree = "<group>"; };
+		BC066F0618F6418900F96604 /* JDStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarView.m; sourceTree = "<group>"; };
 		BC0A377118C8FE4000566D5D /* BHBuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBuilding.h; sourceTree = "<group>"; };
 		BC0A377218C8FE4000566D5D /* BHBuilding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHBuilding.m; sourceTree = "<group>"; };
 		BC0A377618C8FE5400566D5D /* BHLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocation.h; sourceTree = "<group>"; };
 		BC0A377718C8FE5400566D5D /* BHLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocation.m; sourceTree = "<group>"; };
-		BC16623318B663D4003FA77A /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../Downloads/core-plot-master/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		BC2AA54818BC68240001BA98 /* libPods-RestKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-RestKit.a"; path = "Pods/build/Debug-iphoneos/libPods-RestKit.a"; sourceTree = "<group>"; };
 		BC2AA54A18BC68BC0001BA98 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BC2AA54C18BC68C40001BA98 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC2AA55018BC68D50001BA98 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BC324E5618BD1A9A005997C5 /* Beehive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Beehive.png; sourceTree = "<group>"; };
+		BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../../Downloads/core-plot-master/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		BC620D9718D28B7100D409A2 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 		BC620D9B18D28BAF00D409A2 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		BC620D9D18D28D6000D409A2 /* BHLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationTableViewCell.h; sourceTree = "<group>"; };
@@ -167,6 +175,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC3CAAC718F718E0003FF73B /* libCorePlot-CocoaTouch.a in Frameworks */,
 				BC620D9C18D28BAF00D409A2 /* ImageIO.framework in Frameworks */,
 				BC6AA28E18BDA1D6004674F2 /* CoreLocation.framework in Frameworks */,
 				BC676C5218B2881800A46750 /* CoreGraphics.framework in Frameworks */,
@@ -179,7 +188,6 @@
 				BC2AA54B18BC68BC0001BA98 /* Security.framework in Frameworks */,
 				BCAE8B7E18B66772006D052D /* Accelerate.framework in Frameworks */,
 				BCAE8B7C18B66768006D052D /* QuartzCore.framework in Frameworks */,
-				BCAE8B7A18B6666D006D052D /* libCorePlot-CocoaTouch.a in Frameworks */,
 				BC676C9118B28A1000A46750 /* MapKit.framework in Frameworks */,
 				43CD5EE741C74DF98367930C /* libPods.a in Frameworks */,
 			);
@@ -198,10 +206,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BC16623418B663D4003FA77A /* Products */ = {
+		BC066EF918F637A300F96604 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				BC16623A18B663D4003FA77A /* libCorePlot-CocoaTouch.a */,
+				BC0A377118C8FE4000566D5D /* BHBuilding.h */,
+				BC0A377218C8FE4000566D5D /* BHBuilding.m */,
+				BC0A377618C8FE5400566D5D /* BHLocation.h */,
+				BC0A377718C8FE5400566D5D /* BHLocation.m */,
+				BCF24B5F18CB6D35006BA03A /* BHLocationStat.h */,
+				BCF24B6018CB6D35006BA03A /* BHLocationStat.m */,
+				BC86AC8818EBAD88001068B0 /* BHLocationHourlyStat.h */,
+				BC86AC8918EBAD88001068B0 /* BHLocationHourlyStat.m */,
+				BC70B83318E73DB400B4F33E /* BHDailyStat.h */,
+				BC70B83418E73DB400B4F33E /* BHDailyStat.m */,
+				BC70B83818E73DFD00B4F33E /* BHHourlyStat.h */,
+				BC70B83918E73DFD00B4F33E /* BHHourlyStat.m */,
+				BC066EFA18F637CA00F96604 /* BHQueueRequest.h */,
+				BC066EFB18F637CA00F96604 /* BHQueueRequest.m */,
+				BC066EFD18F6382E00F96604 /* BHQueueResponse.h */,
+				BC066EFE18F6382E00F96604 /* BHQueueResponse.m */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		BC066F0018F6418900F96604 /* JDStatusBarNotification */ = {
+			isa = PBXGroup;
+			children = (
+				BC066F0118F6418900F96604 /* JDStatusBarNotification.h */,
+				BC066F0218F6418900F96604 /* JDStatusBarNotification.m */,
+				BC066F0318F6418900F96604 /* JDStatusBarStyle.h */,
+				BC066F0418F6418900F96604 /* JDStatusBarStyle.m */,
+				BC066F0518F6418900F96604 /* JDStatusBarView.h */,
+				BC066F0618F6418900F96604 /* JDStatusBarView.m */,
+			);
+			path = JDStatusBarNotification;
+			sourceTree = "<group>";
+		};
+		BC3CAAC018F7183C003FF73B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BC3CAAC618F7183C003FF73B /* libCorePlot-CocoaTouch.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -210,7 +254,6 @@
 			isa = PBXGroup;
 			children = (
 				BCD05DC118B6D94A005077AA /* Starter Files */,
-				BC16623318B663D4003FA77A /* CorePlot-CocoaTouch.xcodeproj */,
 				BC676C5518B2881800A46750 /* BeeHive */,
 				BC676C7A18B2881900A46750 /* BeeHiveTests */,
 				BC676C4E18B2881800A46750 /* Frameworks */,
@@ -253,10 +296,11 @@
 		BC676C5518B2881800A46750 /* BeeHive */ = {
 			isa = PBXGroup;
 			children = (
+				BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */,
 				BC620D9718D28B7100D409A2 /* SDWebImage.framework */,
 				BCAD56B918CA82C7009436B8 /* ODRefreshControl */,
-				BC676C8A18B2893B00A46750 /* BHMapViewController.h */,
-				BC676C8B18B2893B00A46750 /* BHMapViewController.m */,
+				BC066F0018F6418900F96604 /* JDStatusBarNotification */,
+				BC066EF918F637A300F96604 /* models */,
 				BC6AA28818BDA190004674F2 /* BHBuildingAnnotation.h */,
 				BC6AA28918BDA190004674F2 /* BHBuildingAnnotation.m */,
 				BCAD56BF18CADD90009436B8 /* BHLocationAnnotation.h */,
@@ -265,6 +309,8 @@
 				BC83438618F485F20023BC9B /* BHLocationAnnotationView.m */,
 				BCB30E6418B3CEF6009A3669 /* BHListViewController.h */,
 				BCB30E6518B3CEF6009A3669 /* BHListViewController.m */,
+				BC676C8A18B2893B00A46750 /* BHMapViewController.h */,
+				BC676C8B18B2893B00A46750 /* BHMapViewController.m */,
 				BC620D9D18D28D6000D409A2 /* BHLocationTableViewCell.h */,
 				BC620D9E18D28D6000D409A2 /* BHLocationTableViewCell.m */,
 				BC74DD8918CF82D6002359B7 /* BHLocationDetailViewController.h */,
@@ -273,18 +319,6 @@
 				BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */,
 				BCAD56A718CA50AE009436B8 /* BHDataController.h */,
 				BCAD56A818CA50AE009436B8 /* BHDataController.m */,
-				BC0A377118C8FE4000566D5D /* BHBuilding.h */,
-				BC0A377218C8FE4000566D5D /* BHBuilding.m */,
-				BC0A377618C8FE5400566D5D /* BHLocation.h */,
-				BC0A377718C8FE5400566D5D /* BHLocation.m */,
-				BCF24B5F18CB6D35006BA03A /* BHLocationStat.h */,
-				BCF24B6018CB6D35006BA03A /* BHLocationStat.m */,
-				BC86AC8818EBAD88001068B0 /* BHLocationHourlyStat.h */,
-				BC86AC8918EBAD88001068B0 /* BHLocationHourlyStat.m */,
-				BC70B83318E73DB400B4F33E /* BHDailyStat.h */,
-				BC70B83418E73DB400B4F33E /* BHDailyStat.m */,
-				BC70B83818E73DFD00B4F33E /* BHHourlyStat.h */,
-				BC70B83918E73DFD00B4F33E /* BHHourlyStat.m */,
 				BC676C5E18B2881800A46750 /* BHAppDelegate.h */,
 				BC676C5F18B2881800A46750 /* BHAppDelegate.m */,
 				BC676C6118B2881800A46750 /* Main_iPhone.storyboard */,
@@ -367,7 +401,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				BC16623C18B664E0003FA77A /* PBXTargetDependency */,
 			);
 			name = BeeHive;
 			productName = BeeHive;
@@ -420,8 +453,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = BC16623418B663D4003FA77A /* Products */;
-					ProjectRef = BC16623318B663D4003FA77A /* CorePlot-CocoaTouch.xcodeproj */;
+					ProductGroup = BC3CAAC018F7183C003FF73B /* Products */;
+					ProjectRef = BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -433,11 +466,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		BC16623A18B663D4003FA77A /* libCorePlot-CocoaTouch.a */ = {
+		BC3CAAC618F7183C003FF73B /* libCorePlot-CocoaTouch.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = BC16623918B663D4003FA77A /* PBXContainerItemProxy */;
+			remoteRef = BC3CAAC518F7183C003FF73B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -510,23 +543,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC70B83A18E73DFD00B4F33E /* BHHourlyStat.m in Sources */,
+				BC066EFC18F637CA00F96604 /* BHQueueRequest.m in Sources */,
 				BC70B83518E73DB400B4F33E /* BHDailyStat.m in Sources */,
 				BC676C6018B2881800A46750 /* BHAppDelegate.m in Sources */,
 				BC86AC8A18EBAD88001068B0 /* BHLocationHourlyStat.m in Sources */,
 				BC74DD9018CF84B0002359B7 /* BHContributionViewController.m in Sources */,
 				BC74DD8B18CF82D6002359B7 /* BHLocationDetailViewController.m in Sources */,
 				BC0A377818C8FE5400566D5D /* BHLocation.m in Sources */,
+				BC066EFF18F6382E00F96604 /* BHQueueResponse.m in Sources */,
 				BC676C5C18B2881800A46750 /* main.m in Sources */,
 				BCAD56A918CA50AE009436B8 /* BHDataController.m in Sources */,
+				BC066F0718F6418A00F96604 /* JDStatusBarNotification.m in Sources */,
 				BCD05DC718B6D94A005077AA /* CPDStockPriceStore.m in Sources */,
 				BCF24B6118CB6D35006BA03A /* BHLocationStat.m in Sources */,
 				BCB30E6618B3CEF6009A3669 /* BHListViewController.m in Sources */,
 				BCAD56BC18CA82C7009436B8 /* ODRefreshControl.m in Sources */,
+				BC066F0918F6418A00F96604 /* JDStatusBarView.m in Sources */,
 				BC620D9F18D28D6000D409A2 /* BHLocationTableViewCell.m in Sources */,
 				BC676C8C18B2893B00A46750 /* BHMapViewController.m in Sources */,
 				BCAD56C118CADD90009436B8 /* BHLocationAnnotation.m in Sources */,
 				BC0A377318C8FE4000566D5D /* BHBuilding.m in Sources */,
 				BCD05DC618B6D94A005077AA /* CPDConstants.m in Sources */,
+				BC066F0818F6418A00F96604 /* JDStatusBarStyle.m in Sources */,
 				BC83438718F485F20023BC9B /* BHLocationAnnotationView.m in Sources */,
 				BC6AA28A18BDA190004674F2 /* BHBuildingAnnotation.m in Sources */,
 			);
@@ -543,11 +581,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		BC16623C18B664E0003FA77A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "CorePlot-CocoaTouch";
-			targetProxy = BC16623B18B664E0003FA77A /* PBXContainerItemProxy */;
-		};
 		BC676C7918B2881900A46750 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BC676C4B18B2881800A46750 /* BeeHive */;

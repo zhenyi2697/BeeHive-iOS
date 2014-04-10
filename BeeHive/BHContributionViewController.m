@@ -7,6 +7,8 @@
 //
 
 #import "BHContributionViewController.h"
+#import "BHDataController.h"
+#include "JDStatusBarNotification.h"
 
 @interface BHContributionViewController ()
 @property (nonatomic, strong) NSIndexPath *checkmarkedIndexPath;
@@ -17,6 +19,7 @@
 @implementation BHContributionViewController
 
 @synthesize checkmarkedIndexPath = _checkmarkedIndexPath;
+@synthesize location = _location;
 
 -(NSIndexPath *)checkmarkedIndexPath
 {
@@ -39,7 +42,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.navigationItem.title = self.location.name;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,7 +98,21 @@
 }
 */
 
+
 - (IBAction)saveContribution:(id)sender {
+    
+    [JDStatusBarNotification showActivityIndicator:YES indicatorStyle:UIActivityIndicatorViewStyleGray];
+    [JDStatusBarNotification showWithStatus:@"Sending queue information ..." styleName:JDStatusBarStyleDefault];
+    
+    BHDataController *dataController = [BHDataController sharedDataController];
+    [dataController postQueueLength:[NSString stringWithFormat:@"%d", self.checkmarkedIndexPath.row] forLocation:self.location.locId];
+    
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)cancelContribution:(id)sender {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 @end

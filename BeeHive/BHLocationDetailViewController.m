@@ -12,6 +12,7 @@
 #import "BHLocation.h"
 #import "BHDailyStat.h"
 #import "BHHourlyStat.h"
+#import "BHContributionViewController.h"
 
 @interface BHLocationDetailViewController ()
 - (IBAction)contribute:(UIBarButtonItem *)sender;
@@ -109,9 +110,7 @@ CGFloat const CPDBarInitialX = 0.25f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    UILabel *titleLabel = [[UILabel alloc] init];
-//    titleLabel.text = self.location.name;
-//    self.navigationController.navigationItem.titleView = titleLabel;
+
     self.navigationItem.title = self.location.name;
     
     // set location image and stat
@@ -594,6 +593,15 @@ CGFloat const CPDBarInitialX = 0.25f;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showContributionView"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        BHContributionViewController *contribViewController = [[navigationController viewControllers] objectAtIndex:0];
+        contribViewController.location = self.location;
+    }
 }
 
 

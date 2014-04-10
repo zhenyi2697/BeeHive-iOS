@@ -373,7 +373,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Contribution" id="NXk-6e-HXr">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="1I0-A9-ksf">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="VDx-Zg-92j">
+                            <connections>
+                                <action selector="cancelContribution:" destination="gor-y4-WpR" id="YiL-47-AOY"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="1I0-A9-ksf">
                             <connections>
                                 <action selector="saveContribution:" destination="gor-y4-WpR" id="68t-2Z-A54"/>
                             </connections>

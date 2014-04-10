@@ -195,7 +195,7 @@
     }
     cell.textLabel.textColor = titleColor;
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% Qu: %@. Go: %@", locStat.occupancyPercent, locStat.queue, locStat.bestTime];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% Qu: %@ Go: %@", locStat.occupancyPercent, locStat.queue, locStat.bestTime];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
     
     // Using SDWebImage to load image

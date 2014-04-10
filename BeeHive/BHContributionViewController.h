@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BHLocation.h"
 
 @interface BHContributionViewController : UITableViewController
+
+@property (nonatomic, strong) BHLocation *location;
 
 @end

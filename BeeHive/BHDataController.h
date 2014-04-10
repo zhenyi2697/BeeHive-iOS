@@ -24,5 +24,6 @@
 -(void)fetchLocationStatForViewController:(UIViewController *)viewController;
 -(void)fetchStatForLocation:(BHLocationDetailViewController *)locationDetailViewController;
 -(void)fetchAllLocationHourlyStats;
+-(void)postQueueLength:(NSString *)length forLocation:(NSString *)locationId;
 
 @end

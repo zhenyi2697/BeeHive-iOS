@@ -17,6 +17,9 @@
 #import "BHDailyStat.h"
 #import "BHHourlyStat.h"
 #import "BHLocationHourlyStat.h"
+#import "BHQueueRequest.h"
+#import "BHQueueResponse.h"
+#import "JDStatusBarNotification.h"
 
 @implementation BHDataController
 
@@ -364,6 +367,45 @@
     
     [operation start];
 
+}
+
+-(void)postQueueLength:(NSString *)length forLocation:(NSString *)locationId
+{
+    // Daily stat mapping
+    RKObjectMapping *queueRequestMapping = [RKObjectMapping mappingForClass:[BHQueueRequest class]];
+    [queueRequestMapping addAttributeMappingsFromDictionary:@{
+                                                     @"id_location" : @"locId",
+                                                     @"reported": @"queueLengthId"
+                                                     }];
+    
+    RKObjectMapping *queueResponseMapping = [RKObjectMapping mappingForClass:[BHQueueResponse class]];
+    [queueResponseMapping addAttributeMappingsFromDictionary:@{
+                                                              @"success" : @"result",
+                                                              }];
+    
+    RKRequestDescriptor *requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:[queueRequestMapping inverseMapping] objectClass:[BHQueueRequest class] rootKeyPath:nil  method:RKRequestMethodAny];
+    
+    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:queueResponseMapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
+    
+    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk"];
+    RKObjectManager *manager  = [RKObjectManager managerWithBaseURL:url];
+    [manager addRequestDescriptor:requestDescriptor];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    BHQueueRequest *request = [[BHQueueRequest alloc] init];
+    request.locId = locationId;
+    request.queueLengthId = length;
+    
+    [manager postObject:request path:@"/queue" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        NSLog(@"%@", result);
+        [JDStatusBarNotification showWithStatus:@"Queue information sent !"];
+        [JDStatusBarNotification showActivityIndicator:NO indicatorStyle:UIActivityIndicatorViewStyleGray];
+        [JDStatusBarNotification dismissAfter:2];
+        
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"Error");
+    }];
+    
 }
 
 @end
