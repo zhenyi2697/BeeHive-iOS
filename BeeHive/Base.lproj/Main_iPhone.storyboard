@@ -59,6 +59,7 @@
                         <outlet property="locationSearchBar" destination="e8F-W7-TY7" id="jre-kX-tIS"/>
                         <outlet property="mapView" destination="teJ-3n-Hsi" id="u7e-v9-33J"/>
                         <outlet property="refreshButton" destination="s7p-hX-oIP" id="l2x-vr-Ayk"/>
+                        <outlet property="searchBar" destination="e8F-W7-TY7" id="M4Y-6w-uum"/>
                         <segue destination="rcr-x4-Ep4" kind="push" identifier="showLocationDetailFromMapView" id="xdo-ga-tkr"/>
                     </connections>
                 </viewController>
@@ -410,6 +411,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="DtF-5X-fBy"/>
+        <segue reference="xdo-ga-tkr"/>
     </inferredMetricsTieBreakers>
 </document>

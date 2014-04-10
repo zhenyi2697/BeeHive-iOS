@@ -13,7 +13,9 @@
 @property (nonatomic,strong) NSArray *annotations;  // of id <MKAnnotation>
 @property (nonatomic,strong) NSArray *locationAnnotations;  // of BHLocationAnnotation
 @property (nonatomic,strong) NSArray *buildingAnnotations;  // of BHBuildingAnnotation
+@property (nonatomic,strong) NSMutableArray *filteredAnnotations;  //filtered location annotations
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 - (IBAction)refreshMap:(UIBarButtonItem *)sender;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end

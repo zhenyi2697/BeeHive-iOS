@@ -19,6 +19,7 @@
 @interface BHMapViewController () <MKMapViewDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic) BOOL isInLocationMode;
+@property (nonatomic) BOOL isInSearchMode;
 @property (strong, nonatomic) BHBuildingAnnotation *selectedAnnotation;
 @property (strong, nonatomic) BHLocationAnnotation *selectedLocationAnnotation;
 - (IBAction)searchLocation:(id)sender;
@@ -26,10 +27,19 @@
 @end
 
 @implementation BHMapViewController
-@synthesize mapView = _mapView, annotations = _annotations, locationAnnotations = _locationAnnotations, buildingAnnotations = _buildingAnnotations;
+@synthesize mapView = _mapView, annotations = _annotations, locationAnnotations = _locationAnnotations, buildingAnnotations = _buildingAnnotations, filteredAnnotations = _filteredAnnotations;
 @synthesize isInLocationMode =_isInLocationMode;
 @synthesize refreshButton = _refreshButton;
 @synthesize selectedAnnotation = _selectedAnnotation, selectedLocationAnnotation = _selectedLocationAnnotation;
+@synthesize searchBar = _searchBar;
+
+-(NSMutableArray *)filteredAnnotations
+{
+    if (!_filteredAnnotations) {
+        _filteredAnnotations = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _filteredAnnotations;
+}
 
 //以下几个方法一般都要写
 -(void)updateMapView
@@ -102,7 +112,7 @@
                          span.longitudeDelta = 0.02;
                          region.span=span;
                          CLLocationCoordinate2D centerLocation;
-                         centerLocation.latitude = 33.777179;
+                         centerLocation.latitude = 33.774179;
                          centerLocation.longitude = -84.398027;
                          region.center= centerLocation;
                          [self.mapView setCenterCoordinate:centerLocation animated:YES];
@@ -141,7 +151,6 @@
         [aView.rightCalloutAccessoryView addSubview:showDetailButton];
         [showDetailButton addTarget:self action:@selector(showLocationsForBuilding) forControlEvents:UIControlEventTouchUpInside];
         
-//        aView.image = [UIImage imageNamed:@"pin.jpg"];
         aView.image = [UIImage imageNamed:@"pin_orange_small.png"];
         aView.calloutOffset = CGPointMake(0, 0);
 
@@ -219,17 +228,23 @@
 
     double spanDelta = mapView.region.span.latitudeDelta;
     
+    // not in search mode
     if (spanDelta < 0.01) {
         if (!self.isInLocationMode) {
-            [self showLocationAnnotations];
+            if (!self.isInSearchMode) {
+                [self showLocationAnnotations];
+            }
         }
         self.isInLocationMode = YES;
     } else {
         if (self.isInLocationMode) {
-            [self showBuildingAnnotations];
+            if (!self.isInSearchMode) {
+                [self showBuildingAnnotations];
+            }
         }
         self.isInLocationMode = NO;
     }
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -324,14 +339,26 @@
 
 //Method to handle the UISearchBar "Search"
 
+-(void)exitedSearchMode
+{
+    self.isInSearchMode = NO;
+    if (self.isInLocationMode) {
+        [self showLocationAnnotations];
+    } else {
+        [self showBuildingAnnotations];
+    }
+}
+
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
+    [self exitedSearchMode];
 }
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [searchBar setShowsCancelButton:YES animated:YES];
+    self.isInSearchMode = YES;
 }
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
@@ -339,14 +366,41 @@
     [searchBar setShowsCancelButton:NO animated:YES];
 }
 
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
+    [self.filteredAnnotations removeAllObjects];
+
+    for (BHLocationAnnotation *anno in self.locationAnnotations) {
+        if ([anno.location.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
+            [self.filteredAnnotations addObject:anno];
+        }
+    }
+    self.annotations = self.filteredAnnotations;
+}
+
 -(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     //Hide the keyboard.
     [searchBar resignFirstResponder];
-    BHDataController *dataController = [BHDataController sharedDataController];
-    NSArray *locationList = dataController.locationList;
+    self.isInSearchMode = YES;
+}
+
+
+// When not click on the keyboard area, hide the keyboard
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    NSLog(@"%@", searchBar.text);
+    UITouch *touch = [[event allTouches] anyObject];
+    
+    if (![[touch view] isKindOfClass:[UITextField class]]) {
+        [self.view endEditing:YES];
+        if ([self.searchBar.text isEqual:@""]) {
+            [self exitedSearchMode];
+        } else {
+            // still in search mode
+        }
+        
+    }
+    [super touchesBegan:touches withEvent:event];
 }
 
 @end

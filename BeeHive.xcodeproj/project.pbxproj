@@ -44,7 +44,6 @@
 		BC74DD9018CF84B0002359B7 /* BHContributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */; };
 		BC7C177218F4D8E500DF1ACA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BC7C177118F4D8E500DF1ACA /* Default.png */; };
 		BC83438718F485F20023BC9B /* BHLocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC83438618F485F20023BC9B /* BHLocationAnnotationView.m */; };
-		BC83438D18F496610023BC9B /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = BC83438C18F496610023BC9B /* pin.png */; };
 		BC83438F18F49B240023BC9B /* pin_orange_small.png in Resources */ = {isa = PBXBuildFile; fileRef = BC83438E18F49B240023BC9B /* pin_orange_small.png */; };
 		BC86AC8A18EBAD88001068B0 /* BHLocationHourlyStat.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86AC8918EBAD88001068B0 /* BHLocationHourlyStat.m */; };
 		BCAD56A918CA50AE009436B8 /* BHDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAD56A818CA50AE009436B8 /* BHDataController.m */; };
@@ -139,7 +138,6 @@
 		BC7C177118F4D8E500DF1ACA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BC83438518F485F20023BC9B /* BHLocationAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationAnnotationView.h; sourceTree = "<group>"; };
 		BC83438618F485F20023BC9B /* BHLocationAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationAnnotationView.m; sourceTree = "<group>"; };
-		BC83438C18F496610023BC9B /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		BC83438E18F49B240023BC9B /* pin_orange_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_orange_small.png; sourceTree = "<group>"; };
 		BC86AC8818EBAD88001068B0 /* BHLocationHourlyStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationHourlyStat.h; sourceTree = "<group>"; };
 		BC86AC8918EBAD88001068B0 /* BHLocationHourlyStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationHourlyStat.m; sourceTree = "<group>"; };
@@ -302,7 +300,6 @@
 			children = (
 				BC7C177118F4D8E500DF1ACA /* Default.png */,
 				BC83438E18F49B240023BC9B /* pin_orange_small.png */,
-				BC83438C18F496610023BC9B /* pin.png */,
 				BCAD56B618CA5982009436B8 /* list-star.png */,
 				BCAD56B418CA5952009436B8 /* map-paper.png */,
 				BC6AA28F18BDAC75004674F2 /* disclosure.png */,
@@ -454,7 +451,6 @@
 				BC83438F18F49B240023BC9B /* pin_orange_small.png in Resources */,
 				BC676C9318B28AC600A46750 /* beehive_icon.png in Resources */,
 				BC6AA29018BDAC75004674F2 /* disclosure.png in Resources */,
-				BC83438D18F496610023BC9B /* pin.png in Resources */,
 				BC676C6618B2881800A46750 /* Main_iPad.storyboard in Resources */,
 				BCAD56B718CA5982009436B8 /* list-star.png in Resources */,
 				BC7C177218F4D8E500DF1ACA /* Default.png in Resources */,
