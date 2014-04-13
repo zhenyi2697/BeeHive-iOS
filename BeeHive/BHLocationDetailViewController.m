@@ -78,7 +78,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     // get current day number
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
-    int weekday = [comps weekday];
+    int weekday = (int)[comps weekday];
     weekday = (weekday + 5) % 7;
     
     return weekday;
@@ -130,20 +130,17 @@ CGFloat const CPDBarInitialX = 0.25f;
     
     // Determine label color
     UIColor *titleColor;
-    int percentage = [self.locationStat.occupancyPercent integerValue];
-    int lowThreshold = [self.locationStat.thresholdMin integerValue];
-    int highThreshold = [self.locationStat.thresholdMax integerValue];
+    int percentage = (int)[self.locationStat.occupancyPercent integerValue];
+    int lowThreshold = (int)[self.locationStat.thresholdMin integerValue];
+    int highThreshold = (int)[self.locationStat.thresholdMax integerValue];
     if (percentage <= lowThreshold) {
-//        titleColor = [UIColor greenColor];
-//        titleColor = [UIColor colorWithRed:0 green:150 blue:0 alpha:1]; //green
+        titleColor = [UIColor colorWithRed:0 green:150 blue:0 alpha:1]; //green
     } else if(percentage > lowThreshold && percentage < highThreshold) {
         titleColor =[UIColor orangeColor];
     } else {
-//        titleColor = [UIColor redColor];
         titleColor = [UIColor colorWithRed:180 green:0 blue:0 alpha:1]; //red
     }
     self.occupancyLabel.textColor = titleColor;
-
 }
 
 #pragma mark - UIViewController lifecycle methods
@@ -497,7 +494,7 @@ CGFloat const CPDBarInitialX = 0.25f;
         if ((fieldEnum == CPTBarPlotFieldBarTip) && (index < [self.weeklyStat count])) {
             if ([plot.identifier isEqual:CPDTickerSymbolGOOG]) {
                 BHDailyStat *dayStat = [self.weeklyStat objectAtIndex:index];
-                return [NSNumber numberWithInt:[dayStat.clients integerValue]];
+                return [NSNumber numberWithInt:(int)[dayStat.clients integerValue]];
                 //                return [NSNumber numberWithUnsignedInteger:index*10];
             }
         }
@@ -517,7 +514,7 @@ CGFloat const CPDBarInitialX = 0.25f;
             case CPTScatterPlotFieldY:
                 if ([plot.identifier isEqual:CPDTickerSymbolGOOG] == YES) {
                     BHHourlyStat *hourlyStat = [dailyStat.hours objectAtIndex:index]; // get day stat instance
-                    return [NSNumber numberWithInt:[hourlyStat.clients integerValue]];
+                    return [NSNumber numberWithInt:(int)[hourlyStat.clients integerValue]];
                 }
                 break;
         }
@@ -580,8 +577,8 @@ CGFloat const CPDBarInitialX = 0.25f;
     [plot.graph.plotAreaFrame.plotArea addAnnotation:self.priceAnnotation];
     
     // 9 - reload data for hourly stat
-    self.selectedDayIndex = index;
-    [self initHourlyStatPlotForDay:index];
+    self.selectedDayIndex = (int)index;
+    [self initHourlyStatPlotForDay:(int)index];
 //    [self.hourlyPlot reloadData];
 
 }
@@ -601,6 +598,7 @@ CGFloat const CPDBarInitialX = 0.25f;
         UINavigationController *navigationController = [segue destinationViewController];
         BHContributionViewController *contribViewController = [[navigationController viewControllers] objectAtIndex:0];
         contribViewController.location = self.location;
+        contribViewController.locationStat = self.locationStat;
     }
 }
 

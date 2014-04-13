@@ -62,6 +62,7 @@
 		BCB30E6618B3CEF6009A3669 /* BHListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB30E6518B3CEF6009A3669 /* BHListViewController.m */; };
 		BCD05DC618B6D94A005077AA /* CPDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD05DC318B6D94A005077AA /* CPDConstants.m */; };
 		BCD05DC718B6D94A005077AA /* CPDStockPriceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD05DC518B6D94A005077AA /* CPDStockPriceStore.m */; };
+		BCE6326B18F79AA20031ADB6 /* pin_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = BCE6326A18F79AA20031ADB6 /* pin_orange.png */; };
 		BCF24B6118CB6D35006BA03A /* BHLocationStat.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF24B6018CB6D35006BA03A /* BHLocationStat.m */; };
 /* End PBXBuildFile section */
 
@@ -166,6 +167,7 @@
 		BCD05DC318B6D94A005077AA /* CPDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDConstants.m; sourceTree = "<group>"; };
 		BCD05DC418B6D94A005077AA /* CPDStockPriceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDStockPriceStore.h; sourceTree = "<group>"; };
 		BCD05DC518B6D94A005077AA /* CPDStockPriceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDStockPriceStore.m; sourceTree = "<group>"; };
+		BCE6326A18F79AA20031ADB6 /* pin_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_orange.png; sourceTree = "<group>"; };
 		BCF24B5F18CB6D35006BA03A /* BHLocationStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationStat.h; sourceTree = "<group>"; };
 		BCF24B6018CB6D35006BA03A /* BHLocationStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationStat.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -334,6 +336,7 @@
 			children = (
 				BC7C177118F4D8E500DF1ACA /* Default.png */,
 				BC83438E18F49B240023BC9B /* pin_orange_small.png */,
+				BCE6326A18F79AA20031ADB6 /* pin_orange.png */,
 				BCAD56B618CA5982009436B8 /* list-star.png */,
 				BCAD56B418CA5952009436B8 /* map-paper.png */,
 				BC6AA28F18BDAC75004674F2 /* disclosure.png */,
@@ -487,6 +490,7 @@
 				BC676C6618B2881800A46750 /* Main_iPad.storyboard in Resources */,
 				BCAD56B718CA5982009436B8 /* list-star.png in Resources */,
 				BC7C177218F4D8E500DF1ACA /* Default.png in Resources */,
+				BCE6326B18F79AA20031ADB6 /* pin_orange.png in Resources */,
 				BCAD56B518CA5952009436B8 /* map-paper.png in Resources */,
 				BC676C6E18B2881900A46750 /* Images.xcassets in Resources */,
 				BC676C6318B2881800A46750 /* Main_iPhone.storyboard in Resources */,

@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BHLocation.h"
+#import "BHLocationStat.h"
 
 @interface BHContributionViewController : UITableViewController
 
 @property (nonatomic, strong) BHLocation *location;
-
+@property (strong, nonatomic) BHLocationStat *locationStat;
 @end

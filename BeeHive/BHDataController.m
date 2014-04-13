@@ -21,6 +21,8 @@
 #import "BHQueueResponse.h"
 #import "JDStatusBarNotification.h"
 
+#define BASE_URL @"http://api.letsbeehive.tk"
+
 @implementation BHDataController
 
 @synthesize buildingList = _buildingList, locationList = _locationList;
@@ -83,7 +85,8 @@
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/static"];
+    NSString *urlString = [NSString stringWithFormat:@"%@/static", BASE_URL];
+    NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
@@ -188,7 +191,8 @@
     [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/html"];
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:locationMapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/dynamic/now"];
+    NSString *urlString = [NSString stringWithFormat:@"%@/dynamic/now", BASE_URL];
+    NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
@@ -216,16 +220,16 @@
         
     }failure:^(RKObjectRequestOperation *operation, NSError *error) {
         
-        NSLog(@"Failed with error: %@", [error localizedDescription]);
+        NSLog(@"Failed with error: %@ silently", [error localizedDescription]);
         
         self.connectionLost = YES;
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
-                                                        message:@"You must be connected to the internet to use this app."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
+//                                                        message:@"You must be connected to the internet to use this app."
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"OK"
+//                                              otherButtonTitles:nil];
+//        [alert show];
         
         // Reset Refresh Button
         if (isForMapViewController) {
@@ -274,7 +278,8 @@
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:locationMapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk/dynamic/daily"];
+    NSString *urlString = [NSString stringWithFormat:@"%@/dynamic/daily", BASE_URL];
+    NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
@@ -295,12 +300,12 @@
         
         self.connectionLost = YES;
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
-                                                        message:@"You must be connected to the internet to use this app."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
+//                                                        message:@"You must be connected to the internet to use this app."
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"OK"
+//                                              otherButtonTitles:nil];
+//        [alert show];
         
     }];
     
@@ -335,7 +340,7 @@
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:dayMapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"http://api.letsbeehive.tk/dynamic/daily/%@", locationDetailViewController.location.locId];
+    NSString *urlString = [NSString stringWithFormat:@"%@/dynamic/daily/%@", BASE_URL, locationDetailViewController.location.locId];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -356,12 +361,12 @@
         
         self.connectionLost = YES;
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
-                                                        message:@"You must be connected to the internet to use this app."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
+//                                                        message:@"You must be connected to the internet to use this app."
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"OK"
+//                                              otherButtonTitles:nil];
+//        [alert show];
         
     }];
     
@@ -387,7 +392,7 @@
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:queueResponseMapping method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:nil];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.letsbeehive.tk"];
+    NSURL *url = [NSURL URLWithString:BASE_URL];
     RKObjectManager *manager  = [RKObjectManager managerWithBaseURL:url];
     [manager addRequestDescriptor:requestDescriptor];
     [manager addResponseDescriptor:responseDescriptor];
@@ -397,7 +402,6 @@
     request.queueLengthId = length;
     
     [manager postObject:request path:@"/queue" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
-        NSLog(@"%@", result);
         [JDStatusBarNotification showWithStatus:@"Queue information sent !"];
         [JDStatusBarNotification showActivityIndicator:NO indicatorStyle:UIActivityIndicatorViewStyleGray];
         [JDStatusBarNotification dismissAfter:2];

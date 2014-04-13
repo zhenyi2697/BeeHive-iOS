@@ -16,10 +16,13 @@
 //SDWebImage Library
 #import <SDWebImage/UIImageView+WebCache.h>
 
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
 @interface BHMapViewController () <MKMapViewDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic) BOOL isInLocationMode;
 @property (nonatomic) BOOL isInSearchMode;
+@property (nonatomic) BOOL isSearchBarHidden;
 @property (strong, nonatomic) BHBuildingAnnotation *selectedAnnotation;
 @property (strong, nonatomic) BHLocationAnnotation *selectedLocationAnnotation;
 - (IBAction)searchLocation:(id)sender;
@@ -31,7 +34,7 @@
 @synthesize isInLocationMode =_isInLocationMode;
 @synthesize refreshButton = _refreshButton;
 @synthesize selectedAnnotation = _selectedAnnotation, selectedLocationAnnotation = _selectedLocationAnnotation;
-@synthesize searchBar = _searchBar;
+@synthesize searchBar = _searchBar, isSearchBarHidden = _isSearchBarHidden;
 
 -(NSMutableArray *)filteredAnnotations
 {
@@ -150,8 +153,12 @@
         UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [aView.rightCalloutAccessoryView addSubview:showDetailButton];
         [showDetailButton addTarget:self action:@selector(showLocationsForBuilding) forControlEvents:UIControlEventTouchUpInside];
+        if (IS_IPAD) {
+            aView.image = [UIImage imageNamed:@"pin_orange.png"];
+        } else {
+            aView.image = [UIImage imageNamed:@"pin_orange_small.png"];
+        }
         
-        aView.image = [UIImage imageNamed:@"pin_orange_small.png"];
         aView.calloutOffset = CGPointMake(0, 0);
 
         return aView;
@@ -179,7 +186,11 @@
         [showDetailButton addTarget:self action:@selector(showLocationDetailFromMapView) forControlEvents:UIControlEventTouchUpInside];
         
         aView.annotation = annotation;
-        aView.image = [UIImage imageNamed:@"pin_orange_small.png"];
+        if (IS_IPAD) {
+            aView.image = [UIImage imageNamed:@"pin_orange.png"];
+        } else {
+            aView.image = [UIImage imageNamed:@"pin_orange_small.png"];
+        }
         
 //        aView.centerOffset = CGPointMake(0, 15);
         aView.calloutOffset = CGPointMake(0,0);
@@ -260,6 +271,9 @@
 {
     [super viewDidLoad];
     
+    self.locationSearchBar.hidden = YES;
+    self.isSearchBarHidden = YES;
+    
     self.locationSearchBar.delegate = self;
     
     // Update annotations if is not been set
@@ -327,18 +341,18 @@
 }
 
 - (IBAction)searchLocation:(id)sender {
-//    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 320.0, 44.0)];
-//    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
-//    searchBarView.autoresizingMask = 0;
-//    searchBar.delegate = self;
-//    [searchBarView addSubview:searchBar];
-//    self.navigationItem.titleView = searchBarView;
-    
+    if (self.isSearchBarHidden) {
+        self.locationSearchBar.hidden = NO;
+        self.isSearchBarHidden = NO;
+        [self.locationSearchBar becomeFirstResponder];
+    } else {
+        self.locationSearchBar.hidden = YES;
+        self.isSearchBarHidden = YES;
+        [self.locationSearchBar resignFirstResponder];
+    }
 }
 
 //Method to handle the UISearchBar "Search"
-
 -(void)exitedSearchMode
 {
     self.isInSearchMode = NO;
@@ -347,6 +361,8 @@
     } else {
         [self showBuildingAnnotations];
     }
+    self.locationSearchBar.hidden = YES;
+    self.isSearchBarHidden = YES;
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -393,7 +409,7 @@
     
     if (![[touch view] isKindOfClass:[UITextField class]]) {
         [self.view endEditing:YES];
-        if ([self.searchBar.text isEqual:@""]) {
+        if ([self.searchBar.text isEqual:@""] && self.isInSearchMode) {
             [self exitedSearchMode];
         } else {
             // still in search mode

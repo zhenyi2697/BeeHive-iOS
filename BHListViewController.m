@@ -20,6 +20,10 @@
 //SDWebImage Library
 #import <SDWebImage/UIImageView+WebCache.h>
 
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0)
+#define IS_RETINA ([[UIScreen mainScreen] scale] == 2.0)
 
 @implementation BHListViewController
 @synthesize tableView = _tableView;
@@ -63,6 +67,15 @@
 {
     [super viewDidLoad];
     
+//    if (IS_IPAD) {
+//        NSLog(@"is ipad loading");
+//    } else if (IS_IPHONE_5) {
+//        NSLog(@"is iphone5 loading");
+//    } else if (IS_IPHONE) {
+//        NSLog(@"is iphone loading");
+//    }
+    
+    
     [self.locationSearchBar setShowsScopeBar:NO];
     [self.locationSearchBar sizeToFit];
     
@@ -81,8 +94,17 @@
 //    self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=YES;
     
-    // Add a footer so that the tabbar do not cover the tableView bottom
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 152)];
+    // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
+    int footerHeight = 0;
+    if (IS_IPHONE) {
+        footerHeight = 212;
+    } else if ( IS_IPHONE_5) {
+        footerHeight = 0;
+    } else if (IS_IPAD){
+        footerHeight = 0;
+    }
+    
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, footerHeight)];
     footer.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = footer;
 
@@ -181,9 +203,9 @@
     
     // Determine label color
     UIColor *titleColor;
-    int percentage = [locStat.occupancyPercent integerValue];
-    int lowThreshold = [locStat.thresholdMin integerValue];
-    int highThreshold = [locStat.thresholdMax integerValue];
+    int percentage = (int)[locStat.occupancyPercent integerValue];
+    int lowThreshold = (int)[locStat.thresholdMin integerValue];
+    int highThreshold = (int)[locStat.thresholdMax integerValue];
     if (percentage <= lowThreshold) {
 //        titleColor = [UIColor greenColor];
         titleColor = [UIColor colorWithRed:0 green:150 blue:0 alpha:1]; //green
