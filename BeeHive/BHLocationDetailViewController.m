@@ -121,11 +121,8 @@ CGFloat const CPDBarInitialX = 0.25f;
     [self.locationImageView setImageWithURL:[NSURL URLWithString:self.location.photoUrl]
                            placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
     
-//    self.occupancyLabel.text = self.locationStat.occupancyPercent;
-//    self.btgLabel.text = self.locationStat.bestTime;
     self.occupancyLabel.text = [NSString stringWithFormat:@"%@%%", self.locationStat.occupancyPercent];
     self.btgLabel.text = [NSString stringWithFormat:@"%@", self.locationStat.bestTime];
-//    self.queueLabel.text = self.locationStat.queue;
     self.queueLabel.text = self.locationStat.queue;
     
     // Determine label color
@@ -144,7 +141,7 @@ CGFloat const CPDBarInitialX = 0.25f;
 }
 
 #pragma mark - UIViewController lifecycle methods
--(void)viewDidAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // The plot is initialized here, since the view bounds have not transformed for landscape until now
     

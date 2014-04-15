@@ -12,6 +12,7 @@
 
 @interface BHContributionViewController ()
 @property (nonatomic, strong) NSIndexPath *checkmarkedIndexPath;
+@property (nonatomic) int contributedNumber;
 - (IBAction)saveContribution:(id)sender;
 
 @end
@@ -44,6 +45,9 @@
     [super viewDidLoad];
     
     self.navigationItem.title = self.location.name;
+    
+    NSString *savedValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"contributionCounter"];
+    self.contributedNumber = [savedValue integerValue];
     
 }
 
@@ -90,97 +94,189 @@
 -(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section
 {
     if(section == 0) {
-        return 120;
-    } else {
-        return 1;
+        if (IS_IPAD) {
+            return 210;
+        } else {
+            return 120;
+        }
+    } else if(section ==1) {
+        return 30;
     }
+    return 1;
 }
-
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     // create the parent view that will hold header Label
     UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(20,0,300,60)];
     
-    // configure labels
-    UILabel *occupacyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    occupacyLabel.backgroundColor = [UIColor clearColor];
-    occupacyLabel.font = [UIFont systemFontOfSize:15];
-    occupacyLabel.frame = CGRectMake(86,16,85,21);
-    occupacyLabel.textColor = [UIColor blackColor];
-    occupacyLabel.text = @"Occupancy: ";
-    
-    UILabel *occupacyValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    occupacyValueLabel.backgroundColor = [UIColor clearColor];
-    occupacyValueLabel.font = [UIFont systemFontOfSize:14];
-    occupacyValueLabel.frame = CGRectMake(174,17,85,21);
-    occupacyValueLabel.textColor = [UIColor darkGrayColor];
-    occupacyValueLabel.text = [NSString stringWithFormat:@"%@%%", self.locationStat.occupancyPercent];
-    
-    // Determine label color
-    UIColor *titleColor;
-    int percentage = (int)[self.locationStat.occupancyPercent integerValue];
-    int lowThreshold = (int)[self.locationStat.thresholdMin integerValue];
-    int highThreshold = (int)[self.locationStat.thresholdMax integerValue];
-    if (percentage <= lowThreshold) {
-        titleColor = [UIColor colorWithRed:0 green:150 blue:0 alpha:1]; //green
-    } else if(percentage > lowThreshold && percentage < highThreshold) {
-        titleColor =[UIColor orangeColor];
-    } else {
-        titleColor = [UIColor colorWithRed:180 green:0 blue:0 alpha:1]; //red
-    }
-    occupacyValueLabel.textColor = titleColor;
-    
-    
-    UILabel *queueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    queueLabel.backgroundColor = [UIColor clearColor];
-    queueLabel.font = [UIFont systemFontOfSize:15];
-    queueLabel.frame = CGRectMake(86,36,56,21);
-    queueLabel.textColor = [UIColor blackColor];
-    queueLabel.text = @"Queue: ";
-    
-    UILabel *queueValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    queueValueLabel.backgroundColor = [UIColor clearColor];
-    queueValueLabel.font = [UIFont systemFontOfSize:14];
-    queueValueLabel.frame = CGRectMake(145,37,56,21);
-    queueValueLabel.textColor = [UIColor darkGrayColor];
-    queueValueLabel.text = self.locationStat.queue;
-    
-    UILabel *btgLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    btgLabel.backgroundColor = [UIColor clearColor];
-    btgLabel.font = [UIFont systemFontOfSize:15];
-    btgLabel.frame = CGRectMake(86,56,80,21);
-    btgLabel.textColor = [UIColor blackColor];
-    btgLabel.text = @"Best to go: ";
-    
-    UILabel *btgValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    btgValueLabel.backgroundColor = [UIColor clearColor];
-    btgValueLabel.font = [UIFont systemFontOfSize:14];
-    btgValueLabel.frame = CGRectMake(169,57,80,21);
-    btgValueLabel.textColor = [UIColor darkGrayColor];
-    btgValueLabel.text = self.locationStat.bestTime;
+    if (section == 0) {
+        // configure labels
         
-    // create the imageView with the image in it
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16, 60, 60)];
-    [imageView setImageWithURL:[NSURL URLWithString:self.location.photoUrl]
-              placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
+
+        
+        
+        UILabel *occupacyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        occupacyLabel.backgroundColor = [UIColor clearColor];
+        occupacyLabel.textColor = [UIColor blackColor];
+        occupacyLabel.text = @"Occupancy: ";
+        
+        UILabel *occupacyValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        occupacyValueLabel.backgroundColor = [UIColor clearColor];
+        occupacyValueLabel.textColor = [UIColor darkGrayColor];
+        occupacyValueLabel.text = [NSString stringWithFormat:@"%@%%", self.locationStat.occupancyPercent];
+        
+        // Determine label color
+        UIColor *titleColor;
+        int percentage = (int)[self.locationStat.occupancyPercent integerValue];
+        int lowThreshold = (int)[self.locationStat.thresholdMin integerValue];
+        int highThreshold = (int)[self.locationStat.thresholdMax integerValue];
+        if (percentage <= lowThreshold) {
+            titleColor = [UIColor colorWithRed:0 green:150 blue:0 alpha:1]; //green
+        } else if(percentage > lowThreshold && percentage < highThreshold) {
+            titleColor =[UIColor orangeColor];
+        } else {
+            titleColor = [UIColor colorWithRed:180 green:0 blue:0 alpha:1]; //red
+        }
+        occupacyValueLabel.textColor = titleColor;
+        
+        
+        UILabel *queueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        queueLabel.backgroundColor = [UIColor clearColor];
+        queueLabel.textColor = [UIColor blackColor];
+        queueLabel.text = @"Queue: ";
+        
+        UILabel *queueValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        queueValueLabel.backgroundColor = [UIColor clearColor];
+        queueValueLabel.textColor = [UIColor darkGrayColor];
+        queueValueLabel.text = self.locationStat.queue;
+        
+        UILabel *btgLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        btgLabel.backgroundColor = [UIColor clearColor];
+        btgLabel.textColor = [UIColor blackColor];
+        btgLabel.text = @"Best to go: ";
+        
+        UILabel *btgValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        btgValueLabel.backgroundColor = [UIColor clearColor];
+        btgValueLabel.textColor = [UIColor darkGrayColor];
+        btgValueLabel.text = self.locationStat.bestTime;
+        
+        // create the imageView with the image in it
+        UIImageView *imageView;
+        if (IS_IPAD) {
+            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 40, 120, 120)];
+        } else {
+            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16, 60, 60)];
+        }
+        [imageView setImageWithURL:[NSURL URLWithString:self.location.photoUrl]
+                  placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
+        
+        
+        UILabel *questionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        questionLabel.backgroundColor = [UIColor clearColor];
+        questionLabel.textColor = [UIColor blackColor];
+        questionLabel.text = @"How is the place today?";
+        
+        
+        
+        if (IS_IPAD) {
+            
+            occupacyLabel.font = [UIFont systemFontOfSize:18];
+            occupacyLabel.frame = CGRectMake(186,56,110,21);
+            
+            occupacyValueLabel.font = [UIFont systemFontOfSize:17];
+            occupacyValueLabel.frame = CGRectMake(291,58,311,18);
+            
+            queueLabel.font = [UIFont systemFontOfSize:18];
+            queueLabel.frame = CGRectMake(186,87,63,18);
+            
+            queueValueLabel.font = [UIFont systemFontOfSize:17];
+            queueValueLabel.frame = CGRectMake(256,85,399,21);
+            
+            btgLabel.font = [UIFont systemFontOfSize:18];
+            btgLabel.frame = CGRectMake(186,113,89,23);
+            
+            btgValueLabel.font = [UIFont systemFontOfSize:17];
+            btgValueLabel.frame = CGRectMake(283,116,378,18);
+            
+            questionLabel.font = [UIFont italicSystemFontOfSize:19];
+            questionLabel.frame = CGRectMake(16,175,280,25);
+            
+        } else {
+            occupacyLabel.font = [UIFont systemFontOfSize:15];
+            occupacyLabel.frame = CGRectMake(86,16,85,21);
+            
+            occupacyValueLabel.font = [UIFont systemFontOfSize:14];
+            occupacyValueLabel.frame = CGRectMake(174,17,85,21);
+            
+            queueLabel.font = [UIFont systemFontOfSize:15];
+            queueLabel.frame = CGRectMake(86,36,56,21);
+            
+            queueValueLabel.font = [UIFont systemFontOfSize:14];
+            queueValueLabel.frame = CGRectMake(145,37,56,21);
+            
+            btgLabel.font = [UIFont systemFontOfSize:15];
+            btgLabel.frame = CGRectMake(86,56,80,21);
+            
+            btgValueLabel.font = [UIFont systemFontOfSize:14];
+            btgValueLabel.frame = CGRectMake(169,57,80,21);
+            
+            questionLabel.font = [UIFont italicSystemFontOfSize:16];
+            questionLabel.frame = CGRectMake(16,90,280,25);
+        }
+        
+        
+        [customView addSubview:imageView];
+        [customView addSubview:occupacyLabel];
+        [customView addSubview:queueLabel];
+        [customView addSubview:btgLabel];
+        [customView addSubview:occupacyValueLabel];
+        [customView addSubview:queueValueLabel];
+        [customView addSubview:btgValueLabel];
+        [customView addSubview:questionLabel];
+        
+    } else if (section ==1) {
+        
+        UILabel *contributionLabel;
+        
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        CGFloat screenWidth = screenRect.size.width;
+        
+        if (IS_IPAD) {
+            contributionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,screenWidth,20)];
+            contributionLabel.font = [UIFont systemFontOfSize:15];
+        } else {
+            contributionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,screenWidth,20)];
+            contributionLabel.font = [UIFont systemFontOfSize:12];
+        }
+        
+        
+        contributionLabel.textColor = [UIColor blackColor];
+        contributionLabel.textAlignment = NSTextAlignmentCenter;
+        
+        if (self.contributedNumber == 0) {
+            contributionLabel.text = @"You have not yet contributed.";
+        } else if (self.contributedNumber == 1) {
+            contributionLabel.text = @"You have contributed 1 time.";
+        } else {
+            NSString *level;
+            if (self.contributedNumber > 0 && self.contributedNumber < 20 ) {
+                level = @"Larva Jacket";
+            } else if (self.contributedNumber >= 20 && self.contributedNumber < 100) {
+                level = @"Baby Jacket";
+            } else if (self.contributedNumber >= 100 && self.contributedNumber < 500) {
+                level = @"Medium Jacket";
+            } else if (self.contributedNumber >= 500 && self.contributedNumber < 1000) {
+                level = @"King Jacket";
+            } else {
+                level = @"Helluvah Jacket";
+            }
+            contributionLabel.text = [NSString stringWithFormat:@"%@ - You have contributed %d times.", level, self.contributedNumber];
+        }
+        
+        [customView addSubview:contributionLabel];
+    }
     
-    
-    UILabel *questionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    questionLabel.backgroundColor = [UIColor clearColor];
-    questionLabel.font = [UIFont italicSystemFontOfSize:16];
-    questionLabel.frame = CGRectMake(16,90,280,25);
-    questionLabel.textColor = [UIColor blackColor];
-    questionLabel.text = @"How is the place today?";
-    
-    [customView addSubview:imageView];
-    [customView addSubview:occupacyLabel];
-    [customView addSubview:queueLabel];
-    [customView addSubview:btgLabel];
-    [customView addSubview:occupacyValueLabel];
-    [customView addSubview:queueValueLabel];
-    [customView addSubview:btgValueLabel];
-    [customView addSubview:questionLabel];
     
     return customView;
 }
@@ -206,6 +302,10 @@
     
     BHDataController *dataController = [BHDataController sharedDataController];
     [dataController postQueueLength:[NSString stringWithFormat:@"%ld", (long)self.checkmarkedIndexPath.row] forLocation:self.location.locId];
+    
+    NSString *valueToSave = [NSString stringWithFormat:@"%d", self.contributedNumber + 1 ];
+    [[NSUserDefaults standardUserDefaults]
+     setObject:valueToSave forKey:@"contributionCounter"];
     
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }

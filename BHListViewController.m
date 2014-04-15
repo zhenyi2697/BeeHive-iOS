@@ -20,11 +20,6 @@
 //SDWebImage Library
 #import <SDWebImage/UIImageView+WebCache.h>
 
-#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-#define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0)
-#define IS_RETINA ([[UIScreen mainScreen] scale] == 2.0)
-
 @implementation BHListViewController
 @synthesize tableView = _tableView;
 @synthesize refreshControl = _refreshControl;
@@ -96,10 +91,10 @@
     
     // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
     int footerHeight = 0;
-    if (IS_IPHONE) {
+    if (IS_IPHONE_5) {
+        footerHeight = 120;
+    } else if ( IS_IPHONE) {
         footerHeight = 212;
-    } else if ( IS_IPHONE_5) {
-        footerHeight = 0;
     } else if (IS_IPAD){
         footerHeight = 0;
     }
