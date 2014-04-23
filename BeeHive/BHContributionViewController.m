@@ -9,6 +9,7 @@
 #import "BHContributionViewController.h"
 #import "BHDataController.h"
 #include "JDStatusBarNotification.h"
+#import "BHLocationDetailViewController.h"
 
 @interface BHContributionViewController ()
 @property (nonatomic, strong) NSIndexPath *checkmarkedIndexPath;
@@ -113,9 +114,6 @@
     if (section == 0) {
         // configure labels
         
-
-        
-        
         UILabel *occupacyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         occupacyLabel.backgroundColor = [UIColor clearColor];
         occupacyLabel.textColor = [UIColor blackColor];
@@ -144,7 +142,7 @@
         UILabel *queueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         queueLabel.backgroundColor = [UIColor clearColor];
         queueLabel.textColor = [UIColor blackColor];
-        queueLabel.text = @"Queue: ";
+        queueLabel.text = @"Line: ";
         
         UILabel *queueValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         queueValueLabel.backgroundColor = [UIColor clearColor];
@@ -178,7 +176,6 @@
         questionLabel.text = @"How is the place today?";
         
         
-        
         if (IS_IPAD) {
             
             occupacyLabel.font = [UIFont systemFontOfSize:18];
@@ -191,7 +188,7 @@
             queueLabel.frame = CGRectMake(186,87,63,18);
             
             queueValueLabel.font = [UIFont systemFontOfSize:17];
-            queueValueLabel.frame = CGRectMake(256,85,399,21);
+            queueValueLabel.frame = CGRectMake(236,85,399,21);
             
             btgLabel.font = [UIFont systemFontOfSize:18];
             btgLabel.frame = CGRectMake(186,113,89,23);
@@ -213,7 +210,7 @@
             queueLabel.frame = CGRectMake(86,36,56,21);
             
             queueValueLabel.font = [UIFont systemFontOfSize:14];
-            queueValueLabel.frame = CGRectMake(145,37,56,21);
+            queueValueLabel.frame = CGRectMake(125,37,56,21);
             
             btgLabel.font = [UIFont systemFontOfSize:15];
             btgLabel.frame = CGRectMake(86,56,80,21);
@@ -235,7 +232,7 @@
         [customView addSubview:btgValueLabel];
         [customView addSubview:questionLabel];
         
-    } else if (section ==1) {
+    } else if (section == 1) {
         
         UILabel *contributionLabel;
         
@@ -254,25 +251,31 @@
         contributionLabel.textColor = [UIColor blackColor];
         contributionLabel.textAlignment = NSTextAlignmentCenter;
         
-        if (self.contributedNumber == 0) {
-            contributionLabel.text = @"You have not yet contributed.";
-        } else if (self.contributedNumber == 1) {
-            contributionLabel.text = @"You have contributed 1 time.";
+        NSString *level;
+        NSString *contributionText;
+        
+        
+        if (self.contributedNumber > 0 && self.contributedNumber < 20 ) {
+            level = @"Larva Yellow Jacket";
+        } else if (self.contributedNumber >= 20 && self.contributedNumber < 100) {
+            level = @"Baby Yellow Jacket";
+        } else if (self.contributedNumber >= 100 && self.contributedNumber < 500) {
+            level = @"Medium Yellow Jacket";
+        } else if (self.contributedNumber >= 500 && self.contributedNumber < 1000) {
+            level = @"King Yellow Jacket";
         } else {
-            NSString *level;
-            if (self.contributedNumber > 0 && self.contributedNumber < 20 ) {
-                level = @"Larva Jacket";
-            } else if (self.contributedNumber >= 20 && self.contributedNumber < 100) {
-                level = @"Baby Jacket";
-            } else if (self.contributedNumber >= 100 && self.contributedNumber < 500) {
-                level = @"Medium Jacket";
-            } else if (self.contributedNumber >= 500 && self.contributedNumber < 1000) {
-                level = @"King Jacket";
-            } else {
-                level = @"Helluvah Jacket";
-            }
-            contributionLabel.text = [NSString stringWithFormat:@"%@ - You have contributed %d times.", level, self.contributedNumber];
+            level = @"Helluvah Yellow Jacket";
         }
+        
+        if (self.contributedNumber == 0) {
+            contributionText = @"You have not yet contributed.";
+        } else if (self.contributedNumber == 1) {
+            contributionText = @"You have contributed 1 time.";
+        } else {
+            contributionText = [NSString stringWithFormat:@"You have contributed %d times.", self.contributedNumber];
+        }
+        
+        contributionLabel.text = [NSString stringWithFormat:@"%@ - %@", level, contributionText];
         
         [customView addSubview:contributionLabel];
     }
@@ -307,7 +310,30 @@
     [[NSUserDefaults standardUserDefaults]
      setObject:valueToSave forKey:@"contributionCounter"];
     
+    // modify data source to take account the newest changes
+    BHLocationStat *locationStat = [dataController.locationStats objectForKey:self.location.locId];
+    NSString *queueText = nil;
+    switch (self.checkmarkedIndexPath.row) {
+        case 0:
+            queueText = @"closed";
+            break;
+        case 1:
+            queueText = @"short";
+            break;
+        case 2:
+            queueText = @"medium";
+            break;
+        case 3:
+            queueText = @"long";
+            break;
+        default:
+            break;
+    }
+    locationStat.queue = queueText;
+    
+
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (IBAction)cancelContribution:(id)sender {

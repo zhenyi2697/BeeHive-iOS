@@ -216,6 +216,8 @@
         } else {
             [listViewController.tableView reloadData];
             [listViewController.refreshControl endRefreshing];
+            [listViewController.tableView reloadData];
+            listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
         }
         
     }failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -224,16 +226,11 @@
         
         self.connectionLost = YES;
         
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
-//                                                        message:@"You must be connected to the internet to use this app."
-//                                                       delegate:nil
-//                                              cancelButtonTitle:@"OK"
-//                                              otherButtonTitles:nil];
-//        [alert show];
-        
         // Reset Refresh Button
         if (isForMapViewController) {
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
+        } else {
+            listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
         }
         
     }];
@@ -300,13 +297,6 @@
         
         self.connectionLost = YES;
         
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
-//                                                        message:@"You must be connected to the internet to use this app."
-//                                                       delegate:nil
-//                                              cancelButtonTitle:@"OK"
-//                                              otherButtonTitles:nil];
-//        [alert show];
-        
     }];
     
     [operation start];
@@ -360,13 +350,6 @@
         NSLog(@"Failed with error: %@", [error localizedDescription]);
         
         self.connectionLost = YES;
-        
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
-//                                                        message:@"You must be connected to the internet to use this app."
-//                                                       delegate:nil
-//                                              cancelButtonTitle:@"OK"
-//                                              otherButtonTitles:nil];
-//        [alert show];
         
     }];
     

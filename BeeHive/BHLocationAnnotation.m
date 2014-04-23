@@ -35,7 +35,7 @@
     
 //    return self.location.description;
 //    return [NSString stringWithFormat:@"Oc: %@%% Qu: %@ Go: %@", self.locationStat.occupancyPercent, self.locationStat.queue, self.locationStat.bestTime];
-    return [NSString stringWithFormat:@"Oc: %@%% Qu: %@ Go: %@", self.locationStat.occupancyPercent, self.locationStat.queue, self.locationStat.bestTime];
+    return [NSString stringWithFormat:@"Oc: %@%% Li: %@ Go: %@", self.locationStat.occupancyPercent, self.locationStat.queue, self.locationStat.bestTime];
 }
 
 //MKAnnotation protocol 的方法， coordinate的setter

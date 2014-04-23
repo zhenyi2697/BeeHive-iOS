@@ -23,6 +23,11 @@
     UINavigationController *navigationController = [[tabBarController viewControllers] objectAtIndex:0];
     BHMapViewController *mapViewController = [[navigationController viewControllers] objectAtIndex:0];
     
+    // Set up logging level for RestKit
+    RKLogConfigureByName("RestKit", RKLogLevelWarning);
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelWarning);
+    RKLogConfigureByName("RestKit/Network", RKLogLevelWarning);
+    
     //Fetch building List for mapView
     [dataController fetchBuildingsForViewController:mapViewController];
     

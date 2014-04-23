@@ -107,12 +107,8 @@ CGFloat const CPDBarInitialX = 0.25f;
     return self;
 }
 
-- (void)viewDidLoad
+-(void)loadLocationImageAndStat
 {
-    [super viewDidLoad];
-
-    self.navigationItem.title = self.location.name;
-    
     // set location image and stat
     BHDataController *dataController = [BHDataController sharedDataController];
     self.locationStat = [dataController.locationStats objectForKey:self.location.locId];
@@ -140,14 +136,27 @@ CGFloat const CPDBarInitialX = 0.25f;
     self.occupancyLabel.textColor = titleColor;
 }
 
-#pragma mark - UIViewController lifecycle methods
--(void)viewWillAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    // The plot is initialized here, since the view bounds have not transformed for landscape until now
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    self.navigationItem.title = self.location.name;
     
+    [self loadLocationImageAndStat];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
+    [self loadLocationImageAndStat];
+    
+    // The plot is initialized here, since the view bounds have not transformed for landscape until now
     [self initDailyPlot];
     [self initHourlyStatPlotForDay:[self currentWeeday]];
 }
+
 
 #pragma mark - Chart behavior
 -(void)initDailyPlot {
@@ -185,7 +194,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     graph.title = title;
     graph.titleTextStyle = titleStyle;
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
-    graph.titleDisplacement = CGPointMake(-55.0f, 5.0f); // title position
+//    graph.titleDisplacement = CGPointMake(-55.0f, 5.0f); // title position
     
     // 5 - Set up plot space
     CGFloat xMin = -0.3f;
@@ -336,15 +345,15 @@ CGFloat const CPDBarInitialX = 0.25f;
     titleStyle.fontSize = 14.0f;
     graph.titleTextStyle = titleStyle;
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
-    graph.titleDisplacement = CGPointMake(-95.0f, 10.0f);
+//    graph.titleDisplacement = CGPointMake(-95.0f, 10.0f);
     
     // 4 - Set padding for plot area
 //    [graph.plotAreaFrame setPaddingLeft:30.0f];
 //    [graph.plotAreaFrame setPaddingBottom:30.0f];
     
     // 5 - Enable user interactions for plot space
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
-    plotSpace.allowsUserInteraction = YES;
+//    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
+//    plotSpace.allowsUserInteraction = YES;
 }
 
 -(void)configureHourlyStatPlots:(int)dayIndex {
@@ -370,7 +379,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     plotSpace.xRange = xRange;
     
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-    [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.3f)];
+    [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.6f)];
     plotSpace.yRange = yRange;
     
     // 4 - Create styles and symbols

@@ -49,27 +49,9 @@
     return _filteredBuildings;
 }
 
-//- (id)initWithStyle:(UITableViewStyle)style
-//{
-//    self = [super initWithStyle:style];
-//    if (self) {
-//        // Custom initialization
-//    }
-//    return self;
-//}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    if (IS_IPAD) {
-//        NSLog(@"is ipad loading");
-//    } else if (IS_IPHONE_5) {
-//        NSLog(@"is iphone5 loading");
-//    } else if (IS_IPHONE) {
-//        NSLog(@"is iphone loading");
-//    }
-    
     
     [self.locationSearchBar setShowsScopeBar:NO];
     [self.locationSearchBar sizeToFit];
@@ -114,9 +96,15 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    BHDataController *dataController = [BHDataController sharedDataController];
+    [dataController fetchLocationStatForViewController:self];
+}
+
 - (void)viewDidAppear
 {
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -133,7 +121,6 @@
 
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         return [self.filteredBuildings count];
-//        return 1;
     } else {
         BHDataController *sharedDataController = [BHDataController sharedDataController];
         return [sharedDataController.buildingList count];
@@ -194,7 +181,6 @@
     
     BHLocationStat *locStat = [dataController.locationStats objectForKey:loc.locId];
     cell.textLabel.text = loc.name;
-//    cell.textLabel.text = [NSString stringWithFormat:@"%@(%@)", loc.name, locStat.occupancyRaw];
     
     // Determine label color
     UIColor *titleColor;
@@ -212,7 +198,7 @@
     }
     cell.textLabel.textColor = titleColor;
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% Qu: %@ Go: %@", locStat.occupancyPercent, locStat.queue, locStat.bestTime];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% Li: %@ Go: %@", locStat.occupancyPercent, locStat.queue, locStat.bestTime];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
     
     // Using SDWebImage to load image
@@ -258,46 +244,6 @@
     }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 // Refresh when dropping down
 - (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
 {
@@ -311,6 +257,7 @@
     //Fetch locations statistic for mapView
     [dataController fetchLocationStatForViewController:self];
     
+    // mimic the behavior of fectching
     //    double delayInSeconds = 1.5;
     //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     //    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -319,22 +266,37 @@
     //    });
 }
 
+- (IBAction)refreshList:(id)sender {
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinner startAnimating];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+    
+    BHDataController *dataController = [BHDataController sharedDataController];
+    
+    if (dataController.connectionLost) {
+        //Fetch building List for mapView
+        [dataController fetchBuildingsForViewController:self];
+    }
+    
+    //Fetch locations statistic for mapView
+    [dataController fetchLocationStatForViewController:self];
+    
+}
+
+
 // search delegate method
 #pragma mark Content Filtering
 #pragma mark Content Filtering
 -(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
+    
     // Update the filtered array based on the search text and scope.
     // Remove all objects from the filtered search array
     [self.filteredLocations removeAllObjects];
     [self.filteredBuildings removeAllObjects];
     
-    // Filter the array using NSPredicate
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchText];
-    BHDataController *dataController = [BHDataController sharedDataController];
-//
-//    
 
-//    self.filteredLocations = [NSMutableArray arrayWithArray:[locationList filteredArrayUsingPredicate:predicate]];
+    BHDataController *dataController = [BHDataController sharedDataController];
 
     NSArray *buildingList = dataController.buildingList;
     
@@ -387,4 +349,48 @@
 - (IBAction)searchLocation:(id)sender {
     [self.locationSearchBar becomeFirstResponder];
 }
+
+
+
+/*
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
+
+/*
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+
+
 @end
