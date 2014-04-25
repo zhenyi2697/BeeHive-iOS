@@ -219,8 +219,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LVA-kw-JDN" customClass="CPTGraphHostingView">
-                                <rect key="frame" x="0.0" y="152" width="320" height="132"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LVA-kw-JDN" customClass="CPTGraphHostingView">
+                                <rect key="frame" x="0.0" y="152" width="320" height="172"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -267,13 +267,23 @@
                                 <rect key="frame" x="16" y="76" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kuu-xC-fjd" customClass="CPTGraphHostingView">
-                                <rect key="frame" x="0.0" y="288" width="320" height="132"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kuu-xC-fjd" customClass="CPTGraphHostingView">
+                                <rect key="frame" x="0.0" y="332" width="320" height="172"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kuu-xC-fjd" firstAttribute="top" secondItem="LVA-kw-JDN" secondAttribute="bottom" constant="8" id="4mF-9V-E76"/>
+                            <constraint firstAttribute="centerX" secondItem="LVA-kw-JDN" secondAttribute="centerX" id="ALk-j5-fIa"/>
+                            <constraint firstAttribute="width" secondItem="kuu-xC-fjd" secondAttribute="width" id="Hk7-rk-T7A"/>
+                            <constraint firstItem="LVA-kw-JDN" firstAttribute="height" secondItem="kuu-xC-fjd" secondAttribute="height" id="Jde-6u-zU0"/>
+                            <constraint firstItem="LVA-kw-JDN" firstAttribute="top" secondItem="c1L-UU-h55" secondAttribute="bottom" constant="88" id="TMy-DN-QMN"/>
+                            <constraint firstItem="LVA-kw-JDN" firstAttribute="width" secondItem="GGp-bw-DYy" secondAttribute="width" id="U5o-lQ-zGF"/>
+                            <constraint firstAttribute="centerX" secondItem="kuu-xC-fjd" secondAttribute="centerX" id="Wqx-iK-WbV"/>
+                            <constraint firstItem="XxR-Ow-Pty" firstAttribute="top" secondItem="kuu-xC-fjd" secondAttribute="bottom" constant="15" id="zFc-WL-xE4"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Statistics" id="ZDn-1h-7PC">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Xf2-wN-vDA">

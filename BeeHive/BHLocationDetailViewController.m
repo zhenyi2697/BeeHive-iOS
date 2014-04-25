@@ -143,7 +143,11 @@ CGFloat const CPDBarInitialX = 0.25f;
     self.navigationItem.title = self.location.name;
     
     [self loadLocationImageAndStat];
-    
+
+    // init plot
+    [self initDailyPlot];
+    [self initHourlyStatPlotForDay:[self currentWeeday]];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -151,10 +155,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     [super viewDidAppear:animated];
     
     [self loadLocationImageAndStat];
-    
-    // The plot is initialized here, since the view bounds have not transformed for landscape until now
-    [self initDailyPlot];
-    [self initHourlyStatPlotForDay:[self currentWeeday]];
+
 }
 
 
@@ -200,7 +201,11 @@ CGFloat const CPDBarInitialX = 0.25f;
     CGFloat xMin = -0.3f;
     CGFloat xMax = [self.weeklyStat count];
     CGFloat yMin = 0.0f;
-    CGFloat yMax = self.max_clients * 1.4;  // should determine dynamically based on max number of people
+    // should determine dynamically based on max number of people
+    CGFloat yMax = self.max_clients * 1.5;
+    if (IS_IPAD) {
+        yMax = self.max_clients * 1.4;
+    }
     
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(xMin) length:CPTDecimalFromFloat(xMax)];
@@ -369,7 +374,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     self.hourlyPlot.dataSource = self;
     self.hourlyPlot.identifier = CPDTickerSymbolGOOG;
     
-    CPTColor *googColor = [CPTColor greenColor];
+    CPTColor *googColor = [CPTColor orangeColor];
     [graph addPlot:self.hourlyPlot toPlotSpace:plotSpace];
     
     // 3 - Set up plot space
@@ -379,7 +384,12 @@ CGFloat const CPDBarInitialX = 0.25f;
     plotSpace.xRange = xRange;
     
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-    [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.6f)];
+    if (IS_IPAD) {
+        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.5f)];
+    } else {
+        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.6f)];
+    }
+    
     plotSpace.yRange = yRange;
     
     // 4 - Create styles and symbols
@@ -547,10 +557,11 @@ CGFloat const CPDBarInitialX = 0.25f;
     
     // 3 - Create annotation, if necessary
     NSNumber *price = [self numberForPlot:plot field:CPTBarPlotFieldBarTip recordIndex:index];
+
     if (!self.priceAnnotation) {
-        NSNumber *x = [NSNumber numberWithInt:0];
-        NSNumber *y = [NSNumber numberWithInt:0];
-        NSArray *anchorPoint = [NSArray arrayWithObjects:x, y, nil];
+        NSNumber *xx = [NSNumber numberWithInt:0];
+        NSNumber *yy = [NSNumber numberWithInt:0];
+        NSArray *anchorPoint = [NSArray arrayWithObjects:xx, yy, nil];
         self.priceAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:plot.plotSpace anchorPlotPoint:anchorPoint];
     }
     
@@ -562,21 +573,22 @@ CGFloat const CPDBarInitialX = 0.25f;
     }
     
     // 5 - Create text layer for annotation
-//    NSString *priceValue = [formatter stringFromNumber:price];
     NSString *occupancyValue = [NSString stringWithFormat:@"%@%%", price];
     CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:occupancyValue style:style];
     self.priceAnnotation.contentLayer = textLayer;
+    
     // 6 - Get plot index based on identifier
     NSInteger plotIndex = 0;
     if ([plot.identifier isEqual:CPDTickerSymbolGOOG] == YES) {
         plotIndex = 0;
     }
-    
+
     // 7 - Get the anchor point for annotation
     CGFloat x = index + CPDBarInitialX + (plotIndex * CPDBarWidth);
     NSNumber *anchorX = [NSNumber numberWithFloat:x];
     CGFloat y = [price floatValue] + (self.max_clients*1.4)/15;  // control location of annotation
     NSNumber *anchorY = [NSNumber numberWithFloat:y];
+
     self.priceAnnotation.anchorPlotPoint = [NSArray arrayWithObjects:anchorX, anchorY, nil];
     
     // 8 - Add the annotation
@@ -585,7 +597,6 @@ CGFloat const CPDBarInitialX = 0.25f;
     // 9 - reload data for hourly stat
     self.selectedDayIndex = (int)index;
     [self initHourlyStatPlotForDay:(int)index];
-//    [self.hourlyPlot reloadData];
 
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -98,6 +98,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Locations" id="EY6-wB-G60">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="zHC-gy-vR6">
+                            <connections>
+                                <action selector="refreshList:" destination="w94-n0-7CT" id="tue-Sh-T05"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="skl-wb-A08">
                             <connections>
                                 <action selector="searchLocation:" destination="w94-n0-7CT" id="O2f-o8-8WK"/>
@@ -284,7 +289,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Long" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XhO-qa-PIf">
-                                <rect key="frame" x="279" y="146" width="399" height="21"/>
+                                <rect key="frame" x="260" y="148" width="418" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -296,8 +301,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Queue:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWH-gc-233">
-                                <rect key="frame" x="209" y="148" width="63" height="18"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Line:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWH-gc-233">
+                                <rect key="frame" x="209" y="148" width="63" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="highlightedColor"/>
@@ -309,18 +314,28 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N2w-Ri-SaN" customClass="CPTGraphHostingView">
-                                <rect key="frame" x="0.0" y="255" width="768" height="320"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2w-Ri-SaN" customClass="CPTGraphHostingView">
+                                <rect key="frame" x="0.0" y="255" width="768" height="332"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ksV-Nu-xnI" customClass="CPTGraphHostingView">
-                                <rect key="frame" x="0.0" y="603" width="768" height="332"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ksV-Nu-xnI" customClass="CPTGraphHostingView">
+                                <rect key="frame" x="0.0" y="595" width="768" height="332"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="ksV-Nu-xnI" secondAttribute="centerX" id="5Pu-eq-rlQ"/>
+                            <constraint firstItem="MdA-7g-kjG" firstAttribute="top" secondItem="ksV-Nu-xnI" secondAttribute="bottom" constant="48" id="6qb-9l-b9J"/>
+                            <constraint firstItem="N2w-Ri-SaN" firstAttribute="top" secondItem="AtX-z5-guo" secondAttribute="bottom" constant="191" id="Hbo-Lg-GoB"/>
+                            <constraint firstAttribute="width" secondItem="ksV-Nu-xnI" secondAttribute="width" id="O8y-dr-6vx"/>
+                            <constraint firstItem="N2w-Ri-SaN" firstAttribute="height" secondItem="ksV-Nu-xnI" secondAttribute="height" id="Rkb-y4-jxo"/>
+                            <constraint firstAttribute="centerX" secondItem="N2w-Ri-SaN" secondAttribute="centerX" id="VCl-93-cYg"/>
+                            <constraint firstItem="ksV-Nu-xnI" firstAttribute="top" secondItem="N2w-Ri-SaN" secondAttribute="bottom" constant="8" id="jv2-gu-4fL"/>
+                            <constraint firstAttribute="width" secondItem="N2w-Ri-SaN" secondAttribute="width" id="kvf-tt-QiH"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Location detail" id="oNK-pz-zcO">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="W8c-5R-R34">
@@ -387,7 +402,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Campus map" id="8ak-cm-f69">
-                        <barButtonItem key="leftBarButtonItem" title="Refresh" id="Hsf-p9-yf6">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Hsf-p9-yf6">
                             <connections>
                                 <action selector="refreshMap:" destination="uOZ-WK-fOZ" id="xmx-e2-S0D"/>
                             </connections>
@@ -421,6 +436,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ks2-FI-F8C"/>
+        <segue reference="1rB-tr-1K2"/>
     </inferredMetricsTieBreakers>
 </document>
