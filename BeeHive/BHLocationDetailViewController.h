@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *occupancyLabel;
 @property (strong, nonatomic) IBOutlet UILabel *btgLabel;
 @property (strong, nonatomic) IBOutlet UILabel *queueLabel;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 
 -(int)currentWeeday;
 -(void)initDailyPlot;

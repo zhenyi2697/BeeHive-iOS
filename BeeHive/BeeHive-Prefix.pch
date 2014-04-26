@@ -15,6 +15,14 @@
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0)
 #define IS_RETINA ([[UIScreen mainScreen] scale] == 2.0)
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#else
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <CoreServices/CoreServices.h>
+#endif
+
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
@@ -27,3 +35,7 @@
     #import <CoreData/CoreData.h>
     #import <RestKit/RestKit.h>
 #endif
+
+
+// If using Core Data, you may also wish to append
+#import <CoreData/CoreData.h>

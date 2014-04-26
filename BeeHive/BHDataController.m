@@ -19,7 +19,8 @@
 #import "BHLocationHourlyStat.h"
 #import "BHQueueRequest.h"
 #import "BHQueueResponse.h"
-#import "JDStatusBarNotification.h"
+
+#import "TWMessageBarManager.h"
 
 #define BASE_URL @"http://api.letsbeehive.tk"
 
@@ -385,9 +386,10 @@
     request.queueLengthId = length;
     
     [manager postObject:request path:@"/queue" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
-        [JDStatusBarNotification showWithStatus:@"Queue information sent !"];
-        [JDStatusBarNotification showActivityIndicator:NO indicatorStyle:UIActivityIndicatorViewStyleGray];
-        [JDStatusBarNotification dismissAfter:2];
+//        [JDStatusBarNotification showWithStatus:@"Queue information sent !"];
+//        [JDStatusBarNotification showActivityIndicator:NO indicatorStyle:UIActivityIndicatorViewStyleGray];
+//        [JDStatusBarNotification dismissAfter:2];
+
         
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"Error");

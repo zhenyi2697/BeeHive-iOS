@@ -145,7 +145,7 @@
         
         // Using SDWebImage to load image
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
-        [imageView setImageWithURL:[NSURL URLWithString:((BHBuildingAnnotation *)annotation).building.photoUrl] placeholderImage:[UIImage imageNamed:@"beehive_icon.png"]];
+        [imageView setImageWithURL:[NSURL URLWithString:((BHBuildingAnnotation *)annotation).building.photoUrl] placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
         aView.leftCalloutAccessoryView = imageView;
             
         // create right view
@@ -170,15 +170,15 @@
         
 //        // custom annotation view (unuseful...)
 //        BHLocationAnnotationView *locView =[[BHLocationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"LocAnno"];
-//        [locView.annotationImage setImageWithURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl] placeholderImage:[UIImage imageNamed:@"beehive_icon.png"]];
+//        [locView.annotationImage setImageWithURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl] placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
 //        locView.annotationLabel.text = @"Test";
 //        locView.canShowCallout = YES;
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
-        [imageView setImageWithURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl] placeholderImage:[UIImage imageNamed:@"beehive_icon.png"]];
+        [imageView setImageWithURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl] placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
         aView.leftCalloutAccessoryView = imageView;
         
-
+        
         // create right view
         aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
         UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];

@@ -8,20 +8,21 @@
 
 #import "BHContributionViewController.h"
 #import "BHDataController.h"
-#include "JDStatusBarNotification.h"
 #import "BHLocationDetailViewController.h"
+#import "TWMessageBarManager.h"
 
 @interface BHContributionViewController ()
 @property (nonatomic, strong) NSIndexPath *checkmarkedIndexPath;
 @property (nonatomic) int contributedNumber;
+@property (nonatomic, strong) UILabel *contributionLabel;
 - (IBAction)saveContribution:(id)sender;
-
 @end
 
 @implementation BHContributionViewController
 
 @synthesize checkmarkedIndexPath = _checkmarkedIndexPath;
 @synthesize location = _location, locationStat = _locationStat;
+@synthesize contributionLabel = _contributionLabel;
 
 -(NSIndexPath *)checkmarkedIndexPath
 {
@@ -238,22 +239,26 @@
         
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         CGFloat screenWidth = screenRect.size.width;
-        
-        if (IS_IPAD) {
-            contributionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,screenWidth,20)];
-            contributionLabel.font = [UIFont systemFontOfSize:15];
-        } else {
-            contributionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,screenWidth,20)];
-            contributionLabel.font = [UIFont systemFontOfSize:12];
+        CGFloat screenHeight = screenRect.size.height;
+        CGFloat labelWidth = screenWidth;
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+            labelWidth = screenHeight;
         }
         
+        if (IS_IPAD) {
+            contributionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,labelWidth,20)];
+            contributionLabel.font = [UIFont systemFontOfSize:15];
+        } else {
+            contributionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,labelWidth,20)];
+            contributionLabel.font = [UIFont systemFontOfSize:12];
+        }
         
         contributionLabel.textColor = [UIColor blackColor];
         contributionLabel.textAlignment = NSTextAlignmentCenter;
         
         NSString *level;
         NSString *contributionText;
-        
         
         if (self.contributedNumber > 0 && self.contributedNumber < 20 ) {
             level = @"Larva Yellow Jacket";
@@ -269,15 +274,30 @@
         
         if (self.contributedNumber == 0) {
             contributionText = @"You have not yet contributed.";
-        } else if (self.contributedNumber == 1) {
-            contributionText = @"You have contributed 1 time.";
         } else {
-            contributionText = [NSString stringWithFormat:@"You have contributed %d times.", self.contributedNumber];
+            contributionText = [NSString stringWithFormat:@"%d Points", self.contributedNumber * 10];
         }
         
         contributionLabel.text = [NSString stringWithFormat:@"%@ - %@", level, contributionText];
         
+        NSLayoutConstraint* con = [NSLayoutConstraint constraintWithItem:contributionLabel attribute:NSLayoutAttributeCenterX relatedBy:0 toItem:customView attribute: NSLayoutAttributeCenterX multiplier:1 constant:0];
+        
+        NSLayoutConstraint *con1 =[NSLayoutConstraint
+                                           constraintWithItem:contributionLabel
+                                           attribute:NSLayoutAttributeWidth
+                                           relatedBy:NSLayoutRelationEqual
+                                           toItem:customView
+                                           attribute:NSLayoutAttributeWidth
+                                           multiplier:1
+                                           constant:0];
+        
         [customView addSubview:contributionLabel];
+        
+        self.contributionLabel = contributionLabel;
+        
+        [customView addConstraint:con];
+        [customView addConstraint:con1];
+
     }
     
     
@@ -300,8 +320,10 @@
 
 - (IBAction)saveContribution:(id)sender {
     
-    [JDStatusBarNotification showActivityIndicator:YES indicatorStyle:UIActivityIndicatorViewStyleGray];
-    [JDStatusBarNotification showWithStatus:@"Sending queue information ..." styleName:JDStatusBarStyleDefault];
+//    [JDStatusBarNotification showActivityIndicator:YES indicatorStyle:UIActivityIndicatorViewStyleGray];
+//    [JDStatusBarNotification showWithStatus:@"Sending queue information ..." styleName:JDStatusBarStyleDefault];
+    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Thank you for your contribution !" description:@"Points + 10 !" type:TWMessageBarMessageTypeSuccess duration:3.0];
+
     
     BHDataController *dataController = [BHDataController sharedDataController];
     [dataController postQueueLength:[NSString stringWithFormat:@"%ld", (long)self.checkmarkedIndexPath.row] forLocation:self.location.locId];
@@ -335,6 +357,39 @@
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)  name:UIDeviceOrientationDidChangeNotification  object:nil];
+}
+
+
+// detect orientation change and act accordingly
+- (void)orientationChanged:(NSNotification *)notification{
+    [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
+- (void)adjustViewsForOrientation:(UIInterfaceOrientation) orientation {
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    
+    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown)
+    {
+        //load the portrait view
+        self.contributionLabel.frame = CGRectMake(0,0,screenWidth,20);
+        
+    } else if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
+    {
+        //load the landscape view
+        self.contributionLabel.frame = CGRectMake(0,0,screenHeight,20);
+    }
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
 
 - (IBAction)cancelContribution:(id)sender {
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];

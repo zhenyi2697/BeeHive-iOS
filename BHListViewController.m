@@ -74,9 +74,11 @@
     // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
     int footerHeight = 0;
     if (IS_IPHONE_5) {
-        footerHeight = 120;
+//        footerHeight = 120;
+        footerHeight = 0;
     } else if ( IS_IPHONE) {
-        footerHeight = 212;
+//        footerHeight = 212;
+        footerHeight = 0;
     } else if (IS_IPAD){
         footerHeight = 0;
     }
@@ -198,7 +200,7 @@
     }
     cell.textLabel.textColor = titleColor;
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% Li: %@ Go: %@", locStat.occupancyPercent, locStat.queue, locStat.bestTime];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% Line: %@ Go: %@", locStat.occupancyPercent, locStat.queue, locStat.bestTime];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
     
     // Using SDWebImage to load image

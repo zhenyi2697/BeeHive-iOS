@@ -41,6 +41,7 @@
 
 @synthesize dailyHostView = _dailyHostView, hourlyHostView = _hourlyHostView;
 @synthesize dailyPlot = _dailyPlot, hourlyPlot = _hourlyPlot;
+@synthesize indicator = _indicator;
 
 CGFloat const CPDBarWidth = 0.25f;
 CGFloat const CPDBarInitialX = 0.25f;
@@ -161,6 +162,13 @@ CGFloat const CPDBarInitialX = 0.25f;
 
 #pragma mark - Chart behavior
 -(void)initDailyPlot {
+    if (!self.weeklyStat) {
+        self.indicator.hidden = NO;
+        [self.indicator startAnimating];
+    } else {
+        [self.indicator stopAnimating];
+        self.indicator.hidden = YES;
+    }
     self.dailyHostView.allowPinchScaling = NO;
     [self configureDailyStatGraph];
     [self configureDailyStatPlots];
