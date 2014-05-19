@@ -13,11 +13,13 @@
 #import "BHDailyStat.h"
 #import "BHHourlyStat.h"
 #import "BHContributionViewController.h"
+#import "BHUtils.h"
 
 @interface BHLocationDetailViewController ()
 - (IBAction)contribute:(UIBarButtonItem *)sender;
 @property (nonatomic) int max_clients;
 @property (nonatomic) int selectedDayIndex;
+@property (nonatomic) int currentIndex;
 @property (nonatomic, strong) IBOutlet CPTGraphHostingView *dailyHostView;
 @property (strong, nonatomic) IBOutlet CPTGraphHostingView *hourlyHostView;
 @property (nonatomic, strong) CPTBarPlot *dailyPlot;
@@ -82,6 +84,11 @@ CGFloat const CPDBarInitialX = 0.25f;
     int weekday = (int)[comps weekday];
     weekday = (weekday + 5) % 7;
     
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:[NSDate date]];
+    self.currentIndex = [components hour] * 4 + round((double)[components minute]/15);
+    
     return weekday;
 }
 
@@ -123,18 +130,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     self.queueLabel.text = self.locationStat.queue;
     
     // Determine label color
-    UIColor *titleColor;
-    int percentage = (int)[self.locationStat.occupancyPercent integerValue];
-    int lowThreshold = (int)[self.locationStat.thresholdMin integerValue];
-    int highThreshold = (int)[self.locationStat.thresholdMax integerValue];
-    if (percentage <= lowThreshold) {
-        titleColor = [UIColor colorWithRed:0 green:150 blue:0 alpha:1]; //green
-    } else if(percentage > lowThreshold && percentage < highThreshold) {
-        titleColor =[UIColor orangeColor];
-    } else {
-        titleColor = [UIColor colorWithRed:180 green:0 blue:0 alpha:1]; //red
-    }
-    self.occupancyLabel.textColor = titleColor;
+    self.occupancyLabel.textColor = [BHUtils titleColorForLocationStat:self.locationStat];
 }
 
 - (void)viewDidLoad
@@ -227,7 +223,7 @@ CGFloat const CPDBarInitialX = 0.25f;
 //    self.dailyPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
     
     self.dailyPlot = [[CPTBarPlot alloc] init];
-    self.dailyPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:255/255.0f green:159.0/255.0f blue:0.0/255 alpha:1]];
+    self.dailyPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]];
     
     self.dailyPlot.identifier = CPDTickerSymbolGOOG;
     
@@ -382,7 +378,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     self.hourlyPlot.dataSource = self;
     self.hourlyPlot.identifier = CPDTickerSymbolGOOG;
     
-    CPTColor *googColor = [CPTColor orangeColor];
+    CPTColor *googColor = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f];
     [graph addPlot:self.hourlyPlot toPlotSpace:plotSpace];
     
     // 3 - Set up plot space
@@ -510,6 +506,26 @@ CGFloat const CPDBarInitialX = 0.25f;
         //        return [[[CPDStockPriceStore sharedInstance] datesInMonth] count];
     }
     return 1;
+}
+
+-(CPTPlotSymbol *)symbolForScatterPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
+{
+    if (index == self.currentIndex) {
+        if ([plot isKindOfClass:[CPTBarPlot class]]) {
+            
+        } else if ([plot isKindOfClass:[CPTScatterPlot class]]) {
+            
+            // calculate index position based on current time
+            CPTPlotSymbol *plotSymbol = [CPTPlotSymbol plusPlotSymbol];
+            CPTLineStyle *lineStyle = [CPTLineStyle lineStyle];
+            [lineStyle setValue:[CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f] forKey:@"lineColor"];
+            plotSymbol.lineStyle = lineStyle;
+            plotSymbol.size = CGSizeMake(10, 10);
+            return plotSymbol;
+        }
+    }
+    
+    return [CPTPlotSymbol plotSymbol];
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {

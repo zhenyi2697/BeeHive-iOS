@@ -10,6 +10,7 @@
 #import "BHDataController.h"
 #import "BHLocationDetailViewController.h"
 #import "TWMessageBarManager.h"
+#import "BHUtils.h"
 
 @interface BHContributionViewController ()
 @property (nonatomic, strong) NSIndexPath *checkmarkedIndexPath;
@@ -126,19 +127,7 @@
         occupacyValueLabel.text = [NSString stringWithFormat:@"%@%%", self.locationStat.occupancyPercent];
         
         // Determine label color
-        UIColor *titleColor;
-        int percentage = (int)[self.locationStat.occupancyPercent integerValue];
-        int lowThreshold = (int)[self.locationStat.thresholdMin integerValue];
-        int highThreshold = (int)[self.locationStat.thresholdMax integerValue];
-        if (percentage <= lowThreshold) {
-            titleColor = [UIColor colorWithRed:0 green:150 blue:0 alpha:1]; //green
-        } else if(percentage > lowThreshold && percentage < highThreshold) {
-            titleColor =[UIColor orangeColor];
-        } else {
-            titleColor = [UIColor colorWithRed:180 green:0 blue:0 alpha:1]; //red
-        }
-        occupacyValueLabel.textColor = titleColor;
-        
+        occupacyValueLabel.textColor = [BHUtils titleColorForLocationStat:self.locationStat];
         
         UILabel *queueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         queueLabel.backgroundColor = [UIColor clearColor];

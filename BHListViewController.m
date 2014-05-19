@@ -13,6 +13,7 @@
 #import "BHDataController.h"
 #import "BHLocationTableViewCell.h"
 #import "BHLocationDetailViewController.h"
+#import "BHUtils.h"
 
 //RefreshControl Library
 #import "ODRefreshControl.h"
@@ -185,20 +186,7 @@
     cell.textLabel.text = loc.name;
     
     // Determine label color
-    UIColor *titleColor;
-    int percentage = (int)[locStat.occupancyPercent integerValue];
-    int lowThreshold = (int)[locStat.thresholdMin integerValue];
-    int highThreshold = (int)[locStat.thresholdMax integerValue];
-    if (percentage <= lowThreshold) {
-//        titleColor = [UIColor greenColor];
-        titleColor = [UIColor colorWithRed:0 green:150 blue:0 alpha:1]; //green
-    } else if(percentage > lowThreshold && percentage < highThreshold) {
-        titleColor =[UIColor orangeColor];
-    } else {
-//        titleColor = [UIColor redColor];
-        titleColor = [UIColor colorWithRed:180 green:0 blue:0 alpha:1]; //red
-    }
-    cell.textLabel.textColor = titleColor;
+    cell.textLabel.textColor = [BHUtils titleColorForLocationStat:locStat];
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% Line: %@ Go: %@", locStat.occupancyPercent, locStat.queue, locStat.bestTime];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:11];

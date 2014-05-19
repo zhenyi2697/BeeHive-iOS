@@ -10,6 +10,6 @@
 
 @implementation BHBuilding
 
-@synthesize bdId, name, description, photoUrl, longitude, latitude;
+@synthesize bdId, name, description, photoUrl, longitude, latitude, averageOccupancy;
 
 @end

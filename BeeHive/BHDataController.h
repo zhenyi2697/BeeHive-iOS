@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) NSArray *buildingList;
 @property (nonatomic, strong) NSArray *locationList;
+@property (nonatomic, strong) NSDictionary *buildingStats;
 @property (nonatomic, strong) NSDictionary *locationStats;
 @property (nonatomic, strong) NSDictionary *locationHourlyStats;
 @property (assign) BOOL connectionLost;

@@ -14,6 +14,11 @@
 		BC066F0918F6418A00F96604 /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066F0618F6418900F96604 /* JDStatusBarView.m */; };
 		BC0A377318C8FE4000566D5D /* BHBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A377218C8FE4000566D5D /* BHBuilding.m */; };
 		BC0A377818C8FE5400566D5D /* BHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A377718C8FE5400566D5D /* BHLocation.m */; };
+		BC12918D192A06AA00225A13 /* pin_green_small.png in Resources */ = {isa = PBXBuildFile; fileRef = BC129189192A06AA00225A13 /* pin_green_small.png */; };
+		BC12918E192A06AA00225A13 /* pin_green.png in Resources */ = {isa = PBXBuildFile; fileRef = BC12918A192A06AA00225A13 /* pin_green.png */; };
+		BC12918F192A06AA00225A13 /* pin_red_small.png in Resources */ = {isa = PBXBuildFile; fileRef = BC12918B192A06AA00225A13 /* pin_red_small.png */; };
+		BC129190192A06AA00225A13 /* pin_red.png in Resources */ = {isa = PBXBuildFile; fileRef = BC12918C192A06AA00225A13 /* pin_red.png */; };
+		BC129196192A3E0900225A13 /* BHUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC129195192A3E0900225A13 /* BHUtils.m */; };
 		BC2AA54B18BC68BC0001BA98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA54A18BC68BC0001BA98 /* Security.framework */; };
 		BC2AA54D18BC68C40001BA98 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA54C18BC68C40001BA98 /* CFNetwork.framework */; };
 		BC2AA54F18BC68CE0001BA98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */; };
@@ -112,6 +117,12 @@
 		BC0A377218C8FE4000566D5D /* BHBuilding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHBuilding.m; sourceTree = "<group>"; };
 		BC0A377618C8FE5400566D5D /* BHLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocation.h; sourceTree = "<group>"; };
 		BC0A377718C8FE5400566D5D /* BHLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocation.m; sourceTree = "<group>"; };
+		BC129189192A06AA00225A13 /* pin_green_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_green_small.png; sourceTree = "<group>"; };
+		BC12918A192A06AA00225A13 /* pin_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_green.png; sourceTree = "<group>"; };
+		BC12918B192A06AA00225A13 /* pin_red_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_red_small.png; sourceTree = "<group>"; };
+		BC12918C192A06AA00225A13 /* pin_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_red.png; sourceTree = "<group>"; };
+		BC129194192A3E0900225A13 /* BHUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHUtils.h; sourceTree = "<group>"; };
+		BC129195192A3E0900225A13 /* BHUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHUtils.m; sourceTree = "<group>"; };
 		BC2AA54A18BC68BC0001BA98 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BC2AA54C18BC68C40001BA98 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -353,6 +364,8 @@
 				BC3EFE14190B5B2300E0BC30 /* BHAboutViewController.m */,
 				BCAD56A718CA50AE009436B8 /* BHDataController.h */,
 				BCAD56A818CA50AE009436B8 /* BHDataController.m */,
+				BC129194192A3E0900225A13 /* BHUtils.h */,
+				BC129195192A3E0900225A13 /* BHUtils.m */,
 				BC676C5E18B2881800A46750 /* BHAppDelegate.h */,
 				BC676C5F18B2881800A46750 /* BHAppDelegate.m */,
 				BC676C6118B2881800A46750 /* Main_iPhone.storyboard */,
@@ -371,6 +384,10 @@
 				BC3EFE07190B562600E0BC30 /* Beehive_rounded.png */,
 				BC83438E18F49B240023BC9B /* pin_orange_small.png */,
 				BCE6326A18F79AA20031ADB6 /* pin_orange.png */,
+				BC129189192A06AA00225A13 /* pin_green_small.png */,
+				BC12918A192A06AA00225A13 /* pin_green.png */,
+				BC12918B192A06AA00225A13 /* pin_red_small.png */,
+				BC12918C192A06AA00225A13 /* pin_red.png */,
 				BCAD56B618CA5982009436B8 /* list-star.png */,
 				BCAD56B418CA5952009436B8 /* map-paper.png */,
 				BC6AA28F18BDAC75004674F2 /* disclosure.png */,
@@ -554,6 +571,8 @@
 				BCED5F02190A240D00B8BACB /* icon-error@2x.png in Resources */,
 				BCAD56B518CA5952009436B8 /* map-paper.png in Resources */,
 				BC676C6E18B2881900A46750 /* Images.xcassets in Resources */,
+				BC12918F192A06AA00225A13 /* pin_red_small.png in Resources */,
+				BC12918D192A06AA00225A13 /* pin_green_small.png in Resources */,
 				BCED5F05190A240D00B8BACB /* icon-success.png in Resources */,
 				BC3EFE08190B562600E0BC30 /* Beehive_rounded.png in Resources */,
 				BCED5F03190A240D00B8BACB /* icon-info.png in Resources */,
@@ -561,8 +580,10 @@
 				BC3EFE17190B618600E0BC30 /* button_background1.png in Resources */,
 				BC676C6318B2881800A46750 /* Main_iPhone.storyboard in Resources */,
 				BCED5F01190A240D00B8BACB /* icon-error.png in Resources */,
+				BC12918E192A06AA00225A13 /* pin_green.png in Resources */,
 				BC676C5A18B2881800A46750 /* InfoPlist.strings in Resources */,
 				BCED5F04190A240D00B8BACB /* icon-info@2x.png in Resources */,
+				BC129190192A06AA00225A13 /* pin_red.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +652,7 @@
 				BC3EFE15190B5B2300E0BC30 /* BHAboutViewController.m in Sources */,
 				BCF24B6118CB6D35006BA03A /* BHLocationStat.m in Sources */,
 				BCED5F07190A240D00B8BACB /* TWMessageBarManager.m in Sources */,
+				BC129196192A3E0900225A13 /* BHUtils.m in Sources */,
 				BCB30E6618B3CEF6009A3669 /* BHListViewController.m in Sources */,
 				BCAD56BC18CA82C7009436B8 /* ODRefreshControl.m in Sources */,
 				BC066F0918F6418A00F96604 /* JDStatusBarView.m in Sources */,
@@ -793,7 +815,7 @@
 					"/Users/zhenyi2697/Downloads/core-plot-master/framework/**",
 				);
 				INFOPLIST_FILE = "BeeHive/BeeHive-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
@@ -809,7 +831,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1C0048D1-50D0-4984-9FF4-F43E490EAAC7";
+				PROVISIONING_PROFILE = "06DAFA5F-81FE-4393-986A-C1B1BF28A2D7";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -835,7 +857,7 @@
 					"/Users/zhenyi2697/Downloads/core-plot-master/framework/**",
 				);
 				INFOPLIST_FILE = "BeeHive/BeeHive-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
@@ -846,7 +868,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1C0048D1-50D0-4984-9FF4-F43E490EAAC7";
+				PROVISIONING_PROFILE = "06DAFA5F-81FE-4393-986A-C1B1BF28A2D7";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

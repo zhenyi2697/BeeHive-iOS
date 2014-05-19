@@ -15,5 +15,6 @@
 @property (strong, nonatomic) NSString *photoUrl;
 @property (strong, nonatomic) NSString *longitude;
 @property (strong, nonatomic) NSString *latitude;
+@property (strong, nonatomic) NSString *averageOccupancy;
 @property (nonatomic) NSArray *locations;
 @end

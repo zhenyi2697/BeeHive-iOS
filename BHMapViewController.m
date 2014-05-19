@@ -12,6 +12,7 @@
 #import "BHDataController.h"
 #import "BHLocationDetailViewController.h"
 #import "BHLocationAnnotationView.h"
+#import "BHUtils.h"
 
 //SDWebImage Library
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -63,7 +64,7 @@
 - (void)setAnnotations:(NSArray *)annotations
 {
     _annotations = annotations;
-    [self updateMapView];
+//    [self updateMapView];
 }
 
 // Selector functions
@@ -152,12 +153,24 @@
         aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
         UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [aView.rightCalloutAccessoryView addSubview:showDetailButton];
+        
         [showDetailButton addTarget:self action:@selector(showLocationsForBuilding) forControlEvents:UIControlEventTouchUpInside];
-        if (IS_IPAD) {
-            aView.image = [UIImage imageNamed:@"pin_orange.png"];
+        
+        NSString *bdId = ((BHBuildingAnnotation *)annotation).building.bdId;
+        BHDataController *dataController = [BHDataController sharedDataController];
+        NSString *pinName = @"pin_orange";
+        if (dataController.locationStats) {
+            pinName = [BHUtils pinNameForBuilding:bdId];
         } else {
-            aView.image = [UIImage imageNamed:@"pin_orange_small.png"];
+            NSLog(@"Not loaded");
         }
+        
+        if (IS_IPAD) {
+            pinName = [pinName stringByAppendingString:@".png"];
+        } else {
+            pinName = [pinName stringByAppendingString:@"_small.png"];
+        }
+        aView.image = [UIImage imageNamed:pinName];
         
         aView.calloutOffset = CGPointMake(0, 0);
 
@@ -178,6 +191,17 @@
         [imageView setImageWithURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl] placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
         aView.leftCalloutAccessoryView = imageView;
         
+        // change pin color based on real time occupancy value
+        BHDataController *dataController = [BHDataController sharedDataController];
+        NSString *locId = ((BHLocationAnnotation *)annotation).location.locId;
+        NSString *pinName = @"pin_orange";
+        
+        if (dataController.locationStats) {
+            BHLocationStat *locStat = [dataController.locationStats objectForKey:locId];
+            pinName = [BHUtils pinNameforLocationStat:locStat];
+        } else {
+            NSLog(@"Not loaded");
+        }
         
         // create right view
         aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
@@ -186,11 +210,14 @@
         [showDetailButton addTarget:self action:@selector(showLocationDetailFromMapView) forControlEvents:UIControlEventTouchUpInside];
         
         aView.annotation = annotation;
+        
+        // append pin image
         if (IS_IPAD) {
-            aView.image = [UIImage imageNamed:@"pin_orange.png"];
+            pinName = [pinName stringByAppendingString:@".png"];
         } else {
-            aView.image = [UIImage imageNamed:@"pin_orange_small.png"];
+            pinName = [pinName stringByAppendingString:@"_small.png"];
         }
+        aView.image = [UIImage imageNamed:pinName];
         
 //        aView.centerOffset = CGPointMake(0, 15);
         aView.calloutOffset = CGPointMake(0,0);
@@ -227,11 +254,13 @@
 - (void)showBuildingAnnotations
 {
     self.annotations = self.buildingAnnotations;
+    [self updateMapView];
 }
 
 -(void)showLocationAnnotations
 {
     self.annotations = self.locationAnnotations;
+    [self updateMapView];
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated

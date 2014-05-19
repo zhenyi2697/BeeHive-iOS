@@ -27,7 +27,7 @@
 @implementation BHDataController
 
 @synthesize buildingList = _buildingList, locationList = _locationList;
-@synthesize locationStats = _locationStats, locationHourlyStats = _locationHourlyStats;
+@synthesize buildingStats = _buildingStats, locationStats = _locationStats, locationHourlyStats = _locationHourlyStats;
 @synthesize connectionLost = _connectionLost;
 
 + (id)sharedDataController {
@@ -211,9 +211,23 @@
             locAnnotation.locationStat = [statDic objectForKey:locAnnotation.location.locId];
         }
         
+        // calculate average occupancy for each building for displaying color pins on map
+        NSMutableDictionary *bdStats = [[NSMutableDictionary alloc] initWithCapacity:[self.buildingList count]];
+        for (BHBuilding *bd in self.buildingList) {
+            int avg = 0;
+            for (BHLocation *loc in bd.locations) {
+                BHLocationStat *locStat = [statDic objectForKey:loc.locId];
+                avg = avg + [locStat.occupancyPercent integerValue];
+            }
+            avg = avg / [bd.locations count];
+            [bdStats setValue:[NSString stringWithFormat:@"%d", avg] forKey:bd.bdId];
+        }
+        self.buildingStats = bdStats;
+        
         if (isForMapViewController) {// update mapview
-            mapViewController.annotations = mapViewController.buildingAnnotations;// set annotations to buildingAnnotations
+            mapViewController.annotations = mapViewController.buildingAnnotations; //set annotations to buildingAnnotations
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
+            [mapViewController updateMapView];
         } else {
             [listViewController.tableView reloadData];
             [listViewController.refreshControl endRefreshing];
