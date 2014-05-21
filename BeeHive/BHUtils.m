@@ -31,13 +31,13 @@
 +(NSString *)pinNameforLocationStat:(BHLocationStat *)locStat
 {
     NSString *pinName = @"pin_orange";
-    int percentage = (int)[locStat.occupancyPercent integerValue];
+    long percentage = (int)[locStat.occupancyPercent integerValue];
     int lowThreshold = (int)[locStat.thresholdMin integerValue];
     int highThreshold = (int)[locStat.thresholdMax integerValue];
     
     if (percentage <= lowThreshold) {
         pinName = @"pin_green";
-    } else if(percentage > lowThreshold && percentage < highThreshold) {
+    } else if(percentage > lowThreshold && percentage <= highThreshold) {
         pinName = @"pin_orange";
     } else {
         pinName = @"pin_red";
@@ -50,13 +50,13 @@
     NSString *pinName = @"pin_orange";
     BHDataController *dataController = [BHDataController sharedDataController];
     NSString *occupancyString = [dataController.buildingStats objectForKey:bdId];
-    int percentage = [occupancyString integerValue];
+    long percentage = [occupancyString integerValue];
     int lowThreshold = 50;
-    int highThreshold = 80;
+    int highThreshold = 90;
     
     if (percentage <= lowThreshold) {
         pinName = @"pin_green";
-    } else if(percentage > lowThreshold && percentage < highThreshold) {
+    } else if(percentage > lowThreshold && percentage <= highThreshold) {
         pinName = @"pin_orange";
     } else {
         pinName = @"pin_red";

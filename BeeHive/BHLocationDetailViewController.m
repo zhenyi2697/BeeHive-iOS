@@ -97,7 +97,9 @@ CGFloat const CPDBarInitialX = 0.25f;
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:todayInAtlanta];
-    self.currentIndex = [components hour] * 4 + round((double)[components minute]/15);
+    
+    // TODO: change to GMT time to solve timezone issue
+    self.currentIndex = ([components hour]+1) * 4 + round((double)[components minute]/15);
     
     return weekday;
 }

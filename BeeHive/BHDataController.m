@@ -227,13 +227,14 @@
         // calculate average occupancy for each building for displaying color pins on map
         NSMutableDictionary *bdStats = [[NSMutableDictionary alloc] initWithCapacity:[self.buildingList count]];
         for (BHBuilding *bd in self.buildingList) {
-            int avg = 0;
+            float avg = 0;
             for (BHLocation *loc in bd.locations) {
                 BHLocationStat *locStat = [statDic objectForKey:loc.locId];
-                avg = avg + [locStat.occupancyPercent integerValue];
+                avg = avg + [locStat.occupancyPercent floatValue];
             }
             avg = avg / [bd.locations count];
-            [bdStats setValue:[NSString stringWithFormat:@"%d", avg] forKey:bd.bdId];
+            int avg_int = (int)avg;
+            [bdStats setValue:[NSString stringWithFormat:@"%d", avg_int] forKey:bd.bdId];
         }
         self.buildingStats = bdStats;
         
