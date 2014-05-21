@@ -421,6 +421,7 @@
         }
     }
     self.annotations = self.filteredAnnotations;
+    [self updateMapView];
 }
 
 -(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar

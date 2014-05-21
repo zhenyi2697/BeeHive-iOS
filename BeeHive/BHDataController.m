@@ -22,7 +22,7 @@
 
 #import "TWMessageBarManager.h"
 
-#define BASE_URL @"http://api.letsbeehive.tk"
+#define BASE_URL @"http://api.letsbeehive.com"
 
 @implementation BHDataController
 
@@ -44,12 +44,15 @@
     BOOL isForMapViewController = NO;
     BHMapViewController *mapViewController;
     BHListViewController *listViewController;
+
     
     if ([viewController isKindOfClass:[BHMapViewController class]]) {
         isForMapViewController = YES;
         mapViewController = (BHMapViewController *)viewController;
+        mapViewController.navigationItem.title = @"Loading buildings ...";
     } else if ([viewController isKindOfClass:[BHListViewController class]]) {
         listViewController = (BHListViewController *)viewController;
+        listViewController.navigationItem.title = @"Loading buildings ...";
     }
     
     // Building mapping
@@ -125,11 +128,15 @@
             mapViewController.buildingAnnotations = annotations;
             mapViewController.locationAnnotations = locationAnnotations;
             mapViewController.annotations = annotations;
-            mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
+//            mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
+//            [mapViewController updateMapView];
         } else {
             [listViewController.tableView reloadData];
             [listViewController.refreshControl endRefreshing];
         }
+        
+        // Now, can fetch location real time stats
+        [self fetchLocationStatForViewController:viewController];
         
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"Failed with error: %@", [error localizedDescription]);
@@ -146,6 +153,10 @@
         // Reset Refresh Button
         if (isForMapViewController) {
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
+            mapViewController.navigationItem.title = @"Campus Map";
+        } else {
+            listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
+            listViewController.navigationItem.title = @"Locations";
         }
 
     }];
@@ -169,8 +180,10 @@
     if ([viewController isKindOfClass:[BHMapViewController class]]) {
         isForMapViewController = YES;
         mapViewController = (BHMapViewController *)viewController;
+        mapViewController.navigationItem.title = @"Loading statistics ...";
     } else if ([viewController isKindOfClass:[BHListViewController class]]) {
         listViewController = (BHListViewController *)viewController;
+//        listViewController.navigationItem.title = @"Loading statistics ...";
     }
     
     // Location mapping
@@ -227,13 +240,18 @@
         if (isForMapViewController) {// update mapview
             mapViewController.annotations = mapViewController.buildingAnnotations; //set annotations to buildingAnnotations
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
+            mapViewController.navigationItem.title = @"Campus Map";
             [mapViewController updateMapView];
+
         } else {
             [listViewController.tableView reloadData];
             [listViewController.refreshControl endRefreshing];
             [listViewController.tableView reloadData];
             listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
+//            listViewController.navigationItem.title = @"Locations";
         }
+        
+
         
     }failure:^(RKObjectRequestOperation *operation, NSError *error) {
         
@@ -244,8 +262,10 @@
         // Reset Refresh Button
         if (isForMapViewController) {
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
+            mapViewController.navigationItem.title = @"Campus Map";
         } else {
             listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
+//            listViewController.navigationItem.title = @"Locations";
         }
         
     }];

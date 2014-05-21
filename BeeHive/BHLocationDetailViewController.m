@@ -84,9 +84,19 @@ CGFloat const CPDBarInitialX = 0.25f;
     int weekday = (int)[comps weekday];
     weekday = (weekday + 5) % 7;
     
+    NSDate *now = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"EST"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setTimeZone:timeZone];
+    NSString *newDate = [dateFormatter stringFromDate:now];
+    NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
+    [newDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *todayInAtlanta = [newDateFormatter dateFromString:newDate];
+    
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:[NSDate date]];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:todayInAtlanta];
     self.currentIndex = [components hour] * 4 + round((double)[components minute]/15);
     
     return weekday;

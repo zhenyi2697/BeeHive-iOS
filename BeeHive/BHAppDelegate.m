@@ -31,8 +31,9 @@
     //Fetch building List for mapView
     [dataController fetchBuildingsForViewController:mapViewController];
     
+    // deprecated: now fetchStatistics is called inside the callback of fetchBuildings
     //Fetch locations statistic for mapView
-    [dataController fetchLocationStatForViewController:mapViewController];
+//    [dataController fetchLocationStatForViewController:mapViewController];
     
     //Fetch all location hourly statictic for location detail view
     [dataController fetchAllLocationHourlyStats];
