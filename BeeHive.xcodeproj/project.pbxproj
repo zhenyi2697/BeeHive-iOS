@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A93A6DC61948F78B00251669 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DC31948F70900251669 /* libCorePlot-CocoaTouch.a */; };
 		BC066EFC18F637CA00F96604 /* BHQueueRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066EFB18F637CA00F96604 /* BHQueueRequest.m */; };
 		BC066EFF18F6382E00F96604 /* BHQueueResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066EFE18F6382E00F96604 /* BHQueueResponse.m */; };
 		BC066F0718F6418A00F96604 /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066F0218F6418900F96604 /* JDStatusBarNotification.m */; };
@@ -24,7 +25,6 @@
 		BC2AA54F18BC68CE0001BA98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */; };
 		BC2AA55118BC68D50001BA98 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA55018BC68D50001BA98 /* CoreData.framework */; };
 		BC324E5718BD1A9A005997C5 /* Beehive.png in Resources */ = {isa = PBXBuildFile; fileRef = BC324E5618BD1A9A005997C5 /* Beehive.png */; };
-		BC3CAAC718F718E0003FF73B /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3CAAC618F7183C003FF73B /* libCorePlot-CocoaTouch.a */; };
 		BC3EFE08190B562600E0BC30 /* Beehive_rounded.png in Resources */ = {isa = PBXBuildFile; fileRef = BC3EFE07190B562600E0BC30 /* Beehive_rounded.png */; };
 		BC3EFE12190B5B0C00E0BC30 /* BHSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3EFE11190B5B0C00E0BC30 /* BHSettingViewController.m */; };
 		BC3EFE15190B5B2300E0BC30 /* BHAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3EFE14190B5B2300E0BC30 /* BHAboutViewController.m */; };
@@ -84,11 +84,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BC3CAAC518F7183C003FF73B /* PBXContainerItemProxy */ = {
+		A93A6DC21948F70900251669 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */;
+			containerPortal = A93A6DBC1948F70900251669 /* CorePlot-CocoaTouch.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		A93A6DC41948F72B00251669 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A93A6DBC1948F70900251669 /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 		BC676C7818B2881900A46750 /* PBXContainerItemProxy */ = {
@@ -102,6 +109,7 @@
 
 /* Begin PBXFileReference section */
 		8538B954861740A5B5E1D500 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A93A6DBC1948F70900251669 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../core-plot-master/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		B95F5CF4F9F34E78B42E7B38 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		BC066EFA18F637CA00F96604 /* BHQueueRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHQueueRequest.h; sourceTree = "<group>"; };
 		BC066EFB18F637CA00F96604 /* BHQueueRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHQueueRequest.m; sourceTree = "<group>"; };
@@ -128,7 +136,6 @@
 		BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC2AA55018BC68D50001BA98 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BC324E5618BD1A9A005997C5 /* Beehive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Beehive.png; sourceTree = "<group>"; };
-		BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../../Downloads/core-plot-master/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		BC3EFE07190B562600E0BC30 /* Beehive_rounded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Beehive_rounded.png; sourceTree = "<group>"; };
 		BC3EFE10190B5B0C00E0BC30 /* BHSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHSettingViewController.h; sourceTree = "<group>"; };
 		BC3EFE11190B5B0C00E0BC30 /* BHSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHSettingViewController.m; sourceTree = "<group>"; };
@@ -136,7 +143,7 @@
 		BC3EFE14190B5B2300E0BC30 /* BHAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHAboutViewController.m; sourceTree = "<group>"; };
 		BC3EFE16190B618500E0BC30 /* button_background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_background1.png; sourceTree = "<group>"; };
 		BC61406D190BF98300B7E45F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		BC620D9718D28B7100D409A2 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
+		BC620D9718D28B7100D409A2 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = BeeHive/SDWebImage.framework; sourceTree = "<group>"; };
 		BC620D9B18D28BAF00D409A2 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		BC620D9D18D28D6000D409A2 /* BHLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationTableViewCell.h; sourceTree = "<group>"; };
 		BC620D9E18D28D6000D409A2 /* BHLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationTableViewCell.m; sourceTree = "<group>"; };
@@ -214,11 +221,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A93A6DC61948F78B00251669 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				BC2AA54F18BC68CE0001BA98 /* SystemConfiguration.framework in Frameworks */,
 				BC2AA54D18BC68C40001BA98 /* CFNetwork.framework in Frameworks */,
 				BC2AA54B18BC68BC0001BA98 /* Security.framework in Frameworks */,
 				BC61406E190BF98300B7E45F /* MobileCoreServices.framework in Frameworks */,
-				BC3CAAC718F718E0003FF73B /* libCorePlot-CocoaTouch.a in Frameworks */,
 				BC620D9C18D28BAF00D409A2 /* ImageIO.framework in Frameworks */,
 				BC6AA28E18BDA1D6004674F2 /* CoreLocation.framework in Frameworks */,
 				BC676C5218B2881800A46750 /* CoreGraphics.framework in Frameworks */,
@@ -246,6 +253,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A93A6DBD1948F70900251669 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A93A6DC31948F70900251669 /* libCorePlot-CocoaTouch.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		BC066EF918F637A300F96604 /* models */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,14 +297,6 @@
 			path = JDStatusBarNotification;
 			sourceTree = "<group>";
 		};
-		BC3CAAC018F7183C003FF73B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BC3CAAC618F7183C003FF73B /* libCorePlot-CocoaTouch.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		BC676C4318B2881800A46750 = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +321,7 @@
 		BC676C4E18B2881800A46750 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC620D9718D28B7100D409A2 /* SDWebImage.framework */,
 				BC61406D190BF98300B7E45F /* MobileCoreServices.framework */,
 				BC620D9B18D28BAF00D409A2 /* ImageIO.framework */,
 				BC6AA28D18BDA1D6004674F2 /* CoreLocation.framework */,
@@ -336,8 +344,7 @@
 		BC676C5518B2881800A46750 /* BeeHive */ = {
 			isa = PBXGroup;
 			children = (
-				BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */,
-				BC620D9718D28B7100D409A2 /* SDWebImage.framework */,
+				A93A6DBC1948F70900251669 /* CorePlot-CocoaTouch.xcodeproj */,
 				BCED5EF6190A240D00B8BACB /* TWMessageBarManager */,
 				BCAD56B918CA82C7009436B8 /* ODRefreshControl */,
 				BC066F0018F6418900F96604 /* JDStatusBarNotification */,
@@ -478,6 +485,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A93A6DC51948F72B00251669 /* PBXTargetDependency */,
 			);
 			name = BeeHive;
 			productName = BeeHive;
@@ -533,8 +541,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = BC3CAAC018F7183C003FF73B /* Products */;
-					ProjectRef = BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */;
+					ProductGroup = A93A6DBD1948F70900251669 /* Products */;
+					ProjectRef = A93A6DBC1948F70900251669 /* CorePlot-CocoaTouch.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -546,11 +554,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		BC3CAAC618F7183C003FF73B /* libCorePlot-CocoaTouch.a */ = {
+		A93A6DC31948F70900251669 /* libCorePlot-CocoaTouch.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = BC3CAAC518F7183C003FF73B /* PBXContainerItemProxy */;
+			remoteRef = A93A6DC21948F70900251669 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -678,6 +686,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A93A6DC51948F72B00251669 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot-CocoaTouch";
+			targetProxy = A93A6DC41948F72B00251669 /* PBXContainerItemProxy */;
+		};
 		BC676C7918B2881900A46750 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BC676C4B18B2881800A46750 /* BeeHive */;
@@ -812,7 +825,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)/**",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/zhenyi2697/Downloads/core-plot-master/framework/**",
+					"/Users/horus/Documents/core-plot-master/framework/**",
 				);
 				INFOPLIST_FILE = "BeeHive/BeeHive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -854,7 +867,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)/**",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/zhenyi2697/Downloads/core-plot-master/framework/**",
+					"/Users/horus/Documents/core-plot-master/framework/**",
 				);
 				INFOPLIST_FILE = "BeeHive/BeeHive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
