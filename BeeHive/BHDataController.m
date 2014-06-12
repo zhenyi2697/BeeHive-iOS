@@ -153,10 +153,10 @@
         // Reset Refresh Button
         if (isForMapViewController) {
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
-            mapViewController.navigationItem.title = @"Campus Map";
+            mapViewController.navigationItem.title = @"Map";
         } else {
             listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
-            listViewController.navigationItem.title = @"Locations";
+            listViewController.navigationItem.title = @"List";
         }
 
     }];
@@ -241,7 +241,7 @@
         if (isForMapViewController) {// update mapview
             mapViewController.annotations = mapViewController.buildingAnnotations; //set annotations to buildingAnnotations
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
-            mapViewController.navigationItem.title = @"Campus Map";
+            mapViewController.navigationItem.title = @"Map";
             [mapViewController updateMapView];
 
         } else {
@@ -263,10 +263,10 @@
         // Reset Refresh Button
         if (isForMapViewController) {
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
-            mapViewController.navigationItem.title = @"Campus Map";
+            mapViewController.navigationItem.title = @"Map";
         } else {
             listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
-//            listViewController.navigationItem.title = @"Locations";
+//            listViewController.navigationItem.title = @"List";
         }
         
     }];
