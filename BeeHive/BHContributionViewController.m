@@ -329,13 +329,16 @@
             queueText = @"closed";
             break;
         case 1:
-            queueText = @"short";
+            queueText = @"none";
             break;
         case 2:
-            queueText = @"medium";
+            queueText = @"short";
             break;
         case 3:
             queueText = @"long";
+            break;
+        case 4:
+            queueText = @"very long";
             break;
         default:
             break;

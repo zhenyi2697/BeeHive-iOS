@@ -249,7 +249,7 @@
             [listViewController.refreshControl endRefreshing];
             [listViewController.tableView reloadData];
             listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
-//            listViewController.navigationItem.title = @"Locations";
+//            listViewController.navigationItem.title = @"List";
         }
         
 

@@ -150,8 +150,14 @@
         aView.leftCalloutAccessoryView = imageView;
             
         // create right view
+//        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
+//        UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeCustom];
+////        [showDetailButton setBackgroundImage:[UIImage imageNamed:@"disclosure.png"] forState:UIControlStateNormal];
+//        [showDetailButton setTitle:@">" forState:UIControlStateNormal];
+//        [aView.rightCalloutAccessoryView addSubview:showDetailButton];
+        
         aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
-        UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
         [aView.rightCalloutAccessoryView addSubview:showDetailButton];
         
         [showDetailButton addTarget:self action:@selector(showLocationsForBuilding) forControlEvents:UIControlEventTouchUpInside];

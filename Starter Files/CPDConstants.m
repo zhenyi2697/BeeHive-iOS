@@ -16,6 +16,7 @@ NSString *  const CPDThemeNamePlainWhite    = @"Plain White";
 NSString *  const CPDThemeNameSlate         = @"Slate";
 NSString *  const CPDThemeNameStocks        = @"Stocks";
 
+NSString *  const CPDTickerSymbolLACROIX    = @"LACROIX";
 NSString *  const CPDTickerSymbolAAPL       = @"AAPL";
 NSString *  const CPDTickerSymbolGOOG       = @"GOOG";
 NSString *  const CPDTickerSymbolMSFT       = @"MSFT";

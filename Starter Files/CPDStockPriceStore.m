@@ -44,7 +44,7 @@
         symbols = [NSArray arrayWithObjects:
                    @"AAPL", 
                    @"GOOG", 
-                   @"MSFT", 
+                   @"MSFT",
                    nil];
     }
     return symbols;
@@ -139,6 +139,10 @@
         return [self monthlyGoogPrices];
     }
     else if ([CPDTickerSymbolMSFT isEqualToString:[tickerSymbol uppercaseString]] == YES)
+    {
+        return [self monthlyMsftPrices];
+    }
+    else if ([CPDTickerSymbolLACROIX isEqualToString:[tickerSymbol uppercaseString]] == YES)
     {
         return [self monthlyMsftPrices];
     }
