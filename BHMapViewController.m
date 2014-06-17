@@ -422,7 +422,9 @@
     [self.filteredAnnotations removeAllObjects];
 
     for (BHLocationAnnotation *anno in self.locationAnnotations) {
-        if ([anno.location.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
+        if ([anno.location.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound ||
+            [anno.location.description rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound)
+        {
             [self.filteredAnnotations addObject:anno];
         }
     }

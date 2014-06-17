@@ -303,7 +303,8 @@
         } else {
             NSMutableArray *newLocList = [[NSMutableArray alloc] init];
             for (BHLocation *loc in bud.locations) {
-                if ([loc.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                if ([loc.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound ||
+                    [loc.description rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
                     [newLocList addObject:loc];
                     addBuilding = YES;
                     
