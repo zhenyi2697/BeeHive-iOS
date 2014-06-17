@@ -28,6 +28,23 @@
     return titleColor;
 }
 
++(CPTColor *)titleColorForLocationStat2:(BHLocationStat *)locStat
+{
+    CPTColor *titleColor;
+    int percentage = (int)[locStat.occupancyPercent integerValue];
+    int lowThreshold = (int)[locStat.thresholdMin integerValue];
+    int highThreshold = (int)[locStat.thresholdMax integerValue];
+    
+    if (percentage <= lowThreshold) {
+        titleColor = [CPTColor colorWithComponentRed:0.0f/255.0f green:128.0f/255.0f blue:0.0f/255.0f alpha:1.0f]; //green
+    } else if(percentage > lowThreshold && percentage < highThreshold) {
+        titleColor = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]; //orange
+    } else {
+        titleColor = [CPTColor colorWithComponentRed:255.0f/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:1.0f]; //red
+    }
+    return titleColor;
+}
+
 +(NSString *)pinNameforLocationStat:(BHLocationStat *)locStat
 {
     NSString *pinName = @"pin_orange";

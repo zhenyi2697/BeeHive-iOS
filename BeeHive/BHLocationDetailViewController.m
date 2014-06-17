@@ -23,6 +23,7 @@
 @property (nonatomic, strong) IBOutlet CPTGraphHostingView *dailyHostView;
 @property (strong, nonatomic) IBOutlet CPTGraphHostingView *hourlyHostView;
 @property (nonatomic, strong) CPTBarPlot *dailyPlot;
+@property (nonatomic, strong) CPTBarPlot *dailyPlotAAPL;
 @property (nonatomic, strong) CPTBarPlot *dailyPlotLACROIX;
 @property (nonatomic, strong) CPTScatterPlot *hourlyPlot;
 @property (nonatomic, strong) CPTPlotSpaceAnnotation *priceAnnotation;
@@ -203,7 +204,8 @@ CGFloat const CPDBarInitialX = 0.25f;
     
     // 3 - Set up styles
     CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
-    titleStyle.color = [CPTColor grayColor];
+//    titleStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive;
+    [titleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
     titleStyle.fontName = @"Helvetica-Bold";
     titleStyle.fontSize = 14.0f;
     
@@ -233,49 +235,76 @@ CGFloat const CPDBarInitialX = 0.25f;
 -(void)configureDailyStatPlots {
     
     // 1 - Set up the plot
-    // bof le style      //self.dailyPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
+//    self.dailyPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO]; // bof le style
+    //    self.dailyPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]]; // couleur orange BeeHive
+    //    self.dailyPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:0.7f]]; // couleur orange BeeHive
+    
+    // pour les autres jours
     self.dailyPlot = [[CPTBarPlot alloc] init];
-//    self.dailyPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]]; // couleur orange BeeHive
-    self.dailyPlot.fill = [CPTFill fillWithColor:[[CPTColor grayColor] colorWithAlphaComponent:0.5]];
+    self.dailyPlot.fill = [CPTFill fillWithColor:[[CPTColor grayColor] colorWithAlphaComponent:0.3]];
     self.dailyPlot.identifier = CPDTickerSymbolGOOG;
     
-    self.dailyPlotLACROIX = [[CPTBarPlot alloc] init]; // la bare de la Croix
-    self.dailyPlotLACROIX.fill = [CPTFill fillWithColor:[[CPTColor redColor] colorWithAlphaComponent:0.5]];
-    self.dailyPlotLACROIX.identifier = CPDTickerSymbolLACROIX;
+    // For current day
+    self.dailyPlotAAPL = [[CPTBarPlot alloc] init];
+    self.dailyPlotAAPL.fill = [CPTFill fillWithColor:[[CPTColor grayColor] colorWithAlphaComponent:0.6]];
+    self.dailyPlotAAPL.identifier = CPDTickerSymbolAAPL;
     
+    // Occupancy clue
+    self.dailyPlotLACROIX = [[CPTBarPlot alloc] init]; // la bare de la Croix
+    self.dailyPlotLACROIX.fill = [CPTFill fillWithColor:[CPTColor clearColor]];
+    self.dailyPlotLACROIX.identifier = CPDTickerSymbolLACROIX;
     
     
     // 2 - Set up line style
     CPTMutableLineStyle *barLineStyle = [[CPTMutableLineStyle alloc] init];
     barLineStyle.lineColor = [CPTColor clearColor];
     barLineStyle.lineWidth = 0.5;
+    CPTMutableLineStyle *barLineStyleAAPL = [[CPTMutableLineStyle alloc] init]; // For today
+    barLineStyleAAPL.lineColor = [CPTColor clearColor];
+    barLineStyleAAPL.lineWidth = 0.5;
+    CPTMutableLineStyle *barLineStyleLACROIX = [[CPTMutableLineStyle alloc] init]; // Et pour la Croix...
+    [barLineStyleLACROIX setValue:[BHUtils titleColorForLocationStat:self.locationStat] forKey:@"lineColor"];
+    barLineStyleLACROIX.lineWidth = 1;
+    
     
     // 3 - Add plots to graph
     CPTGraph *graph = self.dailyHostView.hostedGraph;
     CGFloat barX = CPDBarInitialX;
-    
-    self.dailyPlot.dataSource = self;
+    self.dailyPlot.dataSource = self; // Pour les autres jours
     self.dailyPlot.delegate = self;
     self.dailyPlot.barWidth = CPTDecimalFromDouble(CPDBarWidth*3);
     self.dailyPlot.barOffset = CPTDecimalFromDouble(barX);
     self.dailyPlot.lineStyle = barLineStyle;
     [graph addPlot:self.dailyPlot toPlotSpace:graph.defaultPlotSpace];
+    self.dailyPlotAAPL.dataSource = self; // For today
+    self.dailyPlotAAPL.delegate = self;
+    self.dailyPlotAAPL.barWidth = CPTDecimalFromDouble(CPDBarWidth*3);
+    self.dailyPlotAAPL.barOffset = CPTDecimalFromDouble(barX);
+    self.dailyPlotAAPL.lineStyle = barLineStyle;
+    [graph addPlot:self.dailyPlotAAPL toPlotSpace:graph.defaultPlotSpace];
+    self.dailyPlotLACROIX.dataSource = self; // Et pour la Croix...
+    self.dailyPlotLACROIX.barWidth = CPTDecimalFromDouble(CPDBarWidth*3);
+    self.dailyPlotLACROIX.barOffset = CPTDecimalFromDouble(barX);
+    self.dailyPlotLACROIX.lineStyle = barLineStyleLACROIX;
+    [graph addPlot:self.dailyPlotLACROIX toPlotSpace:graph.defaultPlotSpace];
     
 }
 
 -(void)configureDailyStatAxes {
     // 1 - Configure styles
     CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
-    axisTitleStyle.color = [CPTColor grayColor];
+//    axisTitleStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive;
+    [axisTitleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
     axisTitleStyle.fontName = @"Helvetica-Bold";
     axisTitleStyle.fontSize = 8.0f;
     
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
     axisLineStyle.lineWidth = 2.0f;
-    axisLineStyle.lineColor = [[CPTColor grayColor] colorWithAlphaComponent:1];
+    axisLineStyle.lineColor = [CPTColor grayColor];
     
     CPTMutableTextStyle *lablingStyle = [CPTMutableTextStyle textStyle];
-    lablingStyle.color = [CPTColor grayColor];
+//    lablingStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive;
+    [lablingStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
     lablingStyle.fontName = @"Helvetica-Bold";
     lablingStyle.fontSize = 8.0f;
     
@@ -367,7 +396,8 @@ CGFloat const CPDBarInitialX = 0.25f;
     
     // 3 - Create and set text style
     CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
-    titleStyle.color = [CPTColor grayColor];
+//    titleStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive
+    [titleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
     titleStyle.fontName = @"Helvetica-Bold";
     titleStyle.fontSize = 14.0f;
     graph.titleTextStyle = titleStyle;
@@ -394,13 +424,13 @@ CGFloat const CPDBarInitialX = 0.25f;
     self.hourlyPlot = [[CPTScatterPlot alloc] init];
     self.hourlyPlot.dataSource = self;
     self.hourlyPlot.identifier = CPDTickerSymbolGOOG;
-    //CPTColor *googColor = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // orange BeeHive
+//    CPTColor *googColor = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // orange BeeHive
     [graph addPlot:self.hourlyPlot toPlotSpace:plotSpace];
     
     CPTScatterPlot *laCroixPlot = [[CPTScatterPlot alloc] init]; //pour la Croix
     laCroixPlot.dataSource = self;
     laCroixPlot.identifier = CPDTickerSymbolLACROIX;
-    CPTColor *laCroixColor = [[CPTColor redColor] colorWithAlphaComponent:0];
+    CPTColor *laCroixColor = [CPTColor clearColor];
     [graph addPlot:laCroixPlot toPlotSpace:plotSpace];
     
     
@@ -423,6 +453,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     // 4 - Create styles and symbols
     CPTMutableLineStyle *googLineStyle = [self.hourlyPlot.dataLineStyle mutableCopy];
     googLineStyle.lineWidth = 1.0;
+//    googLineStyle.lineColor = googColor;
     googLineStyle.lineColor = [CPTColor grayColor];
     self.hourlyPlot.dataLineStyle = googLineStyle;
     //CPTMutableLineStyle *googSymbolLineStyle = [CPTMutableLineStyle lineStyle];
@@ -447,16 +478,17 @@ CGFloat const CPDBarInitialX = 0.25f;
     
     // 1 - Configure styles
     CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
-    axisTitleStyle.color = [CPTColor grayColor];
+//    axisTitleStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive
+    [axisTitleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
     axisTitleStyle.fontName = @"Helvetica-Bold";
     axisTitleStyle.fontSize = 8.0f;
     
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
     axisLineStyle.lineWidth = 2.0f;
-    axisLineStyle.lineColor = [[CPTColor grayColor] colorWithAlphaComponent:1];
-    
+    axisLineStyle.lineColor = [CPTColor grayColor];
     CPTMutableTextStyle *lablingStyle = [CPTMutableTextStyle textStyle];
-    lablingStyle.color = [CPTColor grayColor];
+//    lablingStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive
+    [lablingStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
     lablingStyle.fontName = @"Helvetica-Bold";
     lablingStyle.fontSize = 8.0f;
     
@@ -568,12 +600,28 @@ CGFloat const CPDBarInitialX = 0.25f;
     
     if ([plot isKindOfClass:[CPTBarPlot class]]) {
         if ((fieldEnum == CPTBarPlotFieldBarTip) && (index < [self.weeklyStat count])) {
+            BHDailyStat *dayStat = [self.weeklyStat objectAtIndex:index];
             if ([plot.identifier isEqual:CPDTickerSymbolGOOG]) {
-                BHDailyStat *dayStat = [self.weeklyStat objectAtIndex:index];
-                return [NSNumber numberWithInt:(int)[dayStat.clients integerValue]];
-                //                return [NSNumber numberWithUnsignedInteger:index*10];
+                // Pour les autres jours
+                if (index == self.currentWeeday) {
+                    return 0;
+                } else {
+                    return [NSNumber numberWithInt:(int)[dayStat.clients integerValue]];
+                }
+//                return [NSNumber numberWithUnsignedInteger:index*10];
+            } else if ([plot.identifier isEqual:CPDTickerSymbolAAPL] == YES) {
+                // For today
+                if (index == self.currentWeeday) {
+                    return [NSNumber numberWithInt:(int)[dayStat.clients integerValue]];
+                } else {
+                    return 0;
+                }
             } else if ([plot.identifier isEqual:CPDTickerSymbolLACROIX] == YES) {
-                return occupancy;
+                if (index == self.currentWeeday) {
+                    return occupancy;
+                } else {
+                    return 0;
+                }
             }
         }
     } else if ([plot isKindOfClass:[CPTScatterPlot class]]) {
