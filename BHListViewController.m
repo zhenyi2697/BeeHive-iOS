@@ -188,7 +188,7 @@
     // Determine label color
     cell.textLabel.textColor = [BHUtils titleColorForLocationStat:locStat];
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% Line: %@ Go: %@", locStat.occupancyPercent, locStat.queue, locStat.bestTime];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% of %@ Line: %@ Go: %@", locStat.occupancyPercent, locStat.maxCapacity, locStat.queue, locStat.bestTime];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
     
     // Using SDWebImage to load image

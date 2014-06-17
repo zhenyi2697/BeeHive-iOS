@@ -139,7 +139,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     [self.locationImageView setImageWithURL:[NSURL URLWithString:self.location.photoUrl]
                            placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
     
-    self.occupancyLabel.text = [NSString stringWithFormat:@"%@%%", self.locationStat.occupancyPercent];
+    self.occupancyLabel.text = [NSString stringWithFormat:@"%@%% of %@", self.locationStat.occupancyPercent, self.locationStat.maxCapacity];
     self.btgLabel.text = [NSString stringWithFormat:@"%@", self.locationStat.bestTime];
     self.queueLabel.text = self.locationStat.queue;
     
