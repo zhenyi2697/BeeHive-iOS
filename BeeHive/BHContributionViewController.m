@@ -11,11 +11,14 @@
 #import "BHLocationDetailViewController.h"
 #import "TWMessageBarManager.h"
 #import "BHUtils.h"
+#import "BHProgressView.h"
 
 @interface BHContributionViewController ()
 @property (nonatomic, strong) NSIndexPath *checkmarkedIndexPath;
 @property (nonatomic) int contributedNumber;
 @property (nonatomic, strong) UILabel *contributionLabel;
+
+
 - (IBAction)saveContribution:(id)sender;
 @end
 
@@ -248,17 +251,30 @@
         
         NSString *level;
         NSString *contributionText;
+        float levelTop;
+        float levelBase;
+        float progression = 0.4;
         
         if (self.contributedNumber > 0 && self.contributedNumber < 20 ) {
             level = @"Larva Yellow Jacket";
+            levelBase = 0;
+            levelTop = 20;
         } else if (self.contributedNumber >= 20 && self.contributedNumber < 100) {
             level = @"Baby Yellow Jacket";
+            levelBase = 20;
+            levelTop = 100;
         } else if (self.contributedNumber >= 100 && self.contributedNumber < 500) {
             level = @"Medium Yellow Jacket";
+            levelBase = 100;
+            levelTop = 500;
         } else if (self.contributedNumber >= 500 && self.contributedNumber < 1000) {
             level = @"King Yellow Jacket";
+            levelBase = 500;
+            levelTop = 1000;
         } else {
             level = @"Helluvah Yellow Jacket";
+            levelBase = 1000;
+            levelTop = self.contributedNumber;
         }
         
         if (self.contributedNumber == 0) {
@@ -287,6 +303,17 @@
         [customView addConstraint:con];
         [customView addConstraint:con1];
 
+        
+        // Progress view - flat, orange, animated
+        BHProgressView *progressView = [[BHProgressView alloc] initWithFrame:CGRectMake(20, 380, self.view.frame.size.width-40, 20)];
+        progressView.color = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f];
+        progressView.flat = @YES;
+        progressView.showBackgroundInnerShadow = @NO;
+        progression = (self.contributedNumber - levelBase) / (levelTop - levelBase);
+        progressView.progress = progression;
+        progressView.animate = @YES;
+        [self.view addSubview:progressView];
+        
     }
     
     

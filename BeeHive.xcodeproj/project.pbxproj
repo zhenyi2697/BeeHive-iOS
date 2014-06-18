@@ -17,6 +17,8 @@
 		A93A6DD4194A185D00251669 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DD3194A185D00251669 /* libicucore.dylib */; };
 		A93A6DD6194A186D00251669 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DD5194A186D00251669 /* libz.dylib */; };
 		A93A6DD8194A187800251669 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DD7194A187800251669 /* OpenGLES.framework */; };
+		A990BBCD19510BD70019BF49 /* BHProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A990BBCC19510BD70019BF49 /* BHProgressView.m */; };
+		A990BBD819510EEC0019BF49 /* UIColor+RGBValues.m in Sources */ = {isa = PBXBuildFile; fileRef = A990BBD719510EEC0019BF49 /* UIColor+RGBValues.m */; };
 		BC066EFC18F637CA00F96604 /* BHQueueRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066EFB18F637CA00F96604 /* BHQueueRequest.m */; };
 		BC066EFF18F6382E00F96604 /* BHQueueResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066EFE18F6382E00F96604 /* BHQueueResponse.m */; };
 		BC066F0718F6418A00F96604 /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066F0218F6418900F96604 /* JDStatusBarNotification.m */; };
@@ -128,6 +130,10 @@
 		A93A6DD3194A185D00251669 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		A93A6DD5194A186D00251669 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		A93A6DD7194A187800251669 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		A990BBCB19510BD70019BF49 /* BHProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHProgressView.h; sourceTree = "<group>"; };
+		A990BBCC19510BD70019BF49 /* BHProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHProgressView.m; sourceTree = "<group>"; };
+		A990BBD619510EEC0019BF49 /* UIColor+RGBValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RGBValues.h"; sourceTree = "<group>"; };
+		A990BBD719510EEC0019BF49 /* UIColor+RGBValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RGBValues.m"; sourceTree = "<group>"; };
 		B95F5CF4F9F34E78B42E7B38 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		BC066EFA18F637CA00F96604 /* BHQueueRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHQueueRequest.h; sourceTree = "<group>"; };
 		BC066EFB18F637CA00F96604 /* BHQueueRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHQueueRequest.m; sourceTree = "<group>"; };
@@ -379,41 +385,45 @@
 		BC676C5518B2881800A46750 /* BeeHive */ = {
 			isa = PBXGroup;
 			children = (
-				A93A6DBC1948F70900251669 /* CorePlot-CocoaTouch.xcodeproj */,
-				BCED5EF6190A240D00B8BACB /* TWMessageBarManager */,
-				BCAD56B918CA82C7009436B8 /* ODRefreshControl */,
-				BC066F0018F6418900F96604 /* JDStatusBarNotification */,
-				BC066EF918F637A300F96604 /* models */,
+				BC3EFE13190B5B2300E0BC30 /* BHAboutViewController.h */,
+				BC3EFE14190B5B2300E0BC30 /* BHAboutViewController.m */,
+				BC676C5E18B2881800A46750 /* BHAppDelegate.h */,
+				BC676C5F18B2881800A46750 /* BHAppDelegate.m */,
 				BC6AA28818BDA190004674F2 /* BHBuildingAnnotation.h */,
 				BC6AA28918BDA190004674F2 /* BHBuildingAnnotation.m */,
+				BC74DD8E18CF84B0002359B7 /* BHContributionViewController.h */,
+				BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */,
+				BCAD56A718CA50AE009436B8 /* BHDataController.h */,
+				BCAD56A818CA50AE009436B8 /* BHDataController.m */,
+				BCB30E6418B3CEF6009A3669 /* BHListViewController.h */,
+				BCB30E6518B3CEF6009A3669 /* BHListViewController.m */,
 				BCAD56BF18CADD90009436B8 /* BHLocationAnnotation.h */,
 				BCAD56C018CADD90009436B8 /* BHLocationAnnotation.m */,
 				BC83438518F485F20023BC9B /* BHLocationAnnotationView.h */,
 				BC83438618F485F20023BC9B /* BHLocationAnnotationView.m */,
-				BCB30E6418B3CEF6009A3669 /* BHListViewController.h */,
-				BCB30E6518B3CEF6009A3669 /* BHListViewController.m */,
-				BC676C8A18B2893B00A46750 /* BHMapViewController.h */,
-				BC676C8B18B2893B00A46750 /* BHMapViewController.m */,
-				BC620D9D18D28D6000D409A2 /* BHLocationTableViewCell.h */,
-				BC620D9E18D28D6000D409A2 /* BHLocationTableViewCell.m */,
 				BC74DD8918CF82D6002359B7 /* BHLocationDetailViewController.h */,
 				BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */,
-				BC74DD8E18CF84B0002359B7 /* BHContributionViewController.h */,
-				BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */,
+				BC620D9D18D28D6000D409A2 /* BHLocationTableViewCell.h */,
+				BC620D9E18D28D6000D409A2 /* BHLocationTableViewCell.m */,
+				BC676C8A18B2893B00A46750 /* BHMapViewController.h */,
+				BC676C8B18B2893B00A46750 /* BHMapViewController.m */,
+				A990BBCB19510BD70019BF49 /* BHProgressView.h */,
+				A990BBCC19510BD70019BF49 /* BHProgressView.m */,
 				BC3EFE10190B5B0C00E0BC30 /* BHSettingViewController.h */,
 				BC3EFE11190B5B0C00E0BC30 /* BHSettingViewController.m */,
-				BC3EFE13190B5B2300E0BC30 /* BHAboutViewController.h */,
-				BC3EFE14190B5B2300E0BC30 /* BHAboutViewController.m */,
-				BCAD56A718CA50AE009436B8 /* BHDataController.h */,
-				BCAD56A818CA50AE009436B8 /* BHDataController.m */,
 				BC129194192A3E0900225A13 /* BHUtils.h */,
 				BC129195192A3E0900225A13 /* BHUtils.m */,
-				BC676C5E18B2881800A46750 /* BHAppDelegate.h */,
-				BC676C5F18B2881800A46750 /* BHAppDelegate.m */,
-				BC676C6118B2881800A46750 /* Main_iPhone.storyboard */,
-				BC676C6418B2881800A46750 /* Main_iPad.storyboard */,
+				A93A6DBC1948F70900251669 /* CorePlot-CocoaTouch.xcodeproj */,
 				BC676C6D18B2881900A46750 /* Images.xcassets */,
+				BC066F0018F6418900F96604 /* JDStatusBarNotification */,
+				BC676C6418B2881800A46750 /* Main_iPad.storyboard */,
+				BC676C6118B2881800A46750 /* Main_iPhone.storyboard */,
+				BC066EF918F637A300F96604 /* models */,
+				BCAD56B918CA82C7009436B8 /* ODRefreshControl */,
 				BC676C5618B2881800A46750 /* Supporting Files */,
+				BCED5EF6190A240D00B8BACB /* TWMessageBarManager */,
+				A990BBD619510EEC0019BF49 /* UIColor+RGBValues.h */,
+				A990BBD719510EEC0019BF49 /* UIColor+RGBValues.m */,
 			);
 			path = BeeHive;
 			sourceTree = "<group>";
@@ -680,6 +690,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC70B83A18E73DFD00B4F33E /* BHHourlyStat.m in Sources */,
+				A990BBD819510EEC0019BF49 /* UIColor+RGBValues.m in Sources */,
 				BC066EFC18F637CA00F96604 /* BHQueueRequest.m in Sources */,
 				BC70B83518E73DB400B4F33E /* BHDailyStat.m in Sources */,
 				BC676C6018B2881800A46750 /* BHAppDelegate.m in Sources */,
@@ -702,6 +713,7 @@
 				BC066F0918F6418A00F96604 /* JDStatusBarView.m in Sources */,
 				BC620D9F18D28D6000D409A2 /* BHLocationTableViewCell.m in Sources */,
 				BC676C8C18B2893B00A46750 /* BHMapViewController.m in Sources */,
+				A990BBCD19510BD70019BF49 /* BHProgressView.m in Sources */,
 				BCAD56C118CADD90009436B8 /* BHLocationAnnotation.m in Sources */,
 				BC0A377318C8FE4000566D5D /* BHBuilding.m in Sources */,
 				BCD05DC618B6D94A005077AA /* CPDConstants.m in Sources */,

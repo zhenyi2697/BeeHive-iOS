@@ -14,4 +14,5 @@
 
 @property (nonatomic, strong) BHLocation *location;
 @property (strong, nonatomic) BHLocationStat *locationStat;
+
 @end

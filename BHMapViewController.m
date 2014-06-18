@@ -145,7 +145,7 @@
         aView.canShowCallout = YES;// DON'T FORGET THIS LINE OF CODE !!
         
         // Using SDWebImage to load image
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         [imageView setImageWithURL:[NSURL URLWithString:((BHBuildingAnnotation *)annotation).building.photoUrl] placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
         aView.leftCalloutAccessoryView = imageView;
             
@@ -156,7 +156,7 @@
 //        [showDetailButton setTitle:@">" forState:UIControlStateNormal];
 //        [aView.rightCalloutAccessoryView addSubview:showDetailButton];
         
-        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
+        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
         [aView.rightCalloutAccessoryView addSubview:showDetailButton];
         
@@ -193,7 +193,7 @@
 //        locView.annotationLabel.text = @"Test";
 //        locView.canShowCallout = YES;
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         [imageView setImageWithURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl] placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
         aView.leftCalloutAccessoryView = imageView;
         
@@ -210,7 +210,7 @@
         }
         
         // create right view
-        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
+        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [aView.rightCalloutAccessoryView addSubview:showDetailButton];
         [showDetailButton addTarget:self action:@selector(showLocationDetailFromMapView) forControlEvents:UIControlEventTouchUpInside];
