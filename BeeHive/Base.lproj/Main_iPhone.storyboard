@@ -100,7 +100,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-52" y="148"/>
+            <point key="canvasLocation" x="-54" y="152"/>
         </scene>
         <!--Navigation Controller - List-->
         <scene sceneID="NAC-wz-J5J">
@@ -182,7 +182,6 @@
                             <constraint firstAttribute="width" secondItem="jJY-ib-Rgl" secondAttribute="width" id="fzP-dZ-bXK"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="List" image="second" id="SfM-Tm-IJ1"/>
                     <navigationItem key="navigationItem" title="List" id="J9B-79-gVm">
                         <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="YKE-K4-ErY">
                             <connections>
@@ -224,7 +223,7 @@
             </objects>
             <point key="canvasLocation" x="1144" y="585"/>
         </scene>
-        <!--Setting View Controller - BeeHive-->
+        <!--Setting View Controller - More-->
         <scene sceneID="eUv-sC-8f1">
             <objects>
                 <tableViewController id="rNY-dX-pje" customClass="BHSettingViewController" sceneMemberID="viewController">
@@ -290,7 +289,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="1.0.2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TSE-VO-pDs">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="1.0.3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TSE-VO-pDs">
                                                     <rect key="frame" x="266" y="11" width="39" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -308,7 +307,7 @@
                             <outlet property="delegate" destination="rNY-dX-pje" id="X7F-dB-amd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="BeeHive" id="RDU-9R-02V"/>
+                    <navigationItem key="navigationItem" title="More" id="RDU-9R-02V"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ouz-pa-zXA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -327,18 +326,18 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Beehive_rounded.png" translatesAutoresizingMaskIntoConstraints="NO" id="CpB-GR-Gof">
-                                <rect key="frame" x="104" y="107" width="112" height="112"/>
+                                <rect key="frame" x="104" y="101" width="112" height="112"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BeeHive - Wait no more !" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnc-PS-HN7">
-                                <rect key="frame" x="64" y="235" width="192" height="21"/>
+                                <rect key="frame" x="64" y="221" width="192" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Copyright (c) 2014 French Fries" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmh-eB-qYu">
-                                <rect key="frame" x="71" y="349" width="179" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Copyright (c) 2014 FrenchFries Apps" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmh-eB-qYu">
+                                <rect key="frame" x="58" y="350" width="204" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -370,6 +369,13 @@
                                     <action selector="visitWebsite:" destination="rYK-2D-vFc" eventType="touchUpInside" id="eml-wS-cxN"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Version 1.0.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tW-7q-m4F">
+                                <rect key="frame" x="110" y="250" width="100" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -646,7 +652,6 @@
         <image name="button_background1.png" width="2000" height="400"/>
         <image name="list-star.png" width="30" height="30"/>
         <image name="map-paper.png" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -654,6 +659,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xdo-ga-tkr"/>
+        <segue reference="DtF-5X-fBy"/>
     </inferredMetricsTieBreakers>
 </document>
