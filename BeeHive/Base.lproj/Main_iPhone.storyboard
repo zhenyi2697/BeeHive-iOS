@@ -5,6 +5,25 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
+        <!--Bee Hive View Controller - BeeHive-->
+        <scene sceneID="Ymb-bL-pdi">
+            <objects>
+                <viewController id="2Db-Cn-aQY" customClass="BHBeeHiveViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0kp-Kb-CnU"/>
+                        <viewControllerLayoutGuide type="bottom" id="zYT-Gq-q7O"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mGR-eX-N8t">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="BeeHive" image="BeeHive" id="EcT-C7-DGP"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TyJ-Dg-KJu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="650" y="-806"/>
+        </scene>
         <!--Navigation Controller - Map-->
         <scene sceneID="QZr-VS-FXY">
             <objects>
@@ -95,12 +114,13 @@
                     <connections>
                         <segue destination="bpH-LK-DNh" kind="relationship" relationship="viewControllers" id="EET-mw-5lp"/>
                         <segue destination="yP5-GF-5Br" kind="relationship" relationship="viewControllers" id="H0J-BC-vXk"/>
+                        <segue destination="2Db-Cn-aQY" kind="relationship" relationship="viewControllers" id="kZc-zE-egb"/>
                         <segue destination="Ryb-zc-khT" kind="relationship" relationship="viewControllers" id="sTa-I1-yuZ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-54" y="152"/>
+            <point key="canvasLocation" x="26" y="186"/>
         </scene>
         <!--Navigation Controller - List-->
         <scene sceneID="NAC-wz-J5J">
@@ -648,6 +668,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BeeHive" width="30" height="30"/>
         <image name="Beehive_rounded.png" width="1022" height="1021"/>
         <image name="button_background1.png" width="2000" height="400"/>
         <image name="list-star.png" width="30" height="30"/>
