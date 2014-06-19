@@ -127,7 +127,7 @@
         UILabel *occupacyValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         occupacyValueLabel.backgroundColor = [UIColor clearColor];
         occupacyValueLabel.textColor = [UIColor darkGrayColor];
-        occupacyValueLabel.text = [NSString stringWithFormat:@"%@%%", self.locationStat.occupancyPercent];
+        occupacyValueLabel.text = [NSString stringWithFormat:@"%@%% of %@", self.locationStat.occupancyPercent, self.locationStat.maxCapacity];
         
         // Determine label color
         occupacyValueLabel.textColor = [BHUtils titleColorForLocationStat:self.locationStat];

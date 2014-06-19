@@ -194,9 +194,14 @@
     // Using SDWebImage to load image
     [cell.imageView setImageWithURL:[NSURL URLWithString:loc.photoUrl]
                    placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
-    
     return cell;
 }
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return 45;
+//}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Perform segue to candy detail

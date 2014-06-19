@@ -13,6 +13,7 @@
 #import "BHLocation.h"
 #import "BHMapViewController.h"
 #import "BHBuildingAnnotation.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation BHAppDelegate
 
@@ -47,6 +48,8 @@
     self.window.frame = CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
     
     [self loadDataFromRemoteServer];
+    
+    [GMSServices provideAPIKey:@"AIzaSyBCe9eLi04OPVY4hSrjw6p80dM9iKTM2WM"];
     
     return YES;
 }
