@@ -21,8 +21,9 @@
 {
     BHDataController *dataController = [BHDataController sharedDataController];
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
-    UINavigationController *navigationController = [[tabBarController viewControllers] objectAtIndex:0];
+    UINavigationController *navigationController = [[tabBarController viewControllers] objectAtIndex:1]; // map in second position 
     BHMapViewController *mapViewController = [[navigationController viewControllers] objectAtIndex:0];
+    
     
     // Set up logging level for RestKit
     RKLogConfigureByName("RestKit", RKLogLevelWarning);

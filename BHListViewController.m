@@ -25,6 +25,7 @@
 @synthesize tableView = _tableView;
 @synthesize refreshControl = _refreshControl;
 @synthesize locationSearchBar = _locationSearchBar, filteredLocations = _filteredLocations, filteredBuildings = _filteredBuildings;
+@synthesize toto;
 
 -(ODRefreshControl *)refreshControl
 {
@@ -54,6 +55,7 @@
 {
     [super viewDidLoad];
     
+    NSLog(@"*** %d ***", toto);
     [self.locationSearchBar setShowsScopeBar:NO];
     [self.locationSearchBar sizeToFit];
     
