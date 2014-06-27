@@ -25,7 +25,7 @@
 @synthesize tableView = _tableView;
 @synthesize refreshControl = _refreshControl;
 @synthesize locationSearchBar = _locationSearchBar, filteredLocations = _filteredLocations, filteredBuildings = _filteredBuildings;
-@synthesize toto;
+@synthesize toto; //incoming segue identifier
 
 -(ODRefreshControl *)refreshControl
 {
@@ -55,7 +55,7 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"*** %d ***", toto);
+    NSLog(@"*** %@ ***", toto);
     [self.locationSearchBar setShowsScopeBar:NO];
     [self.locationSearchBar sizeToFit];
     
@@ -238,6 +238,22 @@
             [dataController fetchStatForLocation:detailViewController];
         }
         
+    } else {
+        //
+        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
+        BHDataController *dataController = [BHDataController sharedDataController];
+        NSIndexPath *indexPath;
+        BHBuilding *bd;
+        
+        detailViewController.location = [bd.locations objectAtIndex:indexPath.row];
+        
+        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
+        detailViewController.weeklyStat = weeklyStat;
+        
+        if (!weeklyStat) {
+            [dataController fetchStatForLocation:detailViewController];
+        }
+
     }
 }
 
@@ -267,7 +283,11 @@
     
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [spinner startAnimating];
+    if ([toto  isEqual: @"Check-in"]) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+    } else {
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+    }
     
     BHDataController *dataController = [BHDataController sharedDataController];
     
@@ -283,7 +303,6 @@
 
 
 // search delegate method
-#pragma mark Content Filtering
 #pragma mark Content Filtering
 -(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
     

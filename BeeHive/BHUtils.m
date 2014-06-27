@@ -59,6 +59,7 @@
     } else {
         pinName = @"pin_red";
     }
+//    NSLog(@"pin_custom");
     return pinName;
 }
 
@@ -80,5 +81,6 @@
     }
     return pinName;
 }
+
 
 @end

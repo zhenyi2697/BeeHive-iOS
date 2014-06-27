@@ -432,4 +432,33 @@
     
 }
 
++ (NSArray*) computeLevelInfo: (NSInteger) contributedNumber {
+    float levelBase;
+    float levelTop;
+    NSMutableArray *levelInfo = [[NSMutableArray alloc ] init];
+    if (contributedNumber > 0 && contributedNumber < 20 ) {
+        [levelInfo addObject:@"Larva Yellow Jacket"];
+        levelBase = 0;
+        levelTop = 20;
+    } else if (contributedNumber >= 20 && contributedNumber < 100) {
+        [levelInfo addObject:@"Baby Yellow Jacket"];
+        levelBase = 20;
+        levelTop = 100;
+    } else if (contributedNumber >= 100 && contributedNumber < 500) {
+        [levelInfo addObject:@"Medium Yellow Jacket"];
+        levelBase = 100;
+        levelTop = 500;
+    } else if (contributedNumber >= 500 && contributedNumber < 1000) {
+        [levelInfo addObject:@"King Yellow Jacket"];
+        levelBase = 500;
+        levelTop = 1000;
+    } else {
+        [levelInfo addObject:@"Helluvah Yellow Jacket"];
+        levelBase = 1000;
+        levelTop = contributedNumber;
+    }
+    [levelInfo addObject:[NSNumber numberWithFloat:(contributedNumber - levelBase) / (levelTop - levelBase)]];
+    return levelInfo;
+}
+
 @end

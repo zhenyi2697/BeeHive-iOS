@@ -8,16 +8,25 @@
 
 #import "BHContributionViewController.h"
 #import "BHDataController.h"
-#import "BHLocationDetailViewController.h"
 #import "TWMessageBarManager.h"
 #import "BHUtils.h"
 #import "BHProgressView.h"
+#import "BHBeeHiveViewController.h"
+
+#import "BHLocationDetailViewController.h"
+#import "BHBuilding.h"
+#import "BHLocation.h"
+#import "BHDailyStat.h"
+#import "BHHourlyStat.h"
+
 
 @interface BHContributionViewController ()
 @property (nonatomic, strong) NSIndexPath *checkmarkedIndexPath;
-@property (nonatomic) int contributedNumber;
 @property (nonatomic, strong) UILabel *contributionLabel;
-
+//@property (nonatomic, strong) BHAppDelegate *myDelegate;
+@property (nonatomic) int contributedNumber;
+@property (nonatomic, strong) NSString *level;
+@property (nonatomic, strong) NSString *contributionText;
 
 - (IBAction)saveContribution:(id)sender;
 @end
@@ -52,9 +61,24 @@
     
     self.navigationItem.title = self.location.name;
     
+    // Load saved value
     NSString *savedValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"contributionCounter"];
     self.contributedNumber = [savedValue integerValue];
+//    _myDelegate =  [[UIApplication sharedApplication] delegate];
     
+    
+    self.level = [[BHDataController computeLevelInfo: self.contributedNumber] objectAtIndex: 0];
+    float progression = [[[BHDataController computeLevelInfo: self.contributedNumber] objectAtIndex: 1] floatValue];
+    
+    // Progress view - flat, orange, animated
+    BHProgressView *progressView = [[BHProgressView alloc] initWithFrame:CGRectMake(20, 380, self.view.frame.size.width-40, 20)];
+    progressView.color = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f];
+    progressView.flat = @YES;
+    progressView.showBackgroundInnerShadow = @NO;
+    progressView.progress = progression;
+    progressView.animate = @YES;
+    [self.view addSubview:progressView];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -118,6 +142,8 @@
     
     if (section == 0) {
         // configure labels
+//        NSLog(@"Hey! contributedNumber = %d", self.contributedNumber);
+
         
         UILabel *occupacyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         occupacyLabel.backgroundColor = [UIColor clearColor];
@@ -249,41 +275,22 @@
         contributionLabel.textColor = [UIColor blackColor];
         contributionLabel.textAlignment = NSTextAlignmentCenter;
         
-        NSString *level;
-        NSString *contributionText;
-        float levelTop;
-        float levelBase;
-        float progression = 0.4;
         
-        if (self.contributedNumber > 0 && self.contributedNumber < 20 ) {
-            level = @"Larva Yellow Jacket";
-            levelBase = 0;
-            levelTop = 20;
-        } else if (self.contributedNumber >= 20 && self.contributedNumber < 100) {
-            level = @"Baby Yellow Jacket";
-            levelBase = 20;
-            levelTop = 100;
-        } else if (self.contributedNumber >= 100 && self.contributedNumber < 500) {
-            level = @"Medium Yellow Jacket";
-            levelBase = 100;
-            levelTop = 500;
-        } else if (self.contributedNumber >= 500 && self.contributedNumber < 1000) {
-            level = @"King Yellow Jacket";
-            levelBase = 500;
-            levelTop = 1000;
-        } else {
-            level = @"Helluvah Yellow Jacket";
-            levelBase = 1000;
-            levelTop = self.contributedNumber;
-        }
-        
+//        NSLog(@"Coucou! contributedNumber = %d", self.contributedNumber);
+        //=======
+//        NSString *level = [[BHUtils computeLevelInfo: self.contributedNumber] objectAtIndex: 0];
+//        NSString *contributionText;
+//        float levelBase = [[[BHUtils computeLevelInfo: self.contributedNumber] objectAtIndex: 1] floatValue];
+//        float levelTop = [[[BHUtils computeLevelInfo: self.contributedNumber] objectAtIndex: 2]floatValue];
+//        float progression = 0.4; // default value for tests
+
         if (self.contributedNumber == 0) {
-            contributionText = @"You have not yet contributed.";
+            self.contributionText = @"You have not yet contributed.";
         } else {
-            contributionText = [NSString stringWithFormat:@"%d Points", self.contributedNumber * 10];
+            self.contributionText = [NSString stringWithFormat:@"%d Points", self.contributedNumber * 10];
         }
         
-        contributionLabel.text = [NSString stringWithFormat:@"%@ - %@", level, contributionText];
+        contributionLabel.text = [NSString stringWithFormat:@"%@ - %@", self.level, self.contributionText];
         
         NSLayoutConstraint* con = [NSLayoutConstraint constraintWithItem:contributionLabel attribute:NSLayoutAttributeCenterX relatedBy:0 toItem:customView attribute: NSLayoutAttributeCenterX multiplier:1 constant:0];
         
@@ -304,21 +311,22 @@
         [customView addConstraint:con1];
 
         
-        // Progress view - flat, orange, animated
-        BHProgressView *progressView = [[BHProgressView alloc] initWithFrame:CGRectMake(20, 380, self.view.frame.size.width-40, 20)];
-        progressView.color = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f];
-        progressView.flat = @YES;
-        progressView.showBackgroundInnerShadow = @NO;
-        progression = (self.contributedNumber - levelBase) / (levelTop - levelBase);
-        progressView.progress = progression;
-        progressView.animate = @YES;
-        [self.view addSubview:progressView];
+//        // Progress view - flat, orange, animated
+//        BHProgressView *progressView = [[BHProgressView alloc] initWithFrame:CGRectMake(20, 380, self.view.frame.size.width-40, 20)];
+//        progressView.color = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f];
+//        progressView.flat = @YES;
+//        progressView.showBackgroundInnerShadow = @NO;
+//        progression = (self.contributedNumber - levelBase) / (levelTop - levelBase);
+//        progressView.progress = progression;
+//        progressView.animate = @YES;
+//        [self.view addSubview:progressView];
         
     }
     
     
     return customView;
 }
+
 
 
 
@@ -345,8 +353,14 @@
     [dataController postQueueLength:[NSString stringWithFormat:@"%ld", (long)self.checkmarkedIndexPath.row] forLocation:self.location.locId];
     
     NSString *valueToSave = [NSString stringWithFormat:@"%d", self.contributedNumber + 1 ];
+//    NSLog(@"contributedNumber = %d", self.contributedNumber);
+//    NSLog(@"valueToSave = %@", valueToSave);
     [[NSUserDefaults standardUserDefaults]
      setObject:valueToSave forKey:@"contributionCounter"];
+    
+//    NSString *savedValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"contributionCounter"];
+//    NSLog(@"contributedNumber = %d", [savedValue integerValue]);
+
     
     // modify data source to take account the newest changes
     BHLocationStat *locationStat = [dataController.locationStats objectForKey:self.location.locId];

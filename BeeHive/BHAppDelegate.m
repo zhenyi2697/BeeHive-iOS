@@ -16,6 +16,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 
 @implementation BHAppDelegate
+//@synthesize contributedNumber;
 
 - (void)loadDataFromRemoteServer
 {
@@ -51,6 +52,11 @@
     [self loadDataFromRemoteServer];
     
     [GMSServices provideAPIKey:@"AIzaSyBCe9eLi04OPVY4hSrjw6p80dM9iKTM2WM"];
+    
+//    // Load saved value
+//    NSString *savedValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"contributionCounter"];
+//    self.contributedNumber = [savedValue integerValue];
+    
     
     return YES;
 }

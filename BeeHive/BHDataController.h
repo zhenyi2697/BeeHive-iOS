@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSDictionary *locationHourlyStats;
 @property (assign) BOOL connectionLost;
 +(id)sharedDataController;
++ (NSArray*) computeLevelInfo: (NSInteger) contributedNumber;
 
 -(void)fetchBuildingsForViewController:(UIViewController *)viewController;
 -(void)fetchLocationStatForViewController:(UIViewController *)viewController;

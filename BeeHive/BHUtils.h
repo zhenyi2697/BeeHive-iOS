@@ -15,4 +15,5 @@
 +(CPTColor *)titleColorForLocationStat2:(BHLocationStat *)locStat;
 +(NSString *)pinNameforLocationStat:(BHLocationStat *)locStat;
 +(NSString *)pinNameForBuilding:(NSString *)bdId;
+
 @end

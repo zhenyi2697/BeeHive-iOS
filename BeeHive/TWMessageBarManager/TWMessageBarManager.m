@@ -595,6 +595,9 @@ static UIColor *kTWDefaultMessageBarStyleSheetInfoStrokeColor = nil;
     else
     {
         titleLabelSize = [_titleString sizeWithFont:kTWMessageViewTitleFont constrainedToSize:boundedSize lineBreakMode:NSLineBreakByTruncatingTail];
+        //titleLabelSize = [_titleString sizeWithAttributes: @{NSFontAttributeName: kTWMessageViewTitleFont, NS: kTWMessageViewTitleFont}];
+        //CGSize textSize = [self.text sizeWithFont:self.font]; see
+        //CGSize textSize = [self.text sizeWithAttributes: @{NSFontAttributeName:self.font}];
     }
     
     return CGSizeMake(ceilf(titleLabelSize.width), ceilf(titleLabelSize.height));

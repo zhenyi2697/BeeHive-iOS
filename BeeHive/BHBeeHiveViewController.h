@@ -11,5 +11,4 @@
 
 @interface BHBeeHiveViewController : UIViewController
 
-
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BHAppDelegate : UIResponder <UIApplicationDelegate>
+//@property (nonatomic) int contributedNumber;
 
 @property (strong, nonatomic) UIWindow *window;
 

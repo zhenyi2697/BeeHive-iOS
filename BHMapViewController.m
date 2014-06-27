@@ -57,8 +57,8 @@
 {
     _mapView = mapView;
     _mapView.delegate = self;
-    
-//    [self updateMapView];
+//    [_mapView setMapType: MKMapTypeHybrid];
+    [self updateMapView];
 }
 
 - (void)setAnnotations:(NSArray *)annotations
@@ -202,6 +202,8 @@
         NSString *locId = ((BHLocationAnnotation *)annotation).location.locId;
         NSString *pinName = @"pin_orange";
         
+//        NSLog(@"pin_orange");
+        
         if (dataController.locationStats) {
             BHLocationStat *locStat = [dataController.locationStats objectForKey:locId];
             pinName = [BHUtils pinNameforLocationStat:locStat];
@@ -310,6 +312,7 @@
     self.isSearchBarHidden = YES;
     
     self.locationSearchBar.delegate = self;
+    
     
     // Update annotations if is not been set
     // annotations should have been set in AppDelegate when REST request finished loading
