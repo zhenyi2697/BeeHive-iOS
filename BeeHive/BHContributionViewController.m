@@ -13,12 +13,6 @@
 #import "BHProgressView.h"
 #import "BHBeeHiveViewController.h"
 
-#import "BHLocationDetailViewController.h"
-#import "BHBuilding.h"
-#import "BHLocation.h"
-#import "BHDailyStat.h"
-#import "BHHourlyStat.h"
-
 
 @interface BHContributionViewController ()
 @property (nonatomic, strong) NSIndexPath *checkmarkedIndexPath;
@@ -387,7 +381,8 @@
     locationStat.queue = queueText;
     
 
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    [self performSegueWithIdentifier:@"contributionSavedSegue" sender:sender];
     
 }
 
@@ -424,9 +419,11 @@
 }
 
 
-- (IBAction)cancelContribution:(id)sender {
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-}
+//- (IBAction)cancelContribution:(id)sender {
+//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+//    
+//    
+//}
 
 
 @end

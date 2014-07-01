@@ -56,10 +56,10 @@
             </objects>
             <point key="canvasLocation" x="1144" y="-806"/>
         </scene>
-        <!--List View Controller - Check-in-->
+        <!--Checkin List View Controller - Check-in-->
         <scene sceneID="Ndw-LG-ZCH">
             <objects>
-                <viewController id="K6q-ms-Q6j" customClass="BHListViewController" sceneMemberID="viewController">
+                <viewController id="K6q-ms-Q6j" customClass="BHCheckinListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dt6-sJ-GbS"/>
                         <viewControllerLayoutGuide type="bottom" id="azy-2u-zC2"/>
@@ -99,8 +99,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="K6q-ms-Q6j" id="fxg-Uv-TR5"/>
-                                    <outlet property="delegate" destination="K6q-ms-Q6j" id="CDL-s5-J0k"/>
+                                    <outlet property="dataSource" destination="K6q-ms-Q6j" id="y6T-sq-Bcp"/>
+                                    <outlet property="delegate" destination="K6q-ms-Q6j" id="J2d-xM-DZG"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -109,13 +109,14 @@
                     <navigationItem key="navigationItem" title="Check-in" id="9ab-Dq-DvK">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Oal-gW-87O">
                             <connections>
-                                <action selector="refreshList:" destination="K6q-ms-Q6j" id="qJ6-6k-TI7"/>
+                                <action selector="refreshList:" destination="K6q-ms-Q6j" id="P8d-2A-w3r"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="2zY-H9-8F4" id="HqS-Ul-Z8d"/>
-                        <segue destination="gor-y4-WpR" kind="push" identifier="showContributionView" id="mEu-zd-mcK"/>
+                        <outlet property="refreshButton" destination="Oal-gW-87O" id="8aI-wf-9Pf"/>
+                        <outlet property="tableView" destination="2zY-H9-8F4" id="HIm-i5-jKj"/>
+                        <segue destination="gor-y4-WpR" kind="push" identifier="contributionViewSegue" id="mEu-zd-mcK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYq-75-F2c" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -733,21 +734,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Contribution" id="NXk-6e-HXr">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="VDx-Zg-92j">
-                            <connections>
-                                <action selector="cancelContribution:" destination="gor-y4-WpR" id="YiL-47-AOY"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="1I0-A9-ksf">
                             <connections>
                                 <action selector="saveContribution:" destination="gor-y4-WpR" id="68t-2Z-A54"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="8YX-ce-x5E" kind="modal" identifier="contributionSavedSegue" id="FHj-Y9-YBg"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xaJ-GN-W8u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2371" y="-806"/>
+            <point key="canvasLocation" x="2353" y="-806"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BIf-rY-cYi">
@@ -756,9 +755,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MEx-R8-ILW">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="gor-y4-WpR" kind="relationship" relationship="rootViewController" id="g8T-3X-nDp"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wVO-Zq-RQZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -797,7 +793,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="mEu-zd-mcK"/>
-        <segue reference="DtF-5X-fBy"/>
+        <segue reference="xdo-ga-tkr"/>
     </inferredMetricsTieBreakers>
 </document>

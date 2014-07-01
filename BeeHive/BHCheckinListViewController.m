@@ -1,18 +1,19 @@
 //
-//  BHListViewController.m
+//  BHCheckinListViewController.m
 //  BeeHive
 //
-//  Created by Zhenyi ZHANG on 2/18/2014.
-//  Copyright (c) 2014 Zhenyi Zhang. All rights reserved.
+//  Created by Louis CHEN on 6/30/14.
+//  Copyright (c) 2014 Louis CHEN. All rights reserved.
 //
 
-#import "BHListViewController.h"
+#import "BHCheckinListViewController.h"
 #import "BHBuilding.h"
 #import "BHLocation.h"
-#import "BHLocationStat.h"
+//#import "BHLocationStat.h"
 #import "BHDataController.h"
 #import "BHLocationTableViewCell.h"
-#import "BHLocationDetailViewController.h"
+//#import "BHLocationDetailViewController.h"
+#import "BHContributionViewController.h"
 #import "BHUtils.h"
 
 //RefreshControl Library
@@ -21,11 +22,17 @@
 //SDWebImage Library
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@implementation BHListViewController
+@interface BHCheckinListViewController ()
+
+@end
+
+@implementation BHCheckinListViewController
 @synthesize tableView = _tableView;
 @synthesize refreshControl = _refreshControl;
-@synthesize locationSearchBar = _locationSearchBar, filteredLocations = _filteredLocations, filteredBuildings = _filteredBuildings;
+//@synthesize locationSearchBar = _locationSearchBar;
+@synthesize filteredLocations = _filteredLocations, filteredBuildings = _filteredBuildings;
 @synthesize toto; //incoming segue identifier
+
 
 -(ODRefreshControl *)refreshControl
 {
@@ -56,13 +63,13 @@
     [super viewDidLoad];
     
     NSLog(@"*** %@ ***", toto);
-    [self.locationSearchBar setShowsScopeBar:NO];
-    [self.locationSearchBar sizeToFit];
+//    [self.locationSearchBar setShowsScopeBar:NO];
+//    [self.locationSearchBar sizeToFit];
     
-    // Hide the search bar until user scrolls up
-    CGRect newBounds = self.tableView.bounds;
-    newBounds.origin.y = newBounds.origin.y + self.locationSearchBar.bounds.size.height;
-    self.tableView.bounds = newBounds;
+//    // Hide the search bar until user scrolls up
+//    CGRect newBounds = self.tableView.bounds;
+//    newBounds.origin.y = newBounds.origin.y + self.locationSearchBar.bounds.size.height;
+//    self.tableView.bounds = newBounds;
     
     // IMPORTANT!
     // Added this line so that refresh control can properly be showed
@@ -70,17 +77,17 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-//    self.edgesForExtendedLayout=UIRectEdgeNone;
-//    self.extendedLayoutIncludesOpaqueBars=NO;
+    //    self.edgesForExtendedLayout=UIRectEdgeNone;
+    //    self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=YES;
     
     // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
     int footerHeight = 0;
     if (IS_IPHONE_5) {
-//        footerHeight = 120;
+        //        footerHeight = 120;
         footerHeight = 0;
     } else if ( IS_IPHONE) {
-//        footerHeight = 212;
+        //        footerHeight = 212;
         footerHeight = 0;
     } else if (IS_IPAD){
         footerHeight = 0;
@@ -89,16 +96,16 @@
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, footerHeight)];
     footer.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = footer;
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     //Refresh Control
     [self.refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -109,7 +116,7 @@
 
 - (void)viewDidAppear
 {
-//    [self.tableView reloadData];
+    //    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -123,7 +130,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-
+    
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         return [self.filteredBuildings count];
     } else {
@@ -207,15 +214,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Perform segue to candy detail
-    [self performSegueWithIdentifier:@"showLocationDetailFromListView" sender:tableView]; 
+    [self performSegueWithIdentifier:@"contributionViewSegue" sender:tableView];
     
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"]) {
-
-        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
+    if ([[segue identifier] isEqualToString:@"contributionViewSegue"]) {
+        
+        BHContributionViewController *contribViewController = [segue destinationViewController];
         BHDataController *dataController = [BHDataController sharedDataController];
         NSIndexPath *indexPath;
         BHBuilding *bd;
@@ -230,15 +237,24 @@
             
         }
         
-        detailViewController.location = [bd.locations objectAtIndex:indexPath.row];
+        contribViewController.location = [bd.locations objectAtIndex:indexPath.row];
+        contribViewController.locationStat = [dataController.locationStats objectForKey:contribViewController.location.locId];
         
-        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
-        detailViewController.weeklyStat = weeklyStat;
+//        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
+//        detailViewController.weeklyStat = weeklyStat;
         
-        if (!weeklyStat) {
-            [dataController fetchStatForLocation:detailViewController];
-        }
+//        if (!weeklyStat) {
+//            [dataController fetchStatForLocation:detailViewController];
+//        }
         
+        
+        
+        /*
+//        UINavigationController *navigationController = [segue destinationViewController];
+        BHContributionViewController *contribViewController = [segue destinationViewController]; // [[navigationController viewControllers] objectAtIndex:0];
+        contribViewController.location = self.location;
+        contribViewController.locationStat = self.locationStat;
+        */
     }
 }
 
@@ -268,9 +284,8 @@
     
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [spinner startAnimating];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
 
-    
     BHDataController *dataController = [BHDataController sharedDataController];
     
     if (dataController.connectionLost) {
@@ -293,9 +308,9 @@
     [self.filteredLocations removeAllObjects];
     [self.filteredBuildings removeAllObjects];
     
-
+    
     BHDataController *dataController = [BHDataController sharedDataController];
-
+    
     NSArray *buildingList = dataController.buildingList;
     
     for (BHBuilding *bud in buildingList) {
@@ -345,50 +360,11 @@
     return YES;
 }
 
-- (IBAction)searchLocation:(id)sender {
-    [self.locationSearchBar becomeFirstResponder];
-}
+//- (IBAction)searchLocation:(id)sender {
+//    [self.locationSearchBar becomeFirstResponder];
+//}
 
 
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 
 
