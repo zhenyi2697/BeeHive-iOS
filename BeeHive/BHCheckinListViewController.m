@@ -198,6 +198,8 @@
     cell.textLabel.textColor = [BHUtils titleColorForLocationStat:locStat];
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% of %@ Line: %@ Go: %@", locStat.occupancyPercent, locStat.maxCapacity, locStat.queue, locStat.bestTime];
+    
+    NSLog(@"cell >> %@", locStat.queue);
     cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
     
     // Using SDWebImage to load image
@@ -226,7 +228,7 @@
         BHDataController *dataController = [BHDataController sharedDataController];
         NSIndexPath *indexPath;
         BHBuilding *bd;
-        
+
         if (sender == self.searchDisplayController.searchResultsTableView) {
             indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
             bd = [self.filteredBuildings objectAtIndex:indexPath.section];
@@ -236,9 +238,20 @@
             bd = [dataController.buildingList objectAtIndex:indexPath.section];
             
         }
+//        // Set values to pass
+//        contribViewController.location = [bd.locations objectAtIndex:indexPath.row];
+//        contribViewController.locationStat = [dataController.locationStats objectForKey:contribViewController.location.locId];
         
+        
+        
+        BHLocation *loc = [bd.locations objectAtIndex:indexPath.row];
+        BHLocationStat *locStat = [dataController.locationStats objectForKey:loc.locId];
+        // Set values to pass
         contribViewController.location = [bd.locations objectAtIndex:indexPath.row];
-        contribViewController.locationStat = [dataController.locationStats objectForKey:contribViewController.location.locId];
+        contribViewController.locationStat = locStat;
+        
+        
+        NSLog(@"pass >> %@", contribViewController.locationStat.queue);
         
 //        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
 //        detailViewController.weeklyStat = weeklyStat;

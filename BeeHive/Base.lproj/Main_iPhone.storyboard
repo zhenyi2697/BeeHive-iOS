@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Bee Hive View Controller-->
+        <!--Bee Hive View Controller - BeeHive-->
         <scene sceneID="Ymb-bL-pdi">
             <objects>
                 <viewController id="2Db-Cn-aQY" customClass="BHBeeHiveViewController" sceneMemberID="viewController">
@@ -44,9 +44,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.98561829328536987" green="0.58005629873677811" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="VeB-FU-VUZ">
-                        <nil key="title"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="BeeHive" id="VeB-FU-VUZ"/>
                     <connections>
                         <outlet property="levelLabel" destination="w1L-AO-xhE" id="HXr-ra-ScX"/>
                         <segue destination="K6q-ms-Q6j" kind="push" identifier="checkinSegue" id="m9a-26-vGL"/>
@@ -121,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYq-75-F2c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1759" y="-806"/>
+            <point key="canvasLocation" x="1651" y="-806"/>
         </scene>
         <!--Navigation Controller - Map-->
         <scene sceneID="QZr-VS-FXY">
@@ -219,7 +217,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="36" y="-114"/>
+            <point key="canvasLocation" x="48" y="-114"/>
         </scene>
         <!--Navigation Controller - List-->
         <scene sceneID="NAC-wz-J5J">
@@ -624,7 +622,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZd-bL-KP0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1783" y="267"/>
+            <point key="canvasLocation" x="1651" y="227"/>
         </scene>
         <!--Contribution View Controller - Contribution-->
         <scene sceneID="N1L-N1-xIQ">
@@ -746,7 +744,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xaJ-GN-W8u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2353" y="-806"/>
+            <point key="canvasLocation" x="2189" y="-806"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BIf-rY-cYi">
@@ -758,7 +756,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wVO-Zq-RQZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2339" y="267"/>
+            <point key="canvasLocation" x="2189" y="227"/>
         </scene>
         <!--Navigation Controller - BeeHive-->
         <scene sceneID="15M-v6-0Ok">

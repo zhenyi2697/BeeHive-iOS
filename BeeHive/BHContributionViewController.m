@@ -161,6 +161,8 @@
         queueValueLabel.backgroundColor = [UIColor clearColor];
         queueValueLabel.textColor = [UIColor darkGrayColor];
         queueValueLabel.text = self.locationStat.queue;
+        NSLog(@"disp >> %@", self.locationStat.queue);
+
         
         UILabel *btgLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         btgLabel.backgroundColor = [UIColor clearColor];
@@ -379,7 +381,7 @@
             break;
     }
     locationStat.queue = queueText;
-    
+    NSLog(@"save >> %@", self.locationStat.queue);
 
 //    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     [self performSegueWithIdentifier:@"contributionSavedSegue" sender:sender];
@@ -424,6 +426,15 @@
 //    
 //    
 //}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"contributionSavedSegue"]) {
+        
+        
+        
+    }
+}
 
 
 @end
