@@ -19,6 +19,8 @@
 #import "BHLocationHourlyStat.h"
 #import "BHQueueRequest.h"
 #import "BHQueueResponse.h"
+#import "BHCheckinListViewController.h"
+
 
 #import "TWMessageBarManager.h"
 
@@ -41,18 +43,24 @@
 
 -(void)fetchBuildingsForViewController:(id)viewController
 {
-    BOOL isForMapViewController = NO;
+    NSInteger isForViewController = 0; // 0 = List, 1 = Map, 2 = Check-in
     BHMapViewController *mapViewController;
     BHListViewController *listViewController;
+    BHCheckinListViewController *checkinListViewController;
 
     
     if ([viewController isKindOfClass:[BHMapViewController class]]) {
-        isForMapViewController = YES;
+        isForViewController = 1;
         mapViewController = (BHMapViewController *)viewController;
         mapViewController.navigationItem.title = @"Loading buildings ...";
     } else if ([viewController isKindOfClass:[BHListViewController class]]) {
+        //isForViewController = 0;
         listViewController = (BHListViewController *)viewController;
         listViewController.navigationItem.title = @"Loading buildings ...";
+    } else {
+        isForViewController = 2;
+        checkinListViewController = (BHCheckinListViewController *)viewController;
+        checkinListViewController.navigationItem.title = @"Loading buildings ...";
     }
     
     // Building mapping
@@ -104,35 +112,38 @@
         NSMutableArray *annotations;  //building annotations for mapview
         NSMutableArray *locationAnnotations;  //location annotations for mapview
         
-        if (isForMapViewController) {
+        if (isForViewController == 1) { // if Map
             annotations = [NSMutableArray arrayWithCapacity:[self.buildingList count]];
             locationAnnotations = [[NSMutableArray alloc] init];
         }
         
         for (BHBuilding *bd in self.buildingList) {
             
-            if (isForMapViewController) {
+            if (isForViewController == 1) { // if Map
                 [annotations addObject:[BHBuildingAnnotation annotationForBuilding:bd]];
             }
             
             for (BHLocation *loc in bd.locations) {
                 [locationList addObject:loc];
-                if (isForMapViewController) {
+                if (isForViewController == 1) { // if Map
                     [locationAnnotations addObject:[BHLocationAnnotation annotationForLocation:loc]];
                 }
             }
         }
         
         self.locationList = locationList;
-        if (isForMapViewController) {
+        if (isForViewController == 1) { // if Map
             mapViewController.buildingAnnotations = annotations;
             mapViewController.locationAnnotations = locationAnnotations;
             mapViewController.annotations = annotations;
 //            mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
 //            [mapViewController updateMapView];
-        } else {
+        } else if (isForViewController == 0) { // if List
             [listViewController.tableView reloadData];
             [listViewController.refreshControl endRefreshing];
+        } else { // if Check-in
+            [checkinListViewController.tableView reloadData];
+            [checkinListViewController.refreshControl endRefreshing];
         }
         
         // Now, can fetch location real time stats
@@ -151,17 +162,20 @@
         [alert show];
         
         // Reset Refresh Button
-        if (isForMapViewController) {
+        if (isForViewController == 1) { // if Map
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
             mapViewController.navigationItem.title = @"Map";
-        } else {
+        } else if (isForViewController == 0) { // if List
             listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
             listViewController.navigationItem.title = @"List";
+        } else { // if Check-in
+            checkinListViewController.navigationItem.rightBarButtonItem = checkinListViewController.refreshButton;
+            checkinListViewController.navigationItem.title = @"Check-in";
         }
 
     }];
     
-    if (isForMapViewController) {
+    if (isForViewController== 1) { // if Map
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [spinner startAnimating];
         mapViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
@@ -173,16 +187,20 @@
 
 -(void)fetchLocationStatForViewController:(UIViewController *)viewController
 {
-    BOOL isForMapViewController = NO;
+    NSInteger isForViewController = 0; // 0 = List, 1 = Map, 2 = Check-in
     BHMapViewController *mapViewController;
     BHListViewController *listViewController;
+    BHCheckinListViewController *checkinListViewController;
     
     if ([viewController isKindOfClass:[BHMapViewController class]]) {
-        isForMapViewController = YES;
+        isForViewController = YES;
         mapViewController = (BHMapViewController *)viewController;
         mapViewController.navigationItem.title = @"Loading statistics ...";
     } else if ([viewController isKindOfClass:[BHListViewController class]]) {
         listViewController = (BHListViewController *)viewController;
+//        listViewController.navigationItem.title = @"Loading statistics ...";
+    } else { //if ([viewController isKindOfClass:[BHCheckinListViewController class]]) {
+        checkinListViewController = (BHCheckinListViewController *)viewController;
 //        listViewController.navigationItem.title = @"Loading statistics ...";
     }
     
@@ -238,18 +256,24 @@
         }
         self.buildingStats = bdStats;
         
-        if (isForMapViewController) {// update mapview
+
+        if (isForViewController == 1) { // if Map
             mapViewController.annotations = mapViewController.buildingAnnotations; //set annotations to buildingAnnotations
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
             mapViewController.navigationItem.title = @"Map";
             [mapViewController updateMapView];
 
-        } else {
+        } else if (isForViewController == 0) { // if List
             [listViewController.tableView reloadData];
             [listViewController.refreshControl endRefreshing];
             [listViewController.tableView reloadData];
             listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
 //            listViewController.navigationItem.title = @"List";
+        } else {
+            [checkinListViewController.tableView reloadData];
+            [checkinListViewController.refreshControl endRefreshing];
+            [checkinListViewController.tableView reloadData];
+            checkinListViewController.navigationItem.rightBarButtonItem = checkinListViewController.refreshButton;
         }
         
 
@@ -261,12 +285,15 @@
         self.connectionLost = YES;
         
         // Reset Refresh Button
-        if (isForMapViewController) {
+        if (isForViewController == 1) { // if Map
             mapViewController.navigationItem.leftBarButtonItem = mapViewController.refreshButton;
             mapViewController.navigationItem.title = @"Map";
-        } else {
+        } else if (isForViewController == 0) { // if List
             listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
 //            listViewController.navigationItem.title = @"List";
+        } else {// if Check-in
+            checkinListViewController.navigationItem.rightBarButtonItem = checkinListViewController.refreshButton;
+//            listViewController.navigationItem.title = @"Check-in";
         }
         
     }];

@@ -9,7 +9,7 @@
 #import "BHCheckinListViewController.h"
 #import "BHBuilding.h"
 #import "BHLocation.h"
-//#import "BHLocationStat.h"
+#import "BHLocationStat.h"
 #import "BHDataController.h"
 #import "BHLocationTableViewCell.h"
 //#import "BHLocationDetailViewController.h"

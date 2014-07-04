@@ -738,9 +738,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="8YX-ce-x5E" kind="modal" identifier="contributionSavedSegue" id="FHj-Y9-YBg"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xaJ-GN-W8u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
