@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Bee Hive View Controller - BeeHive-->
+        <!--Bee Hive View Controller-->
         <scene sceneID="Ymb-bL-pdi">
             <objects>
                 <viewController id="2Db-Cn-aQY" customClass="BHBeeHiveViewController" sceneMemberID="viewController">
@@ -44,7 +44,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.98561829328536987" green="0.58005629873677811" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="BeeHive" id="VeB-FU-VUZ"/>
+                    <navigationItem key="navigationItem" id="VeB-FU-VUZ"/>
                     <connections>
                         <outlet property="levelLabel" destination="w1L-AO-xhE" id="HXr-ra-ScX"/>
                         <segue destination="K6q-ms-Q6j" kind="push" identifier="checkinSegue" id="m9a-26-vGL"/>
@@ -788,6 +788,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xdo-ga-tkr"/>
+        <segue reference="DtF-5X-fBy"/>
     </inferredMetricsTieBreakers>
 </document>

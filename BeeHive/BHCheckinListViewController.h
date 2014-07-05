@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BHLocation.h"
-#import "BHLocationStat.h"
+//#import "BHLocation.h"
+//#import "BHLocationStat.h"
 
 //RefreshControl Library
 #import "ODRefreshControl.h"
@@ -20,7 +20,6 @@
 @property (strong,nonatomic) NSMutableArray *filteredLocations;
 @property (strong,nonatomic) NSMutableArray *filteredBuildings;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
-
 
 @property NSString *toto;
 //@property IBOutlet UISearchBar *locationSearchBar;

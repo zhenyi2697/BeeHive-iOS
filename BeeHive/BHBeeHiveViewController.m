@@ -43,9 +43,17 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    // Hide NavigationBar
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
     // Load saved value
     NSString *savedValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"contributionCounter"];

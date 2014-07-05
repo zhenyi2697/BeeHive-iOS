@@ -193,13 +193,14 @@
     BHCheckinListViewController *checkinListViewController;
     
     if ([viewController isKindOfClass:[BHMapViewController class]]) {
-        isForViewController = YES;
+        isForViewController = 1;
         mapViewController = (BHMapViewController *)viewController;
         mapViewController.navigationItem.title = @"Loading statistics ...";
     } else if ([viewController isKindOfClass:[BHListViewController class]]) {
         listViewController = (BHListViewController *)viewController;
 //        listViewController.navigationItem.title = @"Loading statistics ...";
     } else { //if ([viewController isKindOfClass:[BHCheckinListViewController class]]) {
+        isForViewController = 2;
         checkinListViewController = (BHCheckinListViewController *)viewController;
 //        listViewController.navigationItem.title = @"Loading statistics ...";
     }

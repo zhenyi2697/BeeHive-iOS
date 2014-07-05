@@ -15,6 +15,7 @@
 #import "BHLocationDetailViewController.h"
 #import "BHUtils.h"
 
+
 //RefreshControl Library
 #import "ODRefreshControl.h"
 
@@ -54,7 +55,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    toto = @"List";
     NSLog(@"*** %@ ***", toto);
     [self.locationSearchBar setShowsScopeBar:NO];
     [self.locationSearchBar sizeToFit];
@@ -270,15 +271,14 @@
     [spinner startAnimating];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
 
-    
     BHDataController *dataController = [BHDataController sharedDataController];
     
     if (dataController.connectionLost) {
-        //Fetch building List for mapView
+        //Fetch building List
         [dataController fetchBuildingsForViewController:self];
     }
     
-    //Fetch locations statistic for mapView
+    //Fetch locations statistic 
     [dataController fetchLocationStatForViewController:self];
     
 }

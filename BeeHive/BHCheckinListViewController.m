@@ -13,8 +13,8 @@
 #import "BHDataController.h"
 #import "BHLocationTableViewCell.h"
 //#import "BHLocationDetailViewController.h"
-#import "BHContributionViewController.h"
 #import "BHUtils.h"
+#import "BHContributionViewController.h"
 
 //RefreshControl Library
 #import "ODRefreshControl.h"
@@ -22,9 +22,9 @@
 //SDWebImage Library
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface BHCheckinListViewController ()
-
-@end
+//@interface BHCheckinListViewController ()
+//
+//@end
 
 @implementation BHCheckinListViewController
 @synthesize tableView = _tableView;
@@ -61,6 +61,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Unhide NavigationBar
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     NSLog(@"*** %@ ***", toto);
 //    [self.locationSearchBar setShowsScopeBar:NO];
@@ -302,11 +305,11 @@
     BHDataController *dataController = [BHDataController sharedDataController];
     
     if (dataController.connectionLost) {
-        //Fetch building List for mapView
+        //Fetch building List
         [dataController fetchBuildingsForViewController:self];
     }
     
-    //Fetch locations statistic for mapView
+    //Fetch locations statistic
     [dataController fetchLocationStatForViewController:self];
     
 }
