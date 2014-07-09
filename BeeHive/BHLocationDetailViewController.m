@@ -316,7 +316,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
     axisLineStyle.lineWidth = 2.0f;
-    axisLineStyle.lineColor = [CPTColor grayColor];
+    axisLineStyle.lineColor = [CPTColor blackColor];
     
     CPTMutableTextStyle *lablingStyle = [CPTMutableTextStyle textStyle];
 //    lablingStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive;
@@ -520,7 +520,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
     axisLineStyle.lineWidth = 2.0f;
-    axisLineStyle.lineColor = [CPTColor grayColor];
+    axisLineStyle.lineColor = [CPTColor blackColor];
     CPTMutableTextStyle *lablingStyle = [CPTMutableTextStyle textStyle];
 //    lablingStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive
     [lablingStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
@@ -616,7 +616,7 @@ CGFloat const CPDBarInitialX = 0.25f;
         [lineStyle setValue:[BHUtils titleColorForLocationStat:self.locationStat] forKey:@"lineColor"];
         // [lineStyle setValue:[CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f] forKey:@"lineColor"];
         plotSymbol.lineStyle = lineStyle;
-        plotSymbol.size = CGSizeMake(1000, 1000);
+        plotSymbol.size = CGSizeMake(20, 20);
         return plotSymbol;
     }
     return [CPTPlotSymbol plotSymbol];

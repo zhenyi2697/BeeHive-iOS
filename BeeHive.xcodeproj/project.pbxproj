@@ -22,6 +22,7 @@
 		A99778D6196A669200739A8F /* Check-in.png in Resources */ = {isa = PBXBuildFile; fileRef = A99778D5196A669200739A8F /* Check-in.png */; };
 		A99778DB196CB70E00739A8F /* BHSetArrivalTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A99778DA196CB70E00739A8F /* BHSetArrivalTimeViewController.m */; };
 		A999CC271961F4A20082018A /* BHCheckinListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A999CC261961F4A20082018A /* BHCheckinListViewController.m */; };
+		A9D89484196DEF2E00FCE714 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9D89483196DEF2E00FCE714 /* Images.xcassets */; };
 		A9E919B4195390BA0049D60C /* BHBeeHiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E919B3195390BA0049D60C /* BHBeeHiveViewController.m */; };
 		BC066EFC18F637CA00F96604 /* BHQueueRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066EFB18F637CA00F96604 /* BHQueueRequest.m */; };
 		BC066EFF18F6382E00F96604 /* BHQueueResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066EFE18F6382E00F96604 /* BHQueueResponse.m */; };
@@ -56,7 +57,6 @@
 		BC676C6018B2881800A46750 /* BHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC676C5F18B2881800A46750 /* BHAppDelegate.m */; };
 		BC676C6318B2881800A46750 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC676C6118B2881800A46750 /* Main_iPhone.storyboard */; };
 		BC676C6618B2881800A46750 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC676C6418B2881800A46750 /* Main_iPad.storyboard */; };
-		BC676C6E18B2881900A46750 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC676C6D18B2881900A46750 /* Images.xcassets */; };
 		BC676C7518B2881900A46750 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C7418B2881900A46750 /* XCTest.framework */; };
 		BC676C7618B2881900A46750 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C4F18B2881800A46750 /* Foundation.framework */; };
 		BC676C7718B2881900A46750 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C5318B2881800A46750 /* UIKit.framework */; };
@@ -143,6 +143,7 @@
 		A99778DA196CB70E00739A8F /* BHSetArrivalTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHSetArrivalTimeViewController.m; sourceTree = "<group>"; };
 		A999CC251961F4A20082018A /* BHCheckinListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHCheckinListViewController.h; sourceTree = "<group>"; };
 		A999CC261961F4A20082018A /* BHCheckinListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHCheckinListViewController.m; sourceTree = "<group>"; };
+		A9D89483196DEF2E00FCE714 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A9E919B2195390BA0049D60C /* BHBeeHiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBeeHiveViewController.h; sourceTree = "<group>"; };
 		A9E919B3195390BA0049D60C /* BHBeeHiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHBeeHiveViewController.m; sourceTree = "<group>"; };
 		B95F5CF4F9F34E78B42E7B38 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -194,7 +195,6 @@
 		BC676C5F18B2881800A46750 /* BHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BHAppDelegate.m; sourceTree = "<group>"; };
 		BC676C6218B2881800A46750 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		BC676C6518B2881800A46750 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		BC676C6D18B2881900A46750 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BC676C7318B2881900A46750 /* BeeHiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeeHiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC676C7418B2881900A46750 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		BC676C7C18B2881900A46750 /* BeeHiveTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BeeHiveTests-Info.plist"; sourceTree = "<group>"; };
@@ -430,8 +430,8 @@
 				BC3EFE11190B5B0C00E0BC30 /* BHSettingViewController.m */,
 				BC129194192A3E0900225A13 /* BHUtils.h */,
 				BC129195192A3E0900225A13 /* BHUtils.m */,
+				A9D89483196DEF2E00FCE714 /* Images.xcassets */,
 				A93A6DBC1948F70900251669 /* CorePlot-CocoaTouch.xcodeproj */,
-				BC676C6D18B2881900A46750 /* Images.xcassets */,
 				BC066F0018F6418900F96604 /* JDStatusBarNotification */,
 				BC676C6418B2881800A46750 /* Main_iPad.storyboard */,
 				BC676C6118B2881800A46750 /* Main_iPhone.storyboard */,
@@ -634,6 +634,7 @@
 				BC324E5718BD1A9A005997C5 /* Beehive.png in Resources */,
 				BC83438F18F49B240023BC9B /* pin_orange_small.png in Resources */,
 				BC6AA29018BDAC75004674F2 /* disclosure.png in Resources */,
+				A9D89484196DEF2E00FCE714 /* Images.xcassets in Resources */,
 				BC676C6618B2881800A46750 /* Main_iPad.storyboard in Resources */,
 				BCED5F06190A240D00B8BACB /* icon-success@2x.png in Resources */,
 				A99778D6196A669200739A8F /* Check-in.png in Resources */,
@@ -643,7 +644,6 @@
 				BCED5F02190A240D00B8BACB /* icon-error@2x.png in Resources */,
 				A93A6DCA194A177400251669 /* GoogleMaps.bundle in Resources */,
 				BCAD56B518CA5952009436B8 /* map-paper.png in Resources */,
-				BC676C6E18B2881900A46750 /* Images.xcassets in Resources */,
 				BC12918F192A06AA00225A13 /* pin_red_small.png in Resources */,
 				BC12918D192A06AA00225A13 /* pin_green_small.png in Resources */,
 				BCED5F05190A240D00B8BACB /* icon-success.png in Resources */,

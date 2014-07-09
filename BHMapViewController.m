@@ -308,11 +308,12 @@
 {
     [super viewDidLoad];
     
+    // button color
+    self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
+    
     self.locationSearchBar.hidden = YES;
     self.isSearchBarHidden = YES;
-    
     self.locationSearchBar.delegate = self;
-    
     
     // Update annotations if is not been set
     // annotations should have been set in AppDelegate when REST request finished loading

@@ -99,7 +99,7 @@
 //    [self prepareProgressionView];
     
     // Progress view - flat, orange, animated
-    self.progressView = [[BHProgressView alloc] initWithFrame:CGRectMake(20, 180, self.view.frame.size.width-40, 20)];
+    self.progressView = [[BHProgressView alloc] initWithFrame:CGRectMake(20, 190, self.view.frame.size.width-40, 20)];
     self.progressView.color = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f];
     self.progressView.flat = @YES;
     self.progressView.showBackgroundInnerShadow = @NO;
@@ -108,6 +108,11 @@
     self.progressView.animate = @YES;
     
     [self.view addSubview:self.progressView];
+    
+    // button color
+    self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
+    // tab button color
+    self.tabBarController.tabBar.tintColor = [UIColor orangeColor];
     
 }
 

@@ -666,7 +666,7 @@
         <image name="Beehive_rounded.png" width="1022" height="1021"/>
         <image name="button_background1.png" width="2000" height="400"/>
         <image name="list-star.png" width="30" height="30"/>
-        <image name="map-paper.png" width="30" height="30"/>
+        <image name="map-paper.png" width="60" height="60"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackOpaque"/>
