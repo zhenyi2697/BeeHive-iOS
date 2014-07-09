@@ -19,6 +19,8 @@
 		A93A6DD8194A187800251669 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DD7194A187800251669 /* OpenGLES.framework */; };
 		A990BBCD19510BD70019BF49 /* BHProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A990BBCC19510BD70019BF49 /* BHProgressView.m */; };
 		A990BBD819510EEC0019BF49 /* UIColor+RGBValues.m in Sources */ = {isa = PBXBuildFile; fileRef = A990BBD719510EEC0019BF49 /* UIColor+RGBValues.m */; };
+		A99778D6196A669200739A8F /* Check-in.png in Resources */ = {isa = PBXBuildFile; fileRef = A99778D5196A669200739A8F /* Check-in.png */; };
+		A99778DB196CB70E00739A8F /* BHSetArrivalTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A99778DA196CB70E00739A8F /* BHSetArrivalTimeViewController.m */; };
 		A999CC271961F4A20082018A /* BHCheckinListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A999CC261961F4A20082018A /* BHCheckinListViewController.m */; };
 		A9E919B4195390BA0049D60C /* BHBeeHiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E919B3195390BA0049D60C /* BHBeeHiveViewController.m */; };
 		BC066EFC18F637CA00F96604 /* BHQueueRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066EFB18F637CA00F96604 /* BHQueueRequest.m */; };
@@ -136,6 +138,9 @@
 		A990BBCC19510BD70019BF49 /* BHProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHProgressView.m; sourceTree = "<group>"; };
 		A990BBD619510EEC0019BF49 /* UIColor+RGBValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RGBValues.h"; sourceTree = "<group>"; };
 		A990BBD719510EEC0019BF49 /* UIColor+RGBValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RGBValues.m"; sourceTree = "<group>"; };
+		A99778D5196A669200739A8F /* Check-in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Check-in.png"; sourceTree = "<group>"; };
+		A99778D9196CB70E00739A8F /* BHSetArrivalTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHSetArrivalTimeViewController.h; sourceTree = "<group>"; };
+		A99778DA196CB70E00739A8F /* BHSetArrivalTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHSetArrivalTimeViewController.m; sourceTree = "<group>"; };
 		A999CC251961F4A20082018A /* BHCheckinListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHCheckinListViewController.h; sourceTree = "<group>"; };
 		A999CC261961F4A20082018A /* BHCheckinListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHCheckinListViewController.m; sourceTree = "<group>"; };
 		A9E919B2195390BA0049D60C /* BHBeeHiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBeeHiveViewController.h; sourceTree = "<group>"; };
@@ -419,6 +424,8 @@
 				BC676C8B18B2893B00A46750 /* BHMapViewController.m */,
 				A990BBCB19510BD70019BF49 /* BHProgressView.h */,
 				A990BBCC19510BD70019BF49 /* BHProgressView.m */,
+				A99778D9196CB70E00739A8F /* BHSetArrivalTimeViewController.h */,
+				A99778DA196CB70E00739A8F /* BHSetArrivalTimeViewController.m */,
 				BC3EFE10190B5B0C00E0BC30 /* BHSettingViewController.h */,
 				BC3EFE11190B5B0C00E0BC30 /* BHSettingViewController.m */,
 				BC129194192A3E0900225A13 /* BHUtils.h */,
@@ -441,6 +448,7 @@
 		BC676C5618B2881800A46750 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A99778D5196A669200739A8F /* Check-in.png */,
 				BC7C177118F4D8E500DF1ACA /* Default.png */,
 				BC3EFE16190B618500E0BC30 /* button_background1.png */,
 				BC3EFE07190B562600E0BC30 /* Beehive_rounded.png */,
@@ -628,6 +636,7 @@
 				BC6AA29018BDAC75004674F2 /* disclosure.png in Resources */,
 				BC676C6618B2881800A46750 /* Main_iPad.storyboard in Resources */,
 				BCED5F06190A240D00B8BACB /* icon-success@2x.png in Resources */,
+				A99778D6196A669200739A8F /* Check-in.png in Resources */,
 				BCAD56B718CA5982009436B8 /* list-star.png in Resources */,
 				BC7C177218F4D8E500DF1ACA /* Default.png in Resources */,
 				BCE6326B18F79AA20031ADB6 /* pin_orange.png in Resources */,
@@ -711,6 +720,7 @@
 				BC066EFF18F6382E00F96604 /* BHQueueResponse.m in Sources */,
 				BC676C5C18B2881800A46750 /* main.m in Sources */,
 				BCAD56A918CA50AE009436B8 /* BHDataController.m in Sources */,
+				A99778DB196CB70E00739A8F /* BHSetArrivalTimeViewController.m in Sources */,
 				BC066F0718F6418A00F96604 /* JDStatusBarNotification.m in Sources */,
 				BCD05DC718B6D94A005077AA /* CPDStockPriceStore.m in Sources */,
 				BC3EFE12190B5B0C00E0BC30 /* BHSettingViewController.m in Sources */,

@@ -20,6 +20,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *levelLabel;
 //@property (nonatomic, strong) BHAppDelegate *myDelegate;
 @property (nonatomic) int contributedNumber;
+@property (strong, nonatomic) BHProgressView *progressView;
+@property (nonatomic) float progression;
+@property (weak, nonatomic) IBOutlet UIImageView *animatedCheckinImage;
+
 
 @end
 
@@ -46,27 +50,36 @@
 - (void)viewWillAppear:(BOOL)animated {
     // Hide NavigationBar
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    // Update progressView
+    [self prepareProgressionView];
+    self.progressView.progress = self.progression;
+    
+    // Label animation
+    [_animatedCheckinImage setAlpha:0.0];
+    [UIView animateWithDuration:7.0
+                          delay:0.0
+                        options:(UIViewAnimationOptionTransitionFlipFromLeft | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat)
+                     animations:^(void) {
+                         [_animatedCheckinImage setAlpha:1.0];
+                     }
+                     completion:nil];
 
 }
 
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
 
-    // Do any additional setup after loading the view.
+- (void) prepareProgressionView {
     // Load saved value
     NSString *savedValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"contributionCounter"];
     self.contributedNumber = [savedValue integerValue];
-
-//    _myDelegate =  [[UIApplication sharedApplication] delegate];
-
+    
     //=======
     NSString *level = [[BHDataController computeLevelInfo: self.contributedNumber] objectAtIndex: 0];
     NSString *contributionText;
-    float progression = [[[BHDataController computeLevelInfo: self.contributedNumber] objectAtIndex: 1] floatValue];
-//    float progression = 0.4; // default value for tests
-
+    self.progression = [[[BHDataController computeLevelInfo: self.contributedNumber] objectAtIndex: 1] floatValue];
+    //    float progression = 0.4; // default value for tests
+    
     if (self.contributedNumber == 0) {
         contributionText = @"You have not yet contributed.";
     } else {
@@ -74,16 +87,27 @@
     }
     
     self.levelLabel.text = [NSString stringWithFormat:@"%@ - %@", level, contributionText];
+}
+
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    // Do any additional setup after loading the view.
+//    [self prepareProgressionView];
     
     // Progress view - flat, orange, animated
-    BHProgressView *progressView = [[BHProgressView alloc] initWithFrame:CGRectMake(20, 220, self.view.frame.size.width-40, 20)];
-    progressView.color = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f];
-    progressView.flat = @YES;
-    progressView.showBackgroundInnerShadow = @NO;
-//    progression = (self.contributedNumber - levelBase) / (levelTop - levelBase);
-    progressView.progress = progression;
-    progressView.animate = @YES;
-    [self.view addSubview:progressView];
+    self.progressView = [[BHProgressView alloc] initWithFrame:CGRectMake(20, 180, self.view.frame.size.width-40, 20)];
+    self.progressView.color = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f];
+    self.progressView.flat = @YES;
+    self.progressView.showBackgroundInnerShadow = @NO;
+    //    progression = (self.contributedNumber - levelBase) / (levelTop - levelBase);
+//    self.progressView.progress = self.progression;
+    self.progressView.animate = @YES;
+    
+    [self.view addSubview:self.progressView];
     
 }
 

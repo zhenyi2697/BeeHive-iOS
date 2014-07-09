@@ -158,7 +158,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     // init plot
     [self initDailyPlot];
     [self initHourlyStatPlotForDay:[self currentWeeday]];
-
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -205,7 +205,8 @@ CGFloat const CPDBarInitialX = 0.25f;
     // 3 - Set up styles
     CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
 //    titleStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive;
-    [titleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
+//    [titleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
+    titleStyle.color = [CPTColor grayColor];
     titleStyle.fontName = @"Helvetica-Bold";
     titleStyle.fontSize = 14.0f;
     
@@ -267,6 +268,21 @@ CGFloat const CPDBarInitialX = 0.25f;
     barLineStyleLACROIX.lineWidth = 1;
     
     
+    // Configure annimation 
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.scale.y"];
+    [anim setDuration:1.0f];
+    anim.toValue = [NSNumber numberWithFloat:1.0f];
+    anim.fromValue = [NSNumber numberWithFloat:0.0f];
+    anim.removedOnCompletion = NO;
+    anim.delegate = self;
+    anim.fillMode = kCAFillModeForwards;
+    self.dailyPlot.anchorPoint = CGPointMake(0.0, 0.0);
+    self.dailyPlotAAPL.anchorPoint = CGPointMake(0.0, 0.0);
+//    self.dailyPlotLACROIX.anchorPoint = CGPointMake(0.0, 0.0);
+    [self.dailyPlot addAnimation:anim forKey:@"grow"];
+    [self.dailyPlotAAPL addAnimation:anim forKey:@"grow"];
+//    [self.dailyPlotLACROIX addAnimation:anim forKey:@"grow"];
+    
     // 3 - Add plots to graph
     CPTGraph *graph = self.dailyHostView.hostedGraph;
     CGFloat barX = CPDBarInitialX;
@@ -292,11 +308,11 @@ CGFloat const CPDBarInitialX = 0.25f;
 
 -(void)configureDailyStatAxes {
     // 1 - Configure styles
-    CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
-//    axisTitleStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive;
-    [axisTitleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
-    axisTitleStyle.fontName = @"Helvetica-Bold";
-    axisTitleStyle.fontSize = 8.0f;
+//    CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
+////    axisTitleStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive;
+//    [axisTitleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
+//    axisTitleStyle.fontName = @"Helvetica-Bold";
+//    axisTitleStyle.fontSize = 8.0f;
     
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
     axisLineStyle.lineWidth = 2.0f;
@@ -373,6 +389,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     [self configureHourlyStatAxes:dayIndex];
 }
 
+
 -(void)configureHourlyStatGraph:(int)dayIndex {
     
     // 1 - Create the graph
@@ -397,7 +414,8 @@ CGFloat const CPDBarInitialX = 0.25f;
     // 3 - Create and set text style
     CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
 //    titleStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive
-    [titleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
+//    [titleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
+    titleStyle.color = [CPTColor grayColor];
     titleStyle.fontName = @"Helvetica-Bold";
     titleStyle.fontSize = 14.0f;
     graph.titleTextStyle = titleStyle;
@@ -413,6 +431,7 @@ CGFloat const CPDBarInitialX = 0.25f;
 //    plotSpace.allowsUserInteraction = YES;
 }
 
+
 -(void)configureHourlyStatPlots:(int)dayIndex {
     
     // 1 - Get graph and plot space
@@ -420,17 +439,33 @@ CGFloat const CPDBarInitialX = 0.25f;
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
     
     // 2 - Create the 2 plots ##
-    
     self.hourlyPlot = [[CPTScatterPlot alloc] init];
     self.hourlyPlot.dataSource = self;
     self.hourlyPlot.identifier = CPDTickerSymbolGOOG;
 //    CPTColor *googColor = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // orange BeeHive
-    [graph addPlot:self.hourlyPlot toPlotSpace:plotSpace];
-    
     CPTScatterPlot *laCroixPlot = [[CPTScatterPlot alloc] init]; //pour la Croix
     laCroixPlot.dataSource = self;
     laCroixPlot.identifier = CPDTickerSymbolLACROIX;
     CPTColor *laCroixColor = [CPTColor clearColor];
+    // Configure annimation
+//    self.hourlyPlot.opacity = 0.0f;
+//    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+//    fadeInAnimation.duration = 1.0f;
+//    fadeInAnimation.removedOnCompletion = NO;
+//    fadeInAnimation.fillMode = kCAFillModeForwards;
+//    fadeInAnimation.toValue = [NSNumber numberWithFloat:1.0];
+//    [self.hourlyPlot addAnimation:fadeInAnimation forKey:@"animateOpacity"];
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.scale.y"];
+    [anim setDuration:0.5f];
+    anim.toValue = [NSNumber numberWithFloat:1.0f];
+    anim.fromValue = [NSNumber numberWithFloat:0.0f];
+    anim.removedOnCompletion = NO;
+    anim.delegate = self;
+    anim.fillMode = kCAFillModeForwards;
+    self.hourlyPlot.anchorPoint = CGPointMake(0.0, 0.0);
+    [self.hourlyPlot addAnimation:anim forKey:@"grow"];
+    // add plot to graph
+    [graph addPlot:self.hourlyPlot toPlotSpace:plotSpace];
     [graph addPlot:laCroixPlot toPlotSpace:plotSpace];
     
     
@@ -447,7 +482,6 @@ CGFloat const CPDBarInitialX = 0.25f;
         [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.6f)];
     }
     plotSpace.yRange = yRange;
-    
     
     
     // 4 - Create styles and symbols
@@ -477,11 +511,12 @@ CGFloat const CPDBarInitialX = 0.25f;
     BHDailyStat *dailyStat = [self.weeklyStat objectAtIndex:dayIndex];
     
     // 1 - Configure styles
-    CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
+//    CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
 //    axisTitleStyle.color = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f]; // couleur orange BeeHive
-    [axisTitleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
-    axisTitleStyle.fontName = @"Helvetica-Bold";
-    axisTitleStyle.fontSize = 8.0f;
+//    [axisTitleStyle setValue:[BHUtils titleColorForLocationStat2:self.locationStat] forKey:@"color"];
+//    axisTitleStyle.color = [CPTColor grayColor];
+//    axisTitleStyle.fontName = @"Helvetica-Bold";
+//    axisTitleStyle.fontSize = 8.0f;
     
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
     axisLineStyle.lineWidth = 2.0f;
@@ -609,7 +644,7 @@ CGFloat const CPDBarInitialX = 0.25f;
                     return [NSNumber numberWithInt:(int)[dayStat.clients integerValue]];
                 }
 //                return [NSNumber numberWithUnsignedInteger:index*10];
-            } else if ([plot.identifier isEqual:CPDTickerSymbolAAPL] == YES) {
+            } else if ([plot.identifier isEqual:CPDTickerSymbolAAPL] == YES) { // Bare for real time clue of current day
                 // For today
                 if (index == self.currentWeeday) {
                     return [NSNumber numberWithInt:(int)[dayStat.clients integerValue]];

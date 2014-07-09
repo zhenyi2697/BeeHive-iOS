@@ -241,17 +241,15 @@
             bd = [dataController.buildingList objectAtIndex:indexPath.section];
             
         }
-//        // Set values to pass
-//        contribViewController.location = [bd.locations objectAtIndex:indexPath.row];
-//        contribViewController.locationStat = [dataController.locationStats objectForKey:contribViewController.location.locId];
-        
-        
-        
-        BHLocation *loc = [bd.locations objectAtIndex:indexPath.row];
-        BHLocationStat *locStat = [dataController.locationStats objectForKey:loc.locId];
         // Set values to pass
         contribViewController.location = [bd.locations objectAtIndex:indexPath.row];
-        contribViewController.locationStat = locStat;
+        contribViewController.locationStat = [dataController.locationStats objectForKey:contribViewController.location.locId];
+        
+//        BHLocation *loc = [bd.locations objectAtIndex:indexPath.row];
+//        BHLocationStat *locStat = [dataController.locationStats objectForKey:loc.locId];
+//        // Set values to pass
+//        contribViewController.location = [bd.locations objectAtIndex:indexPath.row];
+//        contribViewController.locationStat = locStat;
         
         
         NSLog(@"pass >> %@", contribViewController.locationStat.queue);

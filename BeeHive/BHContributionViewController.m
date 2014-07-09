@@ -383,6 +383,7 @@
     locationStat.queue = queueText;
     NSLog(@"save >> %@", self.locationStat.queue);
 
+
 //    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 //    [self performSegueWithIdentifier:@"contributionSavedSegue" sender:sender];
     [self.navigationController popToRootViewControllerAnimated:YES];

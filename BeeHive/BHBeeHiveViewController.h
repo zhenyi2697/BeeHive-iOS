@@ -10,5 +10,6 @@
 
 
 @interface BHBeeHiveViewController : UIViewController
+- (void) prepareProgressionView;
 
 @end
