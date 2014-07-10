@@ -113,6 +113,8 @@
     self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
     // tab button color
     self.tabBarController.tabBar.tintColor = [UIColor orangeColor];
+    // tab bar transparency 
+//    self.tabBarController.tabBar.translucent=NO;
     
 }
 

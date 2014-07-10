@@ -164,7 +164,7 @@
         <scene sceneID="QZr-VS-FXY">
             <objects>
                 <navigationController definesPresentationContext="YES" id="bpH-LK-DNh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" image="map-paper.png" id="gtf-nh-XJY"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="Map" id="gtf-nh-XJY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UM7-Rm-fpd">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -299,7 +299,7 @@
                                     </connections>
                                 </searchBar>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LocationCell" textLabel="2un-G2-Bii" detailTextLabel="uEw-fG-nsj" style="IBUITableViewCellStyleSubtitle" id="iN6-a2-3yc" customClass="BHLocationTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LocationCell" textLabel="2un-G2-Bii" detailTextLabel="uEw-fG-nsj" style="IBUITableViewCellStyleSubtitle" id="iN6-a2-3yc" customClass="BHLocationTableViewCell">
                                         <rect key="frame" x="0.0" y="130" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iN6-a2-3yc" id="Dtu-tS-AMX">
@@ -914,9 +914,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="BeeHive" width="30" height="30"/>
         <image name="Beehive_rounded.png" width="1022" height="1021"/>
         <image name="Check-in.png" width="1543" height="1030"/>
+        <image name="Map" width="40" height="40"/>
         <image name="button_background1.png" width="2000" height="400"/>
         <image name="list-star.png" width="30" height="30"/>
-        <image name="map-paper.png" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -924,6 +924,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="DtF-5X-fBy"/>
+        <segue reference="xdo-ga-tkr"/>
     </inferredMetricsTieBreakers>
 </document>

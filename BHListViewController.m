@@ -68,32 +68,33 @@
     CGRect newBounds = self.tableView.bounds;
     newBounds.origin.y = newBounds.origin.y + self.locationSearchBar.bounds.size.height;
     self.tableView.bounds = newBounds;
-    
+
     // IMPORTANT!
     // Added this line so that refresh control can properly be showed
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
+    
 //    self.edgesForExtendedLayout=UIRectEdgeNone;
 //    self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=YES;
     
-    // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
-    int footerHeight = 0;
-    if (IS_IPHONE_5) {
-//        footerHeight = 120;
-        footerHeight = 0;
-    } else if ( IS_IPHONE) {
-//        footerHeight = 212;
-        footerHeight = 0;
-    } else if (IS_IPAD){
-        footerHeight = 0;
-    }
-    
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, footerHeight)];
-    footer.backgroundColor = [UIColor clearColor];
-    self.tableView.tableFooterView = footer;
+//    // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
+//    int footerHeight = 0;
+//    if (IS_IPHONE_5) {
+////        footerHeight = 120;
+//        footerHeight = 0;
+//    } else if ( IS_IPHONE) {
+////        footerHeight = 212;
+//        footerHeight = 0;
+//    } else if (IS_IPAD){
+//        footerHeight = 0;
+//    }
+//    
+//    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, footerHeight)];
+//    footer.backgroundColor = [UIColor whiteColor];
+//    self.tableView.tableFooterView = footer;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -110,12 +111,22 @@
 {
     BHDataController *dataController = [BHDataController sharedDataController];
     [dataController fetchLocationStatForViewController:self];
+    
+    // bar transparency fix
+    self.navigationController.navigationBar.translucent = NO;
+    self.tabBarController.tabBar.translucent=NO;
 }
 
-- (void)viewDidAppear
-{
-//    [self.tableView reloadData];
+- (void)viewWillDisappear:(BOOL)animated {
+    self.navigationController.navigationBar.translucent = YES;
+    self.tabBarController.tabBar.translucent=YES;
 }
+
+
+//- (void)viewDidAppear
+//{
+////    [self.tableView reloadData];
+//}
 
 - (void)didReceiveMemoryWarning
 {
