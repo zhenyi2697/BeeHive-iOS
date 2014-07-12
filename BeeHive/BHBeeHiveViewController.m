@@ -43,13 +43,18 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        locationManager = [[CLLocationManager alloc] init];
+        locationManager.delegate = self;
+        locationManager.distanceFilter = kCLDistanceFilterNone;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        [locationManager startUpdatingLocation];
     }
     return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     // Hide NavigationBar
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     // Update progressView
     [self prepareProgressionView];
@@ -115,8 +120,17 @@
     self.tabBarController.tabBar.tintColor = [UIColor orangeColor];
     // tab bar transparency 
 //    self.tabBarController.tabBar.translucent=NO;
-    
+    // navigation bar transparency
+    self.navigationController.navigationBar.translucent = NO;
 }
+
+
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    CLLocation *location = [locations lastObject];
+    NSLog(@"lat%f - lon%f", location.coordinate.latitude, location.coordinate.longitude);
+}
+
 
 - (void)didReceiveMemoryWarning
 {

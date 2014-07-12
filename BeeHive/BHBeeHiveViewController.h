@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 
-@interface BHBeeHiveViewController : UIViewController
+@interface BHBeeHiveViewController : UIViewController <CLLocationManagerDelegate> {
+    CLLocationManager *locationManager;
+}
+
 - (void) prepareProgressionView;
 
 @end

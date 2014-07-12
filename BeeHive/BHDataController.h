@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BHLocationDetailViewController.h"
+
 
 @class BHLocationDetailViewController;
 

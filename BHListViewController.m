@@ -56,8 +56,10 @@
 {
     [super viewDidLoad];
     
-    // button color
+    // bar and button color
     self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
+    self.locationSearchBar.tintColor = [UIColor orangeColor];
+    //    self.navigationController.navigationBar.barTintColor = [UIColor orangeColor];
     
     toto = @"List";
     NSLog(@"*** %@ ***", toto);

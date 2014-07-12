@@ -99,7 +99,6 @@
 //                             [self showLocationAnnotations];
                          }
                      }];
-    
 
 }
 
@@ -137,7 +136,25 @@
     
     // Don't overwrite current location annotation
     if([annotation isKindOfClass: [MKUserLocation class]]) {
-        return nil;
+        return nil; //default bleu point
+//        // custom user location annotation
+//        static NSString* AnnotationIdentifier = @"Annotation";
+//        MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
+//        
+//        if (!pinView) {
+//            MKPinAnnotationView *customPinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationIdentifier];
+//            if (annotation == mapView.userLocation) customPinView.image = [UIImage imageNamed:@"Buzz.png"];
+////            else customPinView.image = [UIImage imageNamed:@"mySomeOtherImage.png"];
+//            customPinView.animatesDrop = NO;
+//            customPinView.canShowCallout = YES;
+//            return customPinView;
+//            
+//        } else {
+//            
+//            pinView.annotation = annotation;
+//        }
+//        return pinView;
+        
     } else if ([annotation isKindOfClass:[BHBuildingAnnotation class]]) {
 //        MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"BdAnno"];
         
@@ -308,8 +325,9 @@
 {
     [super viewDidLoad];
     
-    // button color
+    // bar and button color
     self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
+    self.locationSearchBar.tintColor = [UIColor orangeColor];
     
     self.locationSearchBar.hidden = YES;
     self.isSearchBarHidden = YES;
@@ -380,13 +398,15 @@
 }
 
 - (IBAction)searchLocation:(id)sender {
-    if (self.isSearchBarHidden) {
+    if (self.isSearchBarHidden) { // if hidden then reveal
         self.locationSearchBar.hidden = NO;
         self.isSearchBarHidden = NO;
         [self.locationSearchBar becomeFirstResponder];
-    } else {
-        self.locationSearchBar.hidden = YES;
-        self.isSearchBarHidden = YES;
+    } else { // if not hidden then cancel
+//        self.locationSearchBar.hidden = YES;
+//        self.isSearchBarHidden = YES;
+        [self exitedSearchMode];
+        self.searchBar.text = @"";
         [self.locationSearchBar resignFirstResponder];
     }
 }
@@ -406,8 +426,10 @@
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    [searchBar resignFirstResponder];
     [self exitedSearchMode];
+    self.searchBar.text = @"";
+    [searchBar resignFirstResponder];
+
 }
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
@@ -436,29 +458,35 @@
     [self updateMapView];
 }
 
--(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    //Hide the keyboard.
-    [searchBar resignFirstResponder];
-    self.isInSearchMode = YES;
-}
+//-(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
+//{
+//    //Hide the keyboard.
+//    [searchBar resignFirstResponder];
+//    self.isInSearchMode = YES;
+//}
 
 
 // When not click on the keyboard area, hide the keyboard
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    UITouch *touch = [[event allTouches] anyObject];
-    
-    if (![[touch view] isKindOfClass:[UITextField class]]) {
-        [self.view endEditing:YES];
-        if ([self.searchBar.text isEqual:@""] && self.isInSearchMode) {
-            [self exitedSearchMode];
-        } else {
-            // still in search mode
-        }
-        
-    }
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
+//    NSLog(@"%hhd", self.isInSearchMode);
+    
+    [self.view endEditing:YES];
+    if ([self.searchBar.text isEqual:@""] && self.isInSearchMode) {
+        [self exitedSearchMode];
+    } else {
+        // still in search mode
+    }
+    
+//    UITouch *touch = [[event allTouches] anyObject];
+//    if (![[touch view] isKindOfClass:[UITextField class]]){
+//        
+//    }
+    
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
 }
 
 @end

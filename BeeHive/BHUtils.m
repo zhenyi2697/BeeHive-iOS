@@ -38,7 +38,7 @@
     if (percentage <= lowThreshold) {
         titleColor = [CPTColor colorWithComponentRed:0.0f/255.0f green:128.0f/255.0f blue:0.0f/255.0f alpha:1.0f]; //green
     } else if(percentage > lowThreshold && percentage < highThreshold) {
-        titleColor = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]; //orange
+        titleColor = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]; //orange BeeHive for titleColorForLocationStat2 -> UIColor 
     } else {
         titleColor = [CPTColor colorWithComponentRed:255.0f/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:1.0f]; //red
     }

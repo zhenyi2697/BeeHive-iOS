@@ -170,7 +170,7 @@ CGFloat const CPDBarInitialX = 0.25f;
 }
 
 
-#pragma mark - Chart behavior
+#pragma mark - Chart behavior Daly
 -(void)initDailyPlot {
     if (!self.weeklyStat) {
         self.indicator.hidden = NO;
@@ -221,15 +221,19 @@ CGFloat const CPDBarInitialX = 0.25f;
     CGFloat xMin = -0.3f;
     CGFloat xMax = [self.weeklyStat count];
     CGFloat yMin = 0.0f;
-    // should determine dynamically based on max number of people
-    CGFloat yMax = self.max_clients * 1.5;
+    CGFloat yMax = [self.locationStat.occupancyPercent floatValue] * 1.15;
+    // should determine dynamically based on max number of people //
+    if (yMax < self.max_clients * 1.5){
+        yMax = self.max_clients * 1.5;
+    }
     if (IS_IPAD) {
-        yMax = self.max_clients * 1.4;
+        if (yMax < self.max_clients * 1.4){
+            yMax = self.max_clients * 1.4;
+        }
     }
     
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(xMin) length:CPTDecimalFromFloat(xMax)];
-    
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(yMin) length:CPTDecimalFromFloat(yMax)];
 }
 
@@ -381,7 +385,7 @@ CGFloat const CPDBarInitialX = 0.25f;
 // *******************************************************************************************
 
 //configure hourly stat
-#pragma mark - Chart behavior
+#pragma mark - Chart behavior Hourly
 -(void)initHourlyStatPlotForDay:(int)dayIndex {
     self.hourlyHostView.allowPinchScaling = YES;
     [self configureHourlyStatGraph:dayIndex];
@@ -429,6 +433,10 @@ CGFloat const CPDBarInitialX = 0.25f;
     // 5 - Enable user interactions for plot space
 //    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
 //    plotSpace.allowsUserInteraction = YES;
+    
+    // Fit plot space
+    
+    
 }
 
 
@@ -470,7 +478,8 @@ CGFloat const CPDBarInitialX = 0.25f;
     
     
     // 3 - Set up plot space
-    [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:self.hourlyPlot, nil]];
+//    [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:self.hourlyPlot, nil]];
+    [plotSpace scaleToFitPlots:[graph allPlots]];
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
     [xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
     plotSpace.xRange = xRange;
@@ -479,6 +488,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     if (IS_IPAD) {
         [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.5f)];
     } else {
+        
         [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.6f)];
     }
     plotSpace.yRange = yRange;
@@ -502,7 +512,6 @@ CGFloat const CPDBarInitialX = 0.25f;
     laCroixLineStyle.lineWidth = 1.0;
     laCroixLineStyle.lineColor = laCroixColor;
     laCroixPlot.dataLineStyle = laCroixLineStyle;
-
     
 }
 
@@ -626,7 +635,7 @@ CGFloat const CPDBarInitialX = 0.25f;
 //***************
 // DATA
 //***************
-
+#pragma mark - Data
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
     
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];

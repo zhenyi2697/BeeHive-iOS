@@ -20,7 +20,7 @@
 #import "BHQueueRequest.h"
 #import "BHQueueResponse.h"
 #import "BHCheckinListViewController.h"
-
+#import "BHLocationDetailViewController.h"
 
 #import "TWMessageBarManager.h"
 

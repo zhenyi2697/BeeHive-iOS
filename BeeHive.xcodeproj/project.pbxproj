@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A9024DED196F675100C510E5 /* Buzz.png in Resources */ = {isa = PBXBuildFile; fileRef = A9024DEC196F675100C510E5 /* Buzz.png */; };
 		A93A6DC61948F78B00251669 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DC31948F70900251669 /* libCorePlot-CocoaTouch.a */; };
 		A93A6DC8194A172C00251669 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DC7194A172C00251669 /* GoogleMaps.framework */; };
 		A93A6DCA194A177400251669 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A93A6DC9194A177400251669 /* GoogleMaps.bundle */; };
@@ -124,6 +125,7 @@
 
 /* Begin PBXFileReference section */
 		8538B954861740A5B5E1D500 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9024DEC196F675100C510E5 /* Buzz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Buzz.png; sourceTree = "<group>"; };
 		A93A6DBC1948F70900251669 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../core-plot-master/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		A93A6DC7194A172C00251669 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		A93A6DC9194A177400251669 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
@@ -408,12 +410,12 @@
 				A999CC261961F4A20082018A /* BHCheckinListViewController.m */,
 				BC74DD8E18CF84B0002359B7 /* BHContributionViewController.h */,
 				BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */,
+				BCAD56A718CA50AE009436B8 /* BHDataController.h */,
 				BCAD56A818CA50AE009436B8 /* BHDataController.m */,
 				BCB30E6418B3CEF6009A3669 /* BHListViewController.h */,
 				BCB30E6518B3CEF6009A3669 /* BHListViewController.m */,
 				BCAD56BF18CADD90009436B8 /* BHLocationAnnotation.h */,
 				BCAD56C018CADD90009436B8 /* BHLocationAnnotation.m */,
-				BCAD56A718CA50AE009436B8 /* BHDataController.h */,
 				BC83438518F485F20023BC9B /* BHLocationAnnotationView.h */,
 				BC83438618F485F20023BC9B /* BHLocationAnnotationView.m */,
 				BC74DD8918CF82D6002359B7 /* BHLocationDetailViewController.h */,
@@ -448,6 +450,7 @@
 		BC676C5618B2881800A46750 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A9024DEC196F675100C510E5 /* Buzz.png */,
 				A99778D5196A669200739A8F /* Check-in.png */,
 				BC7C177118F4D8E500DF1ACA /* Default.png */,
 				BC3EFE16190B618500E0BC30 /* button_background1.png */,
@@ -584,7 +587,7 @@
 				ORGANIZATIONNAME = "Zhenyi Zhang";
 				TargetAttributes = {
 					BC676C4B18B2881800A46750 = {
-						DevelopmentTeam = 4RB9N5385L;
+						DevelopmentTeam = 89JRG4TE28;
 					};
 					BC676C7218B2881900A46750 = {
 						TestTargetID = BC676C4B18B2881800A46750;
@@ -631,6 +634,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9024DED196F675100C510E5 /* Buzz.png in Resources */,
 				BC324E5718BD1A9A005997C5 /* Beehive.png in Resources */,
 				BC83438F18F49B240023BC9B /* pin_orange_small.png in Resources */,
 				BC6AA29018BDAC75004674F2 /* disclosure.png in Resources */,
@@ -885,8 +889,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhenyi Zhang (4RB9N5385L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhenyi Zhang (4RB9N5385L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BeeHive",
@@ -916,7 +920,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1C0048D1-50D0-4984-9FF4-F43E490EAAC7";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -928,8 +932,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhenyi Zhang (4RB9N5385L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhenyi Zhang (4RB9N5385L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BeeHive",
@@ -954,7 +958,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1C0048D1-50D0-4984-9FF4-F43E490EAAC7";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
