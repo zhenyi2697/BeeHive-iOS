@@ -106,6 +106,21 @@
     
     //Refresh Control
     [self.refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    
+    // background color for animation cosmetic searchbar
+    self.navigationController.view.backgroundColor = [UIColor whiteColor];
+//    _locationSearchBar.barTintColor = [UIColor whiteColor];
+//    for (UIView *subView in _locationSearchBar.subviews) {
+//        for (UIView *secondLevelSubview in subView.subviews){
+//            if ([secondLevelSubview isKindOfClass:[UITextField class]]) {
+//                UITextField *searchBarTextField = (UITextField *)secondLevelSubview;
+//                //set  color here
+//                searchBarTextField.backgroundColor = [UIColor colorWithWhite: 0.95 alpha:1];
+////                searchBarTextField.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.2];
+//                break;
+//            }
+//        }
+//    }
 
 }
 
@@ -363,6 +378,7 @@
 }
 
 - (IBAction)searchLocation:(id)sender {
+    // display searchbar
     [self.locationSearchBar becomeFirstResponder];
 }
 

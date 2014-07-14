@@ -79,11 +79,13 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
         _ignoreOffset = NO;
         _didSetInset = NO;
         _hasSectionHeaders = NO;
-        _tintColor = [UIColor colorWithRed:155.0 / 255.0 green:162.0 / 255.0 blue:172.0 / 255.0 alpha:1.0];
+        _tintColor = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f];
+
+//        _tintColor = [UIColor colorWithRed:155.0 / 255.0 green:162.0 / 255.0 blue:172.0 / 255.0 alpha:1.0];
         
         _shapeLayer = [CAShapeLayer layer];
         _shapeLayer.fillColor = [_tintColor CGColor];
-        _shapeLayer.strokeColor = [[[UIColor darkGrayColor] colorWithAlphaComponent:0.5] CGColor];
+        _shapeLayer.strokeColor = [[UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]CGColor]; //orange BeeHive
         _shapeLayer.lineWidth = 0.5;
         _shapeLayer.shadowColor = [[UIColor blackColor] CGColor];
         _shapeLayer.shadowOffset = CGSizeMake(0, 1);
@@ -92,7 +94,8 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
         [self.layer addSublayer:_shapeLayer];
         
         _arrowLayer = [CAShapeLayer layer];
-        _arrowLayer.strokeColor = [[[UIColor darkGrayColor] colorWithAlphaComponent:0.5] CGColor];
+//        _arrowLayer.strokeColor = [[[UIColor darkGrayColor] colorWithAlphaComponent:0.5] CGColor];
+        _arrowLayer.strokeColor = [[UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]CGColor]; //orange BeeHive
         _arrowLayer.lineWidth = 0.5;
         _arrowLayer.fillColor = [[UIColor whiteColor] CGColor];
         [_shapeLayer addSublayer:_arrowLayer];

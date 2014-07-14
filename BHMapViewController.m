@@ -26,7 +26,7 @@
 @property (nonatomic) BOOL isSearchBarHidden;
 @property (strong, nonatomic) BHBuildingAnnotation *selectedAnnotation;
 @property (strong, nonatomic) BHLocationAnnotation *selectedLocationAnnotation;
-- (IBAction)searchLocation:(id)sender;
+//- (IBAction)searchLocation:(id)sender;
 @property (strong, nonatomic) IBOutlet UISearchBar *locationSearchBar;
 @end
 
@@ -111,12 +111,12 @@
                      animations:^{
                          MKCoordinateRegion region;
                          MKCoordinateSpan span;
-                         span.latitudeDelta = 0.02;
-                         span.longitudeDelta = 0.02;
+                         span.latitudeDelta = 0.021;
+                         span.longitudeDelta = 0.021; //0.021;
                          region.span=span;
                          CLLocationCoordinate2D centerLocation;
                          centerLocation.latitude = 33.774179;
-                         centerLocation.longitude = -84.398027;
+                         centerLocation.longitude = -84.397580; //-84.398027;
                          region.center= centerLocation;
                          [self.mapView setCenterCoordinate:centerLocation animated:YES];
                          [self.mapView setRegion:region animated:YES];
@@ -254,6 +254,16 @@
     return nil;
 }
 
+// use full to pop pins with spinTech selector
+//- (void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
+//    for (id<MKAnnotation> currentAnnotation in mapView.annotations) {
+//        if ([currentAnnotation isEqual:[[mapView annotations] lastObject]]) {
+//            [mapView selectAnnotation:currentAnnotation animated:FALSE];
+//        }
+//    }
+//    
+//}
+
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
     if ([view.annotation isKindOfClass:[BHBuildingAnnotation class]]) {
@@ -312,6 +322,8 @@
     
 }
 
+#pragma mark - Begin
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -328,6 +340,7 @@
     // bar and button color
     self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
     self.locationSearchBar.tintColor = [UIColor orangeColor];
+//    self.locationSearchBar.barTintColor = [UIColor colorWithWhite: 0.95 alpha:1];
     
     self.locationSearchBar.hidden = YES;
     self.isSearchBarHidden = YES;
@@ -396,6 +409,8 @@
     [self centerToGT];
     
 }
+
+# pragma mark - Research
 
 - (IBAction)searchLocation:(id)sender {
     if (self.isSearchBarHidden) { // if hidden then reveal

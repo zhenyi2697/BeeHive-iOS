@@ -18,17 +18,16 @@
 
 @interface BHBeeHiveViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *levelLabel;
-//@property (nonatomic, strong) BHAppDelegate *myDelegate;
 @property (nonatomic) int contributedNumber;
 @property (strong, nonatomic) BHProgressView *progressView;
 @property (nonatomic) float progression;
 @property (weak, nonatomic) IBOutlet UIImageView *animatedCheckinImage;
 
-
 @end
 
 
 @implementation BHBeeHiveViewController
+@synthesize locationManager = _locationManager;
 
 - (IBAction)checkinButtonClicked:(id)sender {
     [self performSegueWithIdentifier:@"checkinSegue" sender:self
@@ -43,11 +42,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        locationManager = [[CLLocationManager alloc] init];
-        locationManager.delegate = self;
-        locationManager.distanceFilter = kCLDistanceFilterNone;
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        [locationManager startUpdatingLocation];
     }
     return self;
 }
@@ -69,7 +63,9 @@
                          [_animatedCheckinImage setAlpha:1.0];
                      }
                      completion:nil];
-
+    
+    // Stop location services (#### to be moved) 
+    [self stopLocationServices];
 }
 
 
@@ -122,6 +118,25 @@
 //    self.tabBarController.tabBar.translucent=NO;
     // navigation bar transparency
     self.navigationController.navigationBar.translucent = NO;
+    
+}
+
+#pragma mark - Location services
+
+- (void) startLocationServices {
+    // Location manager
+    if (_locationManager == nil) {
+        _locationManager = [[CLLocationManager alloc] init];
+    }
+    _locationManager.delegate = self;
+    _locationManager.distanceFilter = kCLDistanceFilterNone;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [_locationManager startUpdatingLocation];
+}
+
+- (void) stopLocationServices {
+    [_locationManager stopUpdatingLocation];
+    _locationManager.delegate = nil;
 }
 
 
@@ -138,24 +153,21 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
+#pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-}
-*/
-
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
     // if segue.identifier == truc such as: if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"])
-    BHListViewController *destination = (BHListViewController*) segue.destinationViewController;
-    destination.toto = @"Check-in";
+//    BHListViewController *destination = (BHListViewController*) segue.destinationViewController;
     
+    BHCheckinListviewController *listviewController = [segue destinationViewController];
+    listviewController.toto = @"Check-in";
+
     
+    // Location manager start scanning
+    [self startLocationServices];
 }
 
 @end

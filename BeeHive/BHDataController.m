@@ -269,12 +269,13 @@
             [listViewController.refreshControl endRefreshing];
             [listViewController.tableView reloadData];
             listViewController.navigationItem.leftBarButtonItem = listViewController.refreshButton;
-//            listViewController.navigationItem.title = @"List";
+            listViewController.navigationItem.title = @"List";
         } else {
             [checkinListViewController.tableView reloadData];
             [checkinListViewController.refreshControl endRefreshing];
             [checkinListViewController.tableView reloadData];
             checkinListViewController.navigationItem.rightBarButtonItem = checkinListViewController.refreshButton;
+            checkinListViewController.navigationItem.title = @"Check-in";
         }
         
 

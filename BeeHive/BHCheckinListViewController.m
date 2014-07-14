@@ -7,12 +7,11 @@
 //
 
 #import "BHCheckinListViewController.h"
-#import "BHBuilding.h"
-#import "BHLocation.h"
+#import "BHBuilding.h" // with lat long
+#import "BHLocation.h" // with lat long 
 #import "BHLocationStat.h"
 #import "BHDataController.h"
 #import "BHLocationTableViewCell.h"
-//#import "BHLocationDetailViewController.h"
 #import "BHUtils.h"
 #import "BHContributionViewController.h"
 
@@ -65,6 +64,7 @@
     // Unhide NavigationBar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
+    
     NSLog(@"*** %@ ***", toto);
 //    [self.locationSearchBar setShowsScopeBar:NO];
 //    [self.locationSearchBar sizeToFit];
@@ -74,31 +74,31 @@
 //    newBounds.origin.y = newBounds.origin.y + self.locationSearchBar.bounds.size.height;
 //    self.tableView.bounds = newBounds;
     
-    // IMPORTANT!
-    // Added this line so that refresh control can properly be showed
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-    
-    //    self.edgesForExtendedLayout=UIRectEdgeNone;
-    //    self.extendedLayoutIncludesOpaqueBars=NO;
+//    // IMPORTANT!
+//    // Added this line so that refresh control can properly be showed
+//    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+//    }
+//    
+//    //    self.edgesForExtendedLayout=UIRectEdgeNone;
+//    //    self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=YES;
     
-    // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
-    int footerHeight = 0;
-    if (IS_IPHONE_5) {
-        //        footerHeight = 120;
-        footerHeight = 0;
-    } else if ( IS_IPHONE) {
-        //        footerHeight = 212;
-        footerHeight = 0;
-    } else if (IS_IPAD){
-        footerHeight = 0;
-    }
-    
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, footerHeight)];
-    footer.backgroundColor = [UIColor clearColor];
-    self.tableView.tableFooterView = footer;
+//    // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
+//    int footerHeight = 0;
+//    if (IS_IPHONE_5) {
+//        //        footerHeight = 120;
+//        footerHeight = 0;
+//    } else if ( IS_IPHONE) {
+//        //        footerHeight = 212;
+//        footerHeight = 0;
+//    } else if (IS_IPAD){
+//        footerHeight = 0;
+//    }
+//    
+//    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, footerHeight)];
+//    footer.backgroundColor = [UIColor clearColor];
+//    self.tableView.tableFooterView = footer;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -314,8 +314,12 @@
 
 
 // search delegate method
-#pragma mark Content Filtering
+#pragma mark - Content Filtering
 -(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
+    
+    BHBeeHiveViewController.locationManager
+    
+    
     
     // Update the filtered array based on the search text and scope.
     // Remove all objects from the filtered search array
@@ -377,6 +381,10 @@
 //- (IBAction)searchLocation:(id)sender {
 //    [self.locationSearchBar becomeFirstResponder];
 //}
+
+
+
+#pragma mark - location manager
 
 
 
