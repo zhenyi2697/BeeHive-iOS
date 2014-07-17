@@ -19,6 +19,9 @@
     _dateTime = sender.date;
 }
 
+- (IBAction)dateSlider:(UISlider *)sender {
+    _dateTime = sender.value;
+}
 
 - (IBAction)setNotification:(UIButton *)sender {
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];

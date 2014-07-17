@@ -24,6 +24,7 @@
 
 @interface BHCheckinListViewController ()
 @property int i;
+@property (nonatomic, strong) UIView* nomatchesView;
 @end
 
 @implementation BHCheckinListViewController
@@ -71,8 +72,29 @@
     
     NSLog(@"*** %@ ***", toto);
     
-    //Refresh Control
+    // Refresh Control
     [self.refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    
+    // No location found label: "No match" view
+    _nomatchesView = [[UIView alloc] initWithFrame:self.view.frame];
+    _nomatchesView.backgroundColor = [UIColor clearColor];
+    
+    UILabel *matchesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,320,130)];
+    matchesLabel.font = [UIFont boldSystemFontOfSize:18];
+    [matchesLabel setMinimumScaleFactor:12.0/[UIFont labelFontSize]];
+    matchesLabel.numberOfLines = 1;
+    [matchesLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    matchesLabel.shadowColor = [UIColor lightTextColor];
+    matchesLabel.textColor = [UIColor colorWithWhite: 0.80 alpha:1];
+    matchesLabel.shadowOffset = CGSizeMake(0, 1);
+    matchesLabel.backgroundColor = [UIColor clearColor];
+    matchesLabel.textAlignment =  NSTextAlignmentCenter;
+    
+    matchesLabel.text = @"Sorry, no nearby location :(";     //Here is the text for when there are no results
+    
+    _nomatchesView.hidden = YES;
+    [_nomatchesView addSubview:matchesLabel];
+    [self.tableView insertSubview:_nomatchesView belowSubview:self.tableView];
     
 }
 
@@ -84,7 +106,7 @@
     self.tabBarController.tabBar.translucent = NO;
     
     // Location manager start scanning
-    [self startLocationServices];
+    [self performScanning];
 }
 
 - (void)viewDidAppear
@@ -111,6 +133,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 //    NSLog(@"count bd = %i", [self.filteredBuildings count]);
+    //If there is no table data, unhide the "No matches" view
+    if([self.filteredBuildings count] == 0 ){
+        _nomatchesView.hidden = NO;
+    } else {
+        _nomatchesView.hidden = YES;
+    }
     // Return the number of sections.
     return [self.filteredBuildings count];
 }
@@ -179,29 +207,36 @@
     [dataController fetchLocationStatForViewController:self];
 
 //    NSLog(@"refresh lat%f - lon%f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
-    // filter
-    [self filterByLocationsNearTo:self.currentLocation];
+    
+    // restart location services
+    [self startLocationServices];
 }
 
 - (IBAction)refreshList:(id)sender {
-    
+    [self performScanning];
+
+}
+
+- (void) performScanning {
+    // show scanning
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [spinner startAnimating];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
-
-    BHDataController *dataController = [BHDataController sharedDataController];
     
+    // refresh
+    
+    BHDataController *dataController = [BHDataController sharedDataController];
     if (dataController.connectionLost) {
         //Fetch building List
         [dataController fetchBuildingsForViewController:self];
     }
-    
     //Fetch locations statistic
     [dataController fetchLocationStatForViewController:self];
     
-//    NSLog(@"refresh lat%f - lon%f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
-    // filter
-    [self filterByLocationsNearTo:self.currentLocation];
+    //    NSLog(@"refresh lat%f - lon%f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
+    
+    // start/restart location services
+    [self startLocationServices];
 }
 
 
@@ -241,20 +276,20 @@
     }
     [[self tableView] reloadData];
 //    NSLog(@"filt bd : %@", self.filteredBuildings);
+    // stop location services
+    [self stopLocationServices];
 }
 
 - (BOOL) isMyLocation:(CLLocation *)locA CloseEnoughtoLat: (double) latB Long:(double) lonB {
     CLLocation *locB = [[CLLocation alloc] initWithLatitude:latB longitude:lonB];
     CLLocationDistance distance = [locA distanceFromLocation:locB];
     
-    if (distance < 200) { // filtering precision
+    if (distance < 50) { // filtering precision ############################################
         NSLog(@"YES - dist %f ", distance);
         return YES;
     } else {
         return NO;
     }
-    // stop updating location
-    [self.locationManager stopUpdatingLocation];
 }
 
 
@@ -269,21 +304,23 @@
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
+    NSLog(@"Location services started");
 }
 
 - (void) stopLocationServices {
     [self.locationManager stopUpdatingLocation];
     self.locationManager.delegate = nil;
+    NSLog(@"Location services stopped");
 }
 
-//locationManager didUpdateLocations
+//locationManager didUpdateLocations *********************************************************
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     self.currentLocation = [locations lastObject];
     self.i++;
     NSLog(@"lat%f - lon%f, %i", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude, self.i);
-    if (self.i > 3) {
+//    if (self.i > 3) {
         [self filterByLocationsNearTo:self.currentLocation]; // filterByLocationsNearTo current location
-    }
+//    }
 
 }
 
