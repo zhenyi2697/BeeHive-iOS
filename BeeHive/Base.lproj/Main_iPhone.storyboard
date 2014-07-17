@@ -80,7 +80,7 @@
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.98561829328536987" green="0.58005629873677811" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.97429049744897955" green="0.57616280146075893" blue="0.012854751607017907" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="VeB-FU-VUZ"/>
                     <connections>
@@ -102,16 +102,16 @@
                         <viewControllerLayoutGuide type="bottom" id="azy-2u-zC2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ol4-at-osH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="2zY-H9-8F4">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LocationCell" textLabel="bkO-d0-BtX" detailTextLabel="Ycp-mz-A0J" style="IBUITableViewCellStyleSubtitle" id="xBX-rB-Otp" customClass="BHLocationTableViewCell">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="checkinCell" textLabel="bkO-d0-BtX" detailTextLabel="Ycp-mz-A0J" style="IBUITableViewCellStyleSubtitle" id="xBX-rB-Otp" customClass="BHLocationTableViewCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xBX-rB-Otp" id="2bv-hZ-PLR">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -143,6 +143,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Check-in" id="9ab-Dq-DvK">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Oal-gW-87O">
                             <connections>
@@ -192,7 +193,7 @@
                                 <rect key="frame" x="0.0" y="61" width="320" height="459"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
-                            <searchBar contentMode="redraw" text="" placeholder="Search location by name" translatesAutoresizingMaskIntoConstraints="NO" id="e8F-W7-TY7">
+                            <searchBar contentMode="redraw" text="" placeholder="Find where you want to bee :)" translatesAutoresizingMaskIntoConstraints="NO" id="e8F-W7-TY7">
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -290,7 +291,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" id="9BH-xe-iIY">
+                                <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Find where you want to bee :)" id="9BH-xe-iIY">
                                     <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -952,6 +953,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="DtF-5X-fBy"/>
+        <segue reference="xdo-ga-tkr"/>
     </inferredMetricsTieBreakers>
 </document>

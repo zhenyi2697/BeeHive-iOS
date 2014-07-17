@@ -11,7 +11,7 @@
 
 
 @interface BHBeeHiveViewController : UIViewController <CLLocationManagerDelegate> 
-@property CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 - (void) prepareProgressionView;
 

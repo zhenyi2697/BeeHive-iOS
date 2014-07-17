@@ -10,7 +10,7 @@
 #import "BHListViewController.h"
 #import "BHDataController.h"
 #import "BHProgressView.h"
-//#import "BHAppDelegate.h"
+#import "BHCheckinListViewController.h"
 
 
 //SDWebImage Library
@@ -22,6 +22,7 @@
 @property (strong, nonatomic) BHProgressView *progressView;
 @property (nonatomic) float progression;
 @property (weak, nonatomic) IBOutlet UIImageView *animatedCheckinImage;
+@property (nonatomic, strong) CLLocation *currentLocation;
 
 @end
 
@@ -33,7 +34,6 @@
     [self performSegueWithIdentifier:@"checkinSegue" sender:self
      ];
     
-
 }
 
 
@@ -115,59 +115,53 @@
     // tab button color
     self.tabBarController.tabBar.tintColor = [UIColor orangeColor];
     // tab bar transparency 
-//    self.tabBarController.tabBar.translucent=NO;
+    self.tabBarController.tabBar.translucent=YES;
     // navigation bar transparency
     self.navigationController.navigationBar.translucent = NO;
     
 }
 
+
 #pragma mark - Location services
 
 - (void) startLocationServices {
     // Location manager
-    if (_locationManager == nil) {
-        _locationManager = [[CLLocationManager alloc] init];
+    if (self.locationManager == nil) {
+        self.locationManager = [[CLLocationManager alloc] init];
     }
-    _locationManager.delegate = self;
-    _locationManager.distanceFilter = kCLDistanceFilterNone;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [_locationManager startUpdatingLocation];
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void) stopLocationServices {
-    [_locationManager stopUpdatingLocation];
-    _locationManager.delegate = nil;
+    [self.locationManager stopUpdatingLocation];
+    self.locationManager.delegate = nil;
 }
 
-
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations {
-    CLLocation *location = [locations lastObject];
-    NSLog(@"lat%f - lon%f", location.coordinate.latitude, location.coordinate.longitude);
+// locationManager didUpdateLocations
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    self.currentLocation = [locations lastObject];
+    NSLog(@"haha lat%f - lon%f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
+     
 #pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    // if segue.identifier == truc such as: if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"])
-//    BHListViewController *destination = (BHListViewController*) segue.destinationViewController;
+    // Get the new view controller using [segue destinationViewController]. Pass the selected object to the new view controller.
+    // if segue.identifier == truc such as: if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"])    BHListViewController *destination = (BHListViewController*) segue.destinationViewController;
     
-    BHCheckinListviewController *listviewController = [segue destinationViewController];
-    listviewController.toto = @"Check-in";
-
+    BHCheckinListViewController *checkinViewController = [segue destinationViewController];
+    checkinViewController.toto = @"Check-in";
     
     // Location manager start scanning
-    [self startLocationServices];
+//    [self startLocationServices];
+    // map data
+//    checkinViewController.currentLocation = self.currentLocation;
+//    checkinViewController.locationManager = self.locationManager;
+//    [self stopLocationServices];
 }
 
 @end

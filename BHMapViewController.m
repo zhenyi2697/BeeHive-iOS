@@ -196,7 +196,7 @@
         aView.image = [UIImage imageNamed:pinName];
         
         aView.calloutOffset = CGPointMake(0, 0);
-
+        
         return aView;
         
     } else if ([annotation isKindOfClass:[BHLocationAnnotation class]]) {
@@ -263,6 +263,21 @@
 //    }
 //    
 //}
+
+
+// pin drop annimation delegate methode 
+//- (void)mapView:(MKMapView *)mapView
+//didAddAnnotationViews:(NSArray *)annotationViews
+//{
+//    for (MKAnnotationView *annView in annotationViews)
+//    {
+//        CGRect endFrame = annView.frame;
+//        annView.frame = CGRectOffset(endFrame, 0, -500);
+//        [UIView animateWithDuration:0.5
+//                         animations:^{ annView.frame = endFrame; }];
+//    }
+//}
+
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {

@@ -77,7 +77,6 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    
 //    self.edgesForExtendedLayout=UIRectEdgeNone;
 //    self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=YES;
@@ -108,8 +107,10 @@
     [self.refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
     
     // background color for animation cosmetic searchbar
-    self.navigationController.view.backgroundColor = [UIColor whiteColor];
-//    _locationSearchBar.barTintColor = [UIColor whiteColor];
+//    self.navigationController.view.backgroundColor = [UIColor whiteColor];
+    self.navigationController.view.backgroundColor = [UIColor colorWithWhite: 0.80 alpha:1];
+    self.locationSearchBar.backgroundColor = [UIColor colorWithWhite: 0.80 alpha:1];
+//    _locationSearchBar.barTintColor = [UIColor whiteColor]; // search bar color customization 
 //    for (UIView *subView in _locationSearchBar.subviews) {
 //        for (UIView *secondLevelSubview in subView.subviews){
 //            if ([secondLevelSubview isKindOfClass:[UITextField class]]) {
@@ -131,12 +132,12 @@
     
     // bar transparency fix
     self.navigationController.navigationBar.translucent = NO;
-    self.tabBarController.tabBar.translucent=NO;
+    self.tabBarController.tabBar.translucent = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     self.navigationController.navigationBar.translucent = YES;
-    self.tabBarController.tabBar.translucent=YES;
+    self.tabBarController.tabBar.translucent = YES;
 }
 
 
@@ -242,37 +243,6 @@
     // Perform segue to candy detail
     [self performSegueWithIdentifier:@"showLocationDetailFromListView" sender:tableView]; 
     
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"]) {
-
-        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
-        BHDataController *dataController = [BHDataController sharedDataController];
-        NSIndexPath *indexPath;
-        BHBuilding *bd;
-        
-        if (sender == self.searchDisplayController.searchResultsTableView) {
-            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-            bd = [self.filteredBuildings objectAtIndex:indexPath.section];
-            
-        } else {
-            indexPath = [self.tableView indexPathForSelectedRow];
-            bd = [dataController.buildingList objectAtIndex:indexPath.section];
-            
-        }
-        
-        detailViewController.location = [bd.locations objectAtIndex:indexPath.row];
-        
-        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
-        detailViewController.weeklyStat = weeklyStat;
-        
-        if (!weeklyStat) {
-            [dataController fetchStatForLocation:detailViewController];
-        }
-        
-    }
 }
 
 // Refresh when dropping down
@@ -382,6 +352,43 @@
     [self.locationSearchBar becomeFirstResponder];
 }
 
+//-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+//{
+//    [searchBar setShowsCancelButton:YES animated:YES];
+//    [searchBar setShowsScopeBar:YES];
+//}
+
+#pragma mark - Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"]) {
+        
+        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
+        BHDataController *dataController = [BHDataController sharedDataController];
+        NSIndexPath *indexPath;
+        BHBuilding *bd;
+        
+        if (sender == self.searchDisplayController.searchResultsTableView) {
+            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+            bd = [self.filteredBuildings objectAtIndex:indexPath.section];
+            
+        } else {
+            indexPath = [self.tableView indexPathForSelectedRow];
+            bd = [dataController.buildingList objectAtIndex:indexPath.section];
+            
+        }
+        
+        detailViewController.location = [bd.locations objectAtIndex:indexPath.row];
+        
+        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
+        detailViewController.weeklyStat = weeklyStat;
+        
+        if (!weeklyStat) {
+            [dataController fetchStatForLocation:detailViewController];
+        }
+        
+    }
+}
 
 
 /*
@@ -422,7 +429,6 @@
  return YES;
  }
  */
-
 
 
 @end

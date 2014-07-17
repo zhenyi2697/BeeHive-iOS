@@ -17,8 +17,9 @@
 @property (strong,nonatomic) NSMutableArray *filteredLocations;
 @property (strong,nonatomic) NSMutableArray *filteredBuildings;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
-
-@property NSString *toto;
 @property IBOutlet UISearchBar *locationSearchBar;
 - (IBAction)searchLocation:(id)sender;
+
+@property NSString *toto;
+
 @end

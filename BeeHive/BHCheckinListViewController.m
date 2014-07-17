@@ -14,6 +14,7 @@
 #import "BHLocationTableViewCell.h"
 #import "BHUtils.h"
 #import "BHContributionViewController.h"
+#import "BHBeeHiveViewController.h"
 
 //RefreshControl Library
 #import "ODRefreshControl.h"
@@ -21,9 +22,9 @@
 //SDWebImage Library
 #import <SDWebImage/UIImageView+WebCache.h>
 
-//@interface BHCheckinListViewController ()
-//
-//@end
+@interface BHCheckinListViewController ()
+@property int i;
+@end
 
 @implementation BHCheckinListViewController
 @synthesize tableView = _tableView;
@@ -31,6 +32,8 @@
 //@synthesize locationSearchBar = _locationSearchBar;
 @synthesize filteredLocations = _filteredLocations, filteredBuildings = _filteredBuildings;
 @synthesize toto; //incoming segue identifier
+@synthesize locationManager = _locationManager;
+@synthesize currentLocation = _currentLocation;
 
 
 -(ODRefreshControl *)refreshControl
@@ -57,6 +60,8 @@
     return _filteredBuildings;
 }
 
+#pragma mark - View
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -64,47 +69,7 @@
     // Unhide NavigationBar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
-    
     NSLog(@"*** %@ ***", toto);
-//    [self.locationSearchBar setShowsScopeBar:NO];
-//    [self.locationSearchBar sizeToFit];
-    
-//    // Hide the search bar until user scrolls up
-//    CGRect newBounds = self.tableView.bounds;
-//    newBounds.origin.y = newBounds.origin.y + self.locationSearchBar.bounds.size.height;
-//    self.tableView.bounds = newBounds;
-    
-//    // IMPORTANT!
-//    // Added this line so that refresh control can properly be showed
-//    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-//        self.edgesForExtendedLayout = UIRectEdgeNone;
-//    }
-//    
-//    //    self.edgesForExtendedLayout=UIRectEdgeNone;
-//    //    self.extendedLayoutIncludesOpaqueBars=NO;
-    self.automaticallyAdjustsScrollViewInsets=YES;
-    
-//    // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
-//    int footerHeight = 0;
-//    if (IS_IPHONE_5) {
-//        //        footerHeight = 120;
-//        footerHeight = 0;
-//    } else if ( IS_IPHONE) {
-//        //        footerHeight = 212;
-//        footerHeight = 0;
-//    } else if (IS_IPAD){
-//        footerHeight = 0;
-//    }
-//    
-//    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, footerHeight)];
-//    footer.backgroundColor = [UIColor clearColor];
-//    self.tableView.tableFooterView = footer;
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     //Refresh Control
     [self.refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
@@ -115,6 +80,11 @@
 {
     BHDataController *dataController = [BHDataController sharedDataController];
     [dataController fetchLocationStatForViewController:self];
+    
+    self.tabBarController.tabBar.translucent = NO;
+    
+    // Location manager start scanning
+    [self startLocationServices];
 }
 
 - (void)viewDidAppear
@@ -122,77 +92,50 @@
     //    [self.tableView reloadData];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.tabBarController.tabBar.translucent = YES;
+    [self stopLocationServices];
+    self.i = 0;
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    NSLog(@"count bd = %i", [self.filteredBuildings count]);
     // Return the number of sections.
-    
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        return [self.filteredBuildings count];
-    } else {
-        BHDataController *sharedDataController = [BHDataController sharedDataController];
-        return [sharedDataController.buildingList count];
-    }
-    
+    return [self.filteredBuildings count];
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        BHBuilding *bd = [self.filteredBuildings objectAtIndex:section];
-        return bd.name;
-    } else {
-        BHDataController *dataController = [BHDataController sharedDataController];
-        BHBuilding *bd = [dataController.buildingList objectAtIndex:section];
-        return bd.name;
-    }
-    
+    BHBuilding *bd = [self.filteredBuildings objectAtIndex:section];
+//    NSLog(@"%@", bd.name);
+    return bd.name;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        BHBuilding *bd = [self.filteredBuildings objectAtIndex:section];
-        return [bd.locations count];
-    } else {
-        BHDataController *dataController = [BHDataController sharedDataController];
-        BHBuilding *bd = [dataController.buildingList objectAtIndex:section];
-        return [bd.locations count];
-    }
+    BHBuilding *bd = [self.filteredBuildings objectAtIndex:section];
+//    NSLog(@"count loc = %i", [bd.locations count]);
+    return [bd.locations count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"LocationCell";
-    BHLocationTableViewCell *cell;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    } else {
-        cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    }
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    @try {
+    BHLocationTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"checkinCell"];
     
     // Configure the cell here
     BHDataController *dataController = [BHDataController sharedDataController];
-    BHLocation *loc;
-    
-    // Check to see whether the normal table or search results table is being displayed and set the Candy object from the appropriate array
-    BHBuilding *bd;
-    
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        bd = [self.filteredBuildings objectAtIndex:indexPath.section];
-    } else {
-        bd = [dataController.buildingList objectAtIndex:indexPath.section];
-    }
-    
-    loc = [bd.locations objectAtIndex:indexPath.row];
+    BHBuilding *bd = [self.filteredBuildings objectAtIndex:indexPath.section];
+    BHLocation *loc = [bd.locations objectAtIndex:indexPath.row];
     
     BHLocationStat *locStat = [dataController.locationStats objectForKey:loc.locId];
     cell.textLabel.text = loc.name;
@@ -201,21 +144,18 @@
     cell.textLabel.textColor = [BHUtils titleColorForLocationStat:locStat];
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% of %@ Line: %@ Go: %@", locStat.occupancyPercent, locStat.maxCapacity, locStat.queue, locStat.bestTime];
+//    NSLog(@"cell >> %@", locStat.queue);
     
-    NSLog(@"cell >> %@", locStat.queue);
     cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
     
     // Using SDWebImage to load image
     [cell.imageView setImageWithURL:[NSURL URLWithString:loc.photoUrl]
                    placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
     return cell;
+//    }@catch(NSException * e){
+//        NSLog(@"Exception %@",[e callStackSymbols]);
+//    }
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return 45;
-//}
-
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Perform segue to candy detail
@@ -223,54 +163,7 @@
     
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"contributionViewSegue"]) {
-        
-        BHContributionViewController *contribViewController = [segue destinationViewController];
-        BHDataController *dataController = [BHDataController sharedDataController];
-        NSIndexPath *indexPath;
-        BHBuilding *bd;
-
-        if (sender == self.searchDisplayController.searchResultsTableView) {
-            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-            bd = [self.filteredBuildings objectAtIndex:indexPath.section];
-            
-        } else {
-            indexPath = [self.tableView indexPathForSelectedRow];
-            bd = [dataController.buildingList objectAtIndex:indexPath.section];
-            
-        }
-        // Set values to pass
-        contribViewController.location = [bd.locations objectAtIndex:indexPath.row];
-        contribViewController.locationStat = [dataController.locationStats objectForKey:contribViewController.location.locId];
-        
-//        BHLocation *loc = [bd.locations objectAtIndex:indexPath.row];
-//        BHLocationStat *locStat = [dataController.locationStats objectForKey:loc.locId];
-//        // Set values to pass
-//        contribViewController.location = [bd.locations objectAtIndex:indexPath.row];
-//        contribViewController.locationStat = locStat;
-        
-        
-        NSLog(@"pass >> %@", contribViewController.locationStat.queue);
-        
-//        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
-//        detailViewController.weeklyStat = weeklyStat;
-        
-//        if (!weeklyStat) {
-//            [dataController fetchStatForLocation:detailViewController];
-//        }
-        
-        
-        
-        /*
-//        UINavigationController *navigationController = [segue destinationViewController];
-        BHContributionViewController *contribViewController = [segue destinationViewController]; // [[navigationController viewControllers] objectAtIndex:0];
-        contribViewController.location = self.location;
-        contribViewController.locationStat = self.locationStat;
-        */
-    }
-}
+#pragma mark - Refresh
 
 // Refresh when dropping down
 - (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
@@ -284,14 +177,10 @@
     
     //Fetch locations statistic for mapView
     [dataController fetchLocationStatForViewController:self];
-    
-    // mimic the behavior of fectching
-    //    double delayInSeconds = 1.5;
-    //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    //    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-    //        NSLog(@"Refreshed");
-    //        [refreshControl endRefreshing];
-    //    });
+
+//    NSLog(@"refresh lat%f - lon%f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
+    // filter
+    [self filterByLocationsNearTo:self.currentLocation];
 }
 
 - (IBAction)refreshList:(id)sender {
@@ -310,84 +199,124 @@
     //Fetch locations statistic
     [dataController fetchLocationStatForViewController:self];
     
+//    NSLog(@"refresh lat%f - lon%f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
+    // filter
+    [self filterByLocationsNearTo:self.currentLocation];
 }
 
 
-// search delegate method
 #pragma mark - Content Filtering
--(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
-    
-    BHBeeHiveViewController.locationManager
-    
-    
-    
-    // Update the filtered array based on the search text and scope.
-    // Remove all objects from the filtered search array
+
+- (void) filterByLocationsNearTo: (CLLocation *)location {
+    NSLog(@"Start filtering");
+    // Update the filtered array based on the search text and scope. Remove all objects from the filtered search array
     [self.filteredLocations removeAllObjects];
     [self.filteredBuildings removeAllObjects];
     
-    
+    // get buildingList
     BHDataController *dataController = [BHDataController sharedDataController];
-    
     NSArray *buildingList = dataController.buildingList;
     
     for (BHBuilding *bud in buildingList) {
         BOOL addBuilding = NO;
-        // copy the old building object
+        // copy the reference building objet, prepare it to the add or not add trial
         BHBuilding *newBud = [[BHBuilding alloc] init];
         newBud.name = bud.name;
         newBud.description = bud.description;
         
-        if ([bud.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
-            newBud.locations = bud.locations;
-            [self.filteredBuildings addObject:newBud];
-        } else {
-            NSMutableArray *newLocList = [[NSMutableArray alloc] init];
-            for (BHLocation *loc in bud.locations) {
-                if ([loc.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound ||
-                    [loc.description rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
-                    [newLocList addObject:loc];
-                    addBuilding = YES;
-                    
-                }
-            }
-            
-            if (addBuilding) {
-                newBud.locations = newLocList;
-                [self.filteredBuildings addObject:newBud];
+        // find matching locations, here, no use for a case to add entire buildings
+        NSMutableArray *newLocList = [[NSMutableArray alloc] init];
+        for (BHLocation *loc in bud.locations) {
+            if ([self isMyLocation:location CloseEnoughtoLat:[loc.latitude doubleValue] Long:[loc.longitude doubleValue]]) { // if location is close enough
+                [newLocList addObject:loc]; // then add the location
+                addBuilding = YES; // and always add the parent building of an eligible location: answer to trial = YES
             }
         }
+
+        if (addBuilding) { // here we populate filteredBuildings with eligible data
+            newBud.locations = newLocList;
+            [self.filteredBuildings addObject:newBud];
+        }
+        
     }
+    [[self tableView] reloadData];
+//    NSLog(@"filt bd : %@", self.filteredBuildings);
+}
+
+- (BOOL) isMyLocation:(CLLocation *)locA CloseEnoughtoLat: (double) latB Long:(double) lonB {
+    CLLocation *locB = [[CLLocation alloc] initWithLatitude:latB longitude:lonB];
+    CLLocationDistance distance = [locA distanceFromLocation:locB];
     
+    if (distance < 200) { // filtering precision
+        NSLog(@"YES - dist %f ", distance);
+        return YES;
+    } else {
+        return NO;
+    }
+    // stop updating location
+    [self.locationManager stopUpdatingLocation];
 }
 
-#pragma mark - UISearchDisplayController Delegate Methods
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    // Tells the table data source to reload when text changes
-    [self filterContentForSearchText:searchString scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
+
+#pragma mark - Location manager
+
+- (void) startLocationServices {
+    // Location manager
+    if (self.locationManager == nil) {
+        self.locationManager = [[CLLocationManager alloc] init];
+    }
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
 }
 
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
-    // Tells the table data source to reload when scope bar selection changes
-    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
+- (void) stopLocationServices {
+    [self.locationManager stopUpdatingLocation];
+    self.locationManager.delegate = nil;
 }
 
-//- (IBAction)searchLocation:(id)sender {
-//    [self.locationSearchBar becomeFirstResponder];
-//}
+//locationManager didUpdateLocations
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    self.currentLocation = [locations lastObject];
+    self.i++;
+    NSLog(@"lat%f - lon%f, %i", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude, self.i);
+    if (self.i > 3) {
+        [self filterByLocationsNearTo:self.currentLocation]; // filterByLocationsNearTo current location
+    }
+
+}
 
 
+#pragma mark - Segue navigation
 
-#pragma mark - location manager
-
-
-
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+//    @try{
+    if ([[segue identifier] isEqualToString:@"contributionViewSegue"]) {
+        
+        BHContributionViewController *contribViewController = [segue destinationViewController];
+        BHDataController *dataController = [BHDataController sharedDataController];
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        BHBuilding *bd = [self.filteredBuildings objectAtIndex:indexPath.section];
+        
+        // Set values to pass
+        contribViewController.location = [bd.locations objectAtIndex:indexPath.row];
+        contribViewController.locationStat = [dataController.locationStats objectForKey:contribViewController.location.locId];
+        
+        NSLog(@"pass >> %@", contribViewController.locationStat.queue);
+        
+        /*
+         //        UINavigationController *navigationController = [segue destinationViewController];
+         BHContributionViewController *contribViewController = [segue destinationViewController]; // [[navigationController viewControllers] objectAtIndex:0];
+         contribViewController.location = self.location;
+         contribViewController.locationStat = self.locationStat;
+         */
+    }
+//    }@catch(NSException * e){
+//        NSLog(@"Exception %@",[e callStackSymbols]);
+//    }
+}
 
 
 @end

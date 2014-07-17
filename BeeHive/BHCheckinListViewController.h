@@ -7,22 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "BHLocation.h"
-//#import "BHLocationStat.h"
+#import <CoreLocation/CoreLocation.h>
 
 //RefreshControl Library
 #import "ODRefreshControl.h"
 
 
-@interface BHCheckinListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
-@property(nonatomic, strong) IBOutlet UITableView *tableView;
-@property(nonatomic, strong) ODRefreshControl *refreshControl;
-@property (strong,nonatomic) NSMutableArray *filteredLocations;
-@property (strong,nonatomic) NSMutableArray *filteredBuildings;
+@interface BHCheckinListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) ODRefreshControl *refreshControl;
+@property (strong, nonatomic) NSMutableArray *filteredLocations;
+@property (strong, nonatomic) NSMutableArray *filteredBuildings;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocation *currentLocation;
+
 @property NSString *toto;
-//@property IBOutlet UISearchBar *locationSearchBar;
-//- (IBAction)searchLocation:(id)sender;
+
 @end
 
