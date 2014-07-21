@@ -37,6 +37,8 @@
 @synthesize selectedAnnotation = _selectedAnnotation, selectedLocationAnnotation = _selectedLocationAnnotation;
 @synthesize searchBar = _searchBar, isSearchBarHidden = _isSearchBarHidden;
 
+#pragma mark - Updates
+
 -(NSMutableArray *)filteredAnnotations
 {
     if (!_filteredAnnotations) {
@@ -107,7 +109,7 @@
     
     [UIView animateWithDuration:0.8
                           delay:0.0
-                        options: UIViewAnimationOptionCurveEaseOut
+                        options: UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          MKCoordinateRegion region;
                          MKCoordinateSpan span;
@@ -254,7 +256,7 @@
     return nil;
 }
 
-// use full to pop pins with spinTech selector
+// useful to pop pins with spinTech selector
 //- (void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
 //    for (id<MKAnnotation> currentAnnotation in mapView.annotations) {
 //        if ([currentAnnotation isEqual:[[mapView annotations] lastObject]]) {
@@ -305,12 +307,16 @@
 {
     self.annotations = self.buildingAnnotations;
     [self updateMapView];
+//    NSLog(@"> %@", self.annotations);
+
 }
 
 -(void)showLocationAnnotations
 {
     self.annotations = self.locationAnnotations;
     [self updateMapView];
+//    NSLog(@"> %@", self.annotations);
+
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
@@ -372,7 +378,8 @@
         }
         self.annotations = annotations;
     }
-    
+//    NSLog(@">load: %@", self.annotations);
+//    [self updateMapView];
     [self centerToGT];
 }
 
@@ -386,23 +393,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([[segue identifier] isEqualToString:@"showLocationDetailFromMapView"]) {
-        
-        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
-        BHDataController *dataController = [BHDataController sharedDataController];
-        detailViewController.location = self.selectedLocationAnnotation.location;
-        
-        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
-        detailViewController.weeklyStat = weeklyStat;
-        
-        if (!weeklyStat) {
-            [dataController fetchStatForLocation:detailViewController];
-        }
-    }
 }
 
 - (IBAction)refreshMap:(UIBarButtonItem *)sender {
@@ -423,6 +413,25 @@
     
     [self centerToGT];
     
+}
+
+# pragma mark - Segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([[segue identifier] isEqualToString:@"showLocationDetailFromMapView"]) {
+        
+        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
+        BHDataController *dataController = [BHDataController sharedDataController];
+        detailViewController.location = self.selectedLocationAnnotation.location;
+        
+        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
+        detailViewController.weeklyStat = weeklyStat;
+        
+        if (!weeklyStat) {
+            [dataController fetchStatForLocation:detailViewController];
+        }
+    }
 }
 
 # pragma mark - Research
@@ -488,13 +497,6 @@
     [self updateMapView];
 }
 
-//-(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
-//{
-//    //Hide the keyboard.
-//    [searchBar resignFirstResponder];
-//    self.isInSearchMode = YES;
-//}
-
 
 // When not click on the keyboard area, hide the keyboard
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -516,6 +518,7 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    // click on key board search button
     [searchBar resignFirstResponder];
 }
 

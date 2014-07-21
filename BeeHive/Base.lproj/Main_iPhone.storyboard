@@ -54,6 +54,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="navigateToDestination:" destination="2Db-Cn-aQY" eventType="touchUpInside" id="vuz-CU-14F"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiE-Bb-dN0">
                                 <rect key="frame" x="50" y="322" width="40" height="30"/>
@@ -673,8 +676,7 @@
                     <navigationItem key="navigationItem" title="Statistics" id="ZDn-1h-7PC">
                         <barButtonItem key="rightBarButtonItem" title="Go!" id="Xf2-wN-vDA">
                             <connections>
-                                <action selector="contribute:" destination="rcr-x4-Ep4" id="JCz-cf-7ag"/>
-                                <segue destination="HoE-Z4-vkZ" kind="push" id="ZOV-xx-1Db"/>
+                                <segue destination="HoE-Z4-vkZ" kind="push" identifier="goTimerSegue" id="ZOV-xx-1Db"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -704,23 +706,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ag4-8V-GDg" customClass="CPTGraphHostingView">
-                                <rect key="frame" x="0.0" y="63" width="320" height="172"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dj4-7t-vR8">
-                                        <rect key="frame" x="254" y="0.0" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="setNotification:" destination="HoE-Z4-vkZ" eventType="touchUpInside" id="124-Ag-koP"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
                             <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cua-2v-EAb">
                                 <rect key="frame" x="18" y="269" width="284" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -763,13 +748,28 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <action selector="datePicker:" destination="HoE-Z4-vkZ" eventType="valueChanged" id="uLB-hC-z6U"/>
                                 </connections>
                             </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dj4-7t-vR8">
+                                <rect key="frame" x="46" y="243" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="setNotification:" destination="HoE-Z4-vkZ" eventType="touchUpInside" id="124-Ag-koP"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SUd-22-nc6" customClass="CPTGraphHostingView">
+                                <rect key="frame" x="0.0" y="63" width="320" height="172"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Arrive at..." id="fcZ-8n-lty">
                         <barButtonItem key="rightBarButtonItem" title="OK" id="Pdy-Qu-OJO">
                             <connections>
-                                <segue destination="KI5-H3-pli" kind="push" id="4jw-9p-dCd"/>
+                                <segue destination="KI5-H3-pli" kind="push" identifier="goItinerarySegue" id="4jw-9p-dCd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -778,10 +778,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="2105" y="223"/>
         </scene>
-        <!--Map View Controller - Direction-->
+        <!--Set Itinerary View Controller - Direction-->
         <scene sceneID="ZaA-DT-UhU">
             <objects>
-                <viewController id="KI5-H3-pli" customClass="BHMapViewController" sceneMemberID="viewController">
+                <viewController id="KI5-H3-pli" customClass="BHSetItineraryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9pj-DL-Xhw"/>
                         <viewControllerLayoutGuide type="bottom" id="3Xy-8i-Dun"/>
@@ -790,7 +790,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Lw1-nh-W9P">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lw1-nh-W9P">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
@@ -800,6 +800,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <navigationItem key="navigationItem" title="Direction" id="Gu9-CN-lFc">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="jFQ-7x-FeV"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="Lw1-nh-W9P" id="4aR-tK-TTS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l5r-Y1-DHx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

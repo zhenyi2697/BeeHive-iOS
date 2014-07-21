@@ -7,6 +7,7 @@
 //
 
 #import "BHSetArrivalTimeViewController.h"
+#import "BHSetItineraryViewController.h"
 
 @interface BHSetArrivalTimeViewController ()
 @property (nonatomic, strong) NSDate *dateTime;
@@ -14,19 +15,22 @@
 @end
 
 @implementation BHSetArrivalTimeViewController
+@synthesize location = _location;
 
 - (IBAction)datePicker:(UIDatePicker *)sender {
     _dateTime = sender.date;
 }
 
 - (IBAction)dateSlider:(UISlider *)sender {
-    _dateTime = sender.value;
+//    _dateTime = sender.value;
 }
 
 - (IBAction)setNotification:(UIButton *)sender {
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.fireDate = _dateTime;
-    localNotification.alertBody = [NSString stringWithFormat:@"It is %@, time to go!", _dateTime];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm"];
+    localNotification.alertBody = [NSString stringWithFormat:@"It's %@, time to go to %@!", [dateFormatter stringFromDate:_dateTime], [_location name]];
     localNotification.soundName = UILocalNotificationDefaultSoundName;
     localNotification.applicationIconBadgeNumber = 1;
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
@@ -54,7 +58,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -62,7 +66,12 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"goItinerarySegue"]) {
+        BHSetItineraryViewController *setItineraryViewControler = [segue destinationViewController];
+        setItineraryViewControler.toLocation = self.location;
+        
+    }
 }
-*/
+
 
 @end

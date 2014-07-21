@@ -13,6 +13,7 @@
 #import "BHLocation.h"
 #import "BHMapViewController.h"
 #import "BHBuildingAnnotation.h"
+#import "BHSetItineraryViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 
 @implementation BHAppDelegate
@@ -24,7 +25,6 @@
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
     UINavigationController *navigationController = [[tabBarController viewControllers] objectAtIndex:1]; // map in second position 
     BHMapViewController *mapViewController = [[navigationController viewControllers] objectAtIndex:0];
-    
     
     // Set up logging level for RestKit
     RKLogConfigureByName("RestKit", RKLogLevelWarning);
@@ -58,7 +58,10 @@
 }
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"It's time!"
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm"];
+    NSString *textDate = [NSString stringWithFormat:@"It's %@, time to go!", [dateFormatter stringFromDate:[NSDate date]]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:textDate
                                                     message:@"Your current missions begins."
                                                    delegate:self
                                           cancelButtonTitle:@"OK"

@@ -30,10 +30,24 @@
 @implementation BHBeeHiveViewController
 @synthesize locationManager = _locationManager;
 
-- (IBAction)checkinButtonClicked:(id)sender {
+- (IBAction)checkinButtonClicked:(UIButton *)sender {
     [self performSegueWithIdentifier:@"checkinSegue" sender:self
      ];
     
+}
+- (IBAction)navigateToDestination:(UIButton *)sender {
+//    CLLocationCoordinate2D coord;
+//    coord.longitude = (CLLocationDegrees)[self.toLocation.longitude doubleValue];
+//    coord.latitude = (CLLocationDegrees)[self.toLocation.latitude doubleValue];
+//    MKPlacemark* place = [[MKPlacemark alloc] initWithCoordinate: coord addressDictionary: nil];
+//    MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark: place];
+//    destination.name = self.toLocation.name;
+//    NSArray* items = [[NSArray alloc] initWithObjects: destination, nil];
+//    NSDictionary* options = [[NSDictionary alloc] initWithObjectsAndKeys:
+//                             MKLaunchOptionsDirectionsModeDriving,
+//                             MKLaunchOptionsDirectionsModeKey, nil];
+//    [MKMapItem openMapsWithItems: items launchOptions: options];
+
 }
 
 
@@ -65,7 +79,7 @@
                      completion:nil];
     
     // Stop location services (#### to be moved) 
-    [self stopLocationServices];
+//    [self stopLocationServices];
 }
 
 

@@ -70,6 +70,11 @@
     CGRect newBounds = self.tableView.bounds;
     newBounds.origin.y = newBounds.origin.y + self.locationSearchBar.bounds.size.height;
     self.tableView.bounds = newBounds;
+    
+//    // hide search
+//    float delta = self.locationSearchBar.frame.size.height;
+//    self.locationSearchBar.frame = CGRectOffset(self.locationSearchBar.frame, 0.0, -delta);
+//    self.locationSearchBar.hidden = YES;
 
     // IMPORTANT!
     // Added this line so that refresh control can properly be showed
@@ -79,7 +84,7 @@
     
 //    self.edgesForExtendedLayout=UIRectEdgeNone;
 //    self.extendedLayoutIncludesOpaqueBars=NO;
-    self.automaticallyAdjustsScrollViewInsets=YES;
+//    self.automaticallyAdjustsScrollViewInsets=YES;
     
 //    // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
 //    int footerHeight = 0;
@@ -122,7 +127,6 @@
 //            }
 //        }
 //    }
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -347,9 +351,10 @@
     return YES;
 }
 
-- (IBAction)searchLocation:(id)sender {
+- (IBAction)searchLocation:(id)sender { 
     // display searchbar
     [self.locationSearchBar becomeFirstResponder];
+    
 }
 
 //-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar

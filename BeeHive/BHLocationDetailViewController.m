@@ -14,6 +14,7 @@
 #import "BHHourlyStat.h"
 #import "BHContributionViewController.h"
 #import "BHUtils.h"
+#import "BHSetArrivalTimeViewController.h"
 
 @interface BHLocationDetailViewController ()
 - (IBAction)contribute:(UIBarButtonItem *)sender;
@@ -767,18 +768,19 @@ CGFloat const CPDBarInitialX = 0.25f;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Segue
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showContributionView"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        BHContributionViewController *contribViewController = [[navigationController viewControllers] objectAtIndex:0];
-        contribViewController.location = self.location;
-        contribViewController.locationStat = self.locationStat;
+    if ([[segue identifier] isEqualToString:@"goTimerSegue"]) {
+        BHSetArrivalTimeViewController *setArrivalTimeViewControler = [segue destinationViewController];
+        setArrivalTimeViewControler.location = self.location;
     }
 }
 
-
+// depriciated - to be deleted when ipad storyboard updated
 - (IBAction)contribute:(UIBarButtonItem *)sender {
     
 }
+
 @end

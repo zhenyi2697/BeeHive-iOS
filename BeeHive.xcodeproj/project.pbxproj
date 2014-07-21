@@ -18,6 +18,7 @@
 		A93A6DD4194A185D00251669 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DD3194A185D00251669 /* libicucore.dylib */; };
 		A93A6DD6194A186D00251669 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DD5194A186D00251669 /* libz.dylib */; };
 		A93A6DD8194A187800251669 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DD7194A187800251669 /* OpenGLES.framework */; };
+		A97293E0197C9AE900495470 /* BHSetItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A97293DF197C9AE900495470 /* BHSetItineraryViewController.m */; };
 		A990BBCD19510BD70019BF49 /* BHProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A990BBCC19510BD70019BF49 /* BHProgressView.m */; };
 		A990BBD819510EEC0019BF49 /* UIColor+RGBValues.m in Sources */ = {isa = PBXBuildFile; fileRef = A990BBD719510EEC0019BF49 /* UIColor+RGBValues.m */; };
 		A99778D6196A669200739A8F /* Check-in.png in Resources */ = {isa = PBXBuildFile; fileRef = A99778D5196A669200739A8F /* Check-in.png */; };
@@ -136,6 +137,8 @@
 		A93A6DD3194A185D00251669 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		A93A6DD5194A186D00251669 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		A93A6DD7194A187800251669 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		A97293DE197C9AE900495470 /* BHSetItineraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHSetItineraryViewController.h; sourceTree = "<group>"; };
+		A97293DF197C9AE900495470 /* BHSetItineraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHSetItineraryViewController.m; sourceTree = "<group>"; };
 		A990BBCB19510BD70019BF49 /* BHProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHProgressView.h; sourceTree = "<group>"; };
 		A990BBCC19510BD70019BF49 /* BHProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHProgressView.m; sourceTree = "<group>"; };
 		A990BBD619510EEC0019BF49 /* UIColor+RGBValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RGBValues.h"; sourceTree = "<group>"; };
@@ -428,6 +431,8 @@
 				A990BBCC19510BD70019BF49 /* BHProgressView.m */,
 				A99778D9196CB70E00739A8F /* BHSetArrivalTimeViewController.h */,
 				A99778DA196CB70E00739A8F /* BHSetArrivalTimeViewController.m */,
+				A97293DE197C9AE900495470 /* BHSetItineraryViewController.h */,
+				A97293DF197C9AE900495470 /* BHSetItineraryViewController.m */,
 				BC3EFE10190B5B0C00E0BC30 /* BHSettingViewController.h */,
 				BC3EFE11190B5B0C00E0BC30 /* BHSettingViewController.m */,
 				BC129194192A3E0900225A13 /* BHUtils.h */,
@@ -725,6 +730,7 @@
 				BC676C5C18B2881800A46750 /* main.m in Sources */,
 				BCAD56A918CA50AE009436B8 /* BHDataController.m in Sources */,
 				A99778DB196CB70E00739A8F /* BHSetArrivalTimeViewController.m in Sources */,
+				A97293E0197C9AE900495470 /* BHSetItineraryViewController.m in Sources */,
 				BC066F0718F6418A00F96604 /* JDStatusBarNotification.m in Sources */,
 				BCD05DC718B6D94A005077AA /* CPDStockPriceStore.m in Sources */,
 				BC3EFE12190B5B0C00E0BC30 /* BHSettingViewController.m in Sources */,
