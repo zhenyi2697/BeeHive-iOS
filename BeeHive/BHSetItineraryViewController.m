@@ -12,6 +12,7 @@
 #import "BHDataController.h"
 #import "BHLocationAnnotationView.h"
 #import "BHUtils.h"
+#import "BHListViewController.h"
 
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
@@ -56,9 +57,12 @@
 }
 
 // Selector functions - to be updated to "setAsDeparture"
--(void)showLocationDetailFromMapView
+-(void)setAsDeparture
 {
-    //[self performSegueWithIdentifier: @"showLocationDetailFromMapView" sender:self];
+    //[self performSegueWithIdentifier: @"setAsDeparture" sender:self];
+//    self.currentLocation.coordinate.latitude = self.selectedLocationAnnotation.location.latitude;
+//    self.currentLocation.coordinate.longitude = 1.0f;
+    
 }
 
 -(void)showLocationsForBuilding
@@ -207,7 +211,7 @@
         aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [aView.rightCalloutAccessoryView addSubview:showDetailButton];
-        [showDetailButton addTarget:self action:@selector(showLocationDetailFromMapView) forControlEvents:UIControlEventTouchUpInside];
+        [showDetailButton addTarget:self action:@selector(setAsDeparture) forControlEvents:UIControlEventTouchUpInside];
         
         aView.annotation = annotation;
         
@@ -297,11 +301,19 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [self startLocationServices];
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self stopLocationServices];
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self startLocationServices];
     
     // bar and button color
     self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
@@ -348,9 +360,9 @@
 - (MKOverlayView*)mapView:(MKMapView*)theMapView viewForOverlay:(id <MKOverlay>)overlay
 {
     MKPolylineView *view = [[MKPolylineView alloc] initWithPolyline:_objPolyline];
-    view.fillColor = [UIColor blackColor];
-    view.strokeColor = [UIColor blackColor];
-    view.lineWidth = 4;
+    view.fillColor = [UIColor orangeColor];
+    view.strokeColor = [UIColor orangeColor];
+    view.lineWidth = 5;
     return view;
 }
 
@@ -365,13 +377,31 @@
     
     NSError *error;
     NSString *apiResponse = [NSString stringWithContentsOfURL:apiUrl encoding:NSUTF8StringEncoding error:&error];
+    
+    NSDate * duration = [NSDate new];
+    duration = [self getDuration: apiResponse];
+    
 //    NSString* encodedPoints = [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"points:\\\"([^\\\"]*)\\\"" options:0 error:NULL];
     NSTextCheckingResult *match = [regex firstMatchInString:apiResponse options:0 range:NSMakeRange(0, [apiResponse length])];
+    NSLog(@"%@", match);
     NSString *encodedPoints = [apiResponse substringWithRange:[match rangeAtIndex:1]];
     
     return [self decodePolyLine:[encodedPoints mutableCopy]];
 }
+
+
+- (NSDate*) getDuration: (NSString *)apiResponse {
+    NSDate * date = [NSDate new];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"tooltipHtml:\\\"([^\\\"]*)\\\"" options:0 error:NULL];
+    NSTextCheckingResult *match = [regex firstMatchInString:apiResponse options:0 range:NSMakeRange(0, [apiResponse length])];
+    NSLog(@"%@", match);
+    NSString *encodedPoints = [apiResponse substringWithRange:[match rangeAtIndex:1]];
+    NSLog(@"%@", encodedPoints);
+    
+    return date;
+}
+
 
 - (NSMutableArray *)decodePolyLine:(NSMutableString *)encodedString
 {
@@ -415,8 +445,8 @@
 
 - (void)drawRoute
 {
-    int numPoints = [_arrRoutePoints count];
-    NSLog(@"points: %@", _arrRoutePoints );
+    NSUInteger numPoints = [_arrRoutePoints count];
+//    NSLog(@"points: %@", _arrRoutePoints );
     if (numPoints > 1)
     {
         CLLocationCoordinate2D* coords = malloc(numPoints * sizeof(CLLocationCoordinate2D));
@@ -448,7 +478,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-//    if([[segue identifier] isEqualToString:@"showLocationDetailFromMapView"]) {
+//    if([[segue identifier] isEqualToString:@"setAsDeparture"]) {
 //        
 //        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
 //        BHDataController *dataController = [BHDataController sharedDataController];
@@ -509,8 +539,16 @@
     NSLog(@"lat%f - lon%f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
     _arrRoutePoints = [self getRoutePointFrom:_currentLocation to:self.toLocation];
     [self drawRoute];
+    [self stopLocationServices];
 }
 
+#pragma mark - Save
 
+- (IBAction)saveItinerary:(UIBarButtonItem *)sender {
+
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [[[self.navigationController viewControllers] objectAtIndex:0] setToto:@"ItinerarySet"];
+
+}
 
 @end

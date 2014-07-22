@@ -798,15 +798,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Direction" id="Gu9-CN-lFc">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="jFQ-7x-FeV"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="jFQ-7x-FeV">
+                            <connections>
+                                <action selector="saveItinerary:" destination="KI5-H3-pli" id="rfh-c9-RMj"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="Lw1-nh-W9P" id="4aR-tK-TTS"/>
+                        <segue destination="fQ4-hV-cJ1" kind="push" identifier="returnHome" id="2Vi-qi-cPB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l5r-Y1-DHx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2568" y="223"/>
+            <point key="canvasLocation" x="2566" y="223"/>
         </scene>
         <!--Contribution View Controller - Contribution-->
         <scene sceneID="N1L-N1-xIQ">
@@ -938,6 +943,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fQ4-hV-cJ1" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="BeeHive" image="BeeHive" id="EcT-C7-DGP"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="2AX-sO-N2k"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SfC-Oh-cNZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -967,5 +973,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="xdo-ga-tkr"/>
+        <segue reference="2Vi-qi-cPB"/>
     </inferredMetricsTieBreakers>
 </document>

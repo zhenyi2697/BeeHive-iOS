@@ -60,9 +60,7 @@
     self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
     self.locationSearchBar.tintColor = [UIColor orangeColor];
     //    self.navigationController.navigationBar.barTintColor = [UIColor orangeColor];
-    
-    toto = @"List";
-    NSLog(@"*** %@ ***", toto);
+
     [self.locationSearchBar setShowsScopeBar:NO];
     [self.locationSearchBar sizeToFit];
     
@@ -131,12 +129,27 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    BHDataController *dataController = [BHDataController sharedDataController];
-    [dataController fetchLocationStatForViewController:self];
-    
-    // bar transparency fix
-    self.navigationController.navigationBar.translucent = NO;
-    self.tabBarController.tabBar.translucent = NO;
+    if ([toto isEqual:@"ItinerarySet"]){
+        [UIView transitionFromView:self.tabBarController.selectedViewController.view
+                            toView:[[self.tabBarController.viewControllers objectAtIndex:0] view]
+                          duration:2.0
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        completion:^(BOOL finished) {
+                            if (finished) {
+                                self.tabBarController.selectedIndex = 0;
+                            }
+                        }];
+        
+    } else {
+        BHDataController *dataController = [BHDataController sharedDataController];
+        [dataController fetchLocationStatForViewController:self];
+        
+        // bar transparency fix
+        self.navigationController.navigationBar.translucent = NO;
+        self.tabBarController.tabBar.translucent = NO;
+    }
+    toto = @"List";
+    NSLog(@"*** %@ ***", toto);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -172,7 +185,6 @@
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         BHBuilding *bd = [self.filteredBuildings objectAtIndex:section];
         return bd.name;
@@ -183,6 +195,13 @@
     }
     
 }
+
+//- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+//    [headerView setBackgroundColor:[UIColor orangeColor]];
+//    return headerView;
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

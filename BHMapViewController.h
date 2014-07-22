@@ -19,4 +19,6 @@
 - (IBAction)refreshMap:(UIBarButtonItem *)sender;
 - (void)updateMapView;
 
+@property NSString *toto;
+
 @end

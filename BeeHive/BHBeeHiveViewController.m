@@ -31,8 +31,7 @@
 @synthesize locationManager = _locationManager;
 
 - (IBAction)checkinButtonClicked:(UIButton *)sender {
-    [self performSegueWithIdentifier:@"checkinSegue" sender:self
-     ];
+    [self performSegueWithIdentifier:@"checkinSegue" sender:self];
     
 }
 - (IBAction)navigateToDestination:(UIButton *)sender {
@@ -82,6 +81,9 @@
 //    [self stopLocationServices];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [_animatedCheckinImage setAlpha:0.0];
+}
 
 
 - (void) prepareProgressionView {

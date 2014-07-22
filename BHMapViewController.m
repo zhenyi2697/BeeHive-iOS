@@ -36,6 +36,7 @@
 @synthesize refreshButton = _refreshButton;
 @synthesize selectedAnnotation = _selectedAnnotation, selectedLocationAnnotation = _selectedLocationAnnotation;
 @synthesize searchBar = _searchBar, isSearchBarHidden = _isSearchBarHidden;
+@synthesize toto; //incoming segue identifier
 
 #pragma mark - Updates
 
@@ -381,6 +382,24 @@
 //    NSLog(@">load: %@", self.annotations);
 //    [self updateMapView];
     [self centerToGT];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    if ([toto isEqual:@"ItinerarySet"]){
+        [UIView transitionFromView:self.tabBarController.selectedViewController.view
+                            toView:[[self.tabBarController.viewControllers objectAtIndex:0] view]
+                          duration:2.0
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        completion:^(BOOL finished) {
+                            if (finished) {
+                                self.tabBarController.selectedIndex = 0;
+                            }
+                        }];
+        
+    }
+    
+    toto = @"Map";
+    NSLog(@"*** %@ ***", toto);
 }
 
 // triggered when user location changed
