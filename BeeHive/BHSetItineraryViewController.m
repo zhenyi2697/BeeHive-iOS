@@ -14,10 +14,14 @@
 #import "BHUtils.h"
 #import "BHListViewController.h"
 
+#import "BHLocation.h"
+
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
 @interface BHSetItineraryViewController () 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (nonatomic) BOOL isInSearchMode;
+@property (nonatomic) BOOL isSearchBarHidden;
 @property (nonatomic) BOOL isInLocationMode;
 @property (strong, nonatomic) BHBuildingAnnotation *selectedAnnotation;
 @property (strong, nonatomic) BHLocationAnnotation *selectedLocationAnnotation;
@@ -26,8 +30,9 @@
 @end
 
 @implementation BHSetItineraryViewController
-@synthesize mapView = _mapView, annotations = _annotations, locationAnnotations = _locationAnnotations, buildingAnnotations = _buildingAnnotations;
+@synthesize mapView = _mapView, annotations = _annotations, locationAnnotations = _locationAnnotations, buildingAnnotations = _buildingAnnotations, filteredAnnotations = _filteredAnnotations;
 @synthesize isInLocationMode =_isInLocationMode;
+//@synthesize refreshButton = _refreshButton;
 @synthesize selectedAnnotation = _selectedAnnotation, selectedLocationAnnotation = _selectedLocationAnnotation;
 @synthesize toLocation = _toLocation;
 @synthesize locationManager = _locationManager;
@@ -303,12 +308,12 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [self startLocationServices];
-
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self stopLocationServices];
-
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewDidLoad
@@ -355,6 +360,7 @@
     
 }
 
+#pragma mark - Overlay
 
 /* MKMapViewDelegate Meth0d -- for viewForOverlay*/
 - (MKOverlayView*)mapView:(MKMapView*)theMapView viewForOverlay:(id <MKOverlay>)overlay
@@ -371,8 +377,14 @@
 {
     NSString* saddr = [NSString stringWithFormat:@"%f,%f", origin.coordinate.latitude, origin.coordinate.longitude];
     NSString* daddr = [NSString stringWithFormat:@"%f,%f", [destination.latitude floatValue], [destination.longitude floatValue]];
+    //dirflg=h Switches on "Avoid Highways" route finding mode.
+    //dirflg=t Switches on "Avoid Tolls" route finding mode.
+    //dirflg=r Switches on "Public Transit" - only works in some areas. Can also set date and time info described below.
+    //dirflg=w Switches to walking directions - still in beta.
+    //dirflg=b Switches to biking directions - only works in some areas and still in beta.
+    NSString* mode = @"b";
     
-    NSString* apiUrlStr = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&saddr=%@&daddr=%@", saddr, daddr];
+    NSString* apiUrlStr = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&saddr=%@&daddr=%@&dirflg=%@", saddr, daddr, mode];
     NSURL* apiUrl = [NSURL URLWithString:apiUrlStr];
     
     NSError *error;
@@ -493,25 +505,25 @@
 //    }
 }
 
-//- (IBAction)refreshMap:(UIBarButtonItem *)sender {
-//    
-//    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//    [spinner startAnimating];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
-//    
-//    BHDataController *dataController = [BHDataController sharedDataController];
-//    
-//    if (dataController.connectionLost) {
-//        //Fetch building List for mapView
-//        [dataController fetchBuildingsForViewController:self];
-//    }
-//    
-//    //Fetch locations statistic for mapView
-//    [dataController fetchLocationStatForViewController:self];
-//    
-//    [self centerToGT];
-//    
-//}
+- (IBAction)refreshMap:(UIBarButtonItem *)sender {
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinner startAnimating];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+    
+    BHDataController *dataController = [BHDataController sharedDataController];
+    
+    if (dataController.connectionLost) {
+        //Fetch building List for mapView
+        [dataController fetchBuildingsForViewController:self];
+    }
+    
+    //Fetch locations statistic for mapView
+    [dataController fetchLocationStatForViewController:self];
+    
+    [self centerToGT];
+    
+}
 
 #pragma mark - Location manager
 

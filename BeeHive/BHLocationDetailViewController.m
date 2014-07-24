@@ -16,6 +16,10 @@
 #import "BHUtils.h"
 #import "BHSetArrivalTimeViewController.h"
 
+#import "BHLocation.h"
+#import "BHLocationStat.h"
+#import "BHDataController.h"
+
 @interface BHLocationDetailViewController ()
 - (IBAction)contribute:(UIBarButtonItem *)sender;
 @property (nonatomic) int max_clients;

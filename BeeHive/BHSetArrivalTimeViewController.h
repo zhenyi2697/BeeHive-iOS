@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BHLocation.h"
+@class BHLocation;
 
 
 @interface BHSetArrivalTimeViewController : UIViewController

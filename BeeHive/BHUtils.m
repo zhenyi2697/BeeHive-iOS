@@ -8,6 +8,8 @@
 
 #import "BHUtils.h"
 #import "BHDataController.h"
+#import "BHLocationStat.h"
+
 
 @implementation BHUtils
 

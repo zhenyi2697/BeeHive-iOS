@@ -11,7 +11,10 @@
 #import "TWMessageBarManager.h"
 #import "BHUtils.h"
 #import "BHProgressView.h"
-#import "BHBeeHiveViewController.h"
+//#import "BHBeeHiveViewController.h"
+
+#import "BHLocation.h"
+#import "BHLocationStat.h"
 
 
 @interface BHContributionViewController ()
@@ -57,7 +60,7 @@
     
     // Load saved value
     NSString *savedValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"contributionCounter"];
-    self.contributedNumber = [savedValue integerValue];
+    self.contributedNumber = (int) [savedValue integerValue];
 //    _myDelegate =  [[UIApplication sharedApplication] delegate];
     
     
@@ -349,8 +352,7 @@
     NSString *valueToSave = [NSString stringWithFormat:@"%d", self.contributedNumber + 1 ];
 //    NSLog(@"contributedNumber = %d", self.contributedNumber);
 //    NSLog(@"valueToSave = %@", valueToSave);
-    [[NSUserDefaults standardUserDefaults]
-     setObject:valueToSave forKey:@"contributionCounter"];
+    [[NSUserDefaults standardUserDefaults] setObject:valueToSave forKey:@"contributionCounter"];
     
 //    NSString *savedValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"contributionCounter"];
 //    NSLog(@"contributedNumber = %d", [savedValue integerValue]);

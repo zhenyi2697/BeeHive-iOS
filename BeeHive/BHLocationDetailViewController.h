@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CorePlot-CocoaTouch.h"
-#import "BHLocation.h"
-#import "BHLocationStat.h"
-#import "BHDataController.h"
+//#import "CorePlot-CocoaTouch.h"
+@class BHLocation;
+@class BHLocationStat;
+@class BHDataController;
 
 @interface BHLocationDetailViewController : UIViewController <CPTBarPlotDataSource, CPTBarPlotDelegate, CPTPlotDataSource>
 @property (strong,nonatomic) BHLocation *location;

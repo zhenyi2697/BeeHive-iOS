@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BHLocationStat.h"
+@class BHLocationStat;
 
 @interface BHUtils : NSObject
 

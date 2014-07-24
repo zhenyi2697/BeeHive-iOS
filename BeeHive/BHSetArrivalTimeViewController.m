@@ -8,6 +8,8 @@
 
 #import "BHSetArrivalTimeViewController.h"
 #import "BHSetItineraryViewController.h"
+#import "BHLocation.h"
+
 
 @interface BHSetArrivalTimeViewController ()
 @property (nonatomic, strong) NSDate *dateTime;
@@ -44,6 +46,14 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewDidLoad

@@ -10,13 +10,15 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-#import "BHLocation.h"
+@class BHLocation;
 
-@interface BHSetItineraryViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
+@interface BHSetItineraryViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate>
 
 @property (nonatomic,strong) NSArray *annotations;  // of id <MKAnnotation>
 @property (nonatomic,strong) NSArray *locationAnnotations;  // of BHLocationAnnotation
 @property (nonatomic,strong) NSArray *buildingAnnotations;  // of BHBuildingAnnotation
+@property (nonatomic,strong) NSMutableArray *filteredAnnotations;  //filtered location annotations
+
 @property (strong,nonatomic) BHLocation *toLocation;
 
 @property (strong, nonatomic) CLLocationManager *locationManager;

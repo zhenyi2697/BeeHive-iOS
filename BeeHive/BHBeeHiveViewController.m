@@ -89,7 +89,7 @@
 - (void) prepareProgressionView {
     // Load saved value
     NSString *savedValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"contributionCounter"];
-    self.contributedNumber = [savedValue integerValue];
+    self.contributedNumber = (int) [savedValue integerValue];
     
     //=======
     NSString *level = [[BHDataController computeLevelInfo: self.contributedNumber] objectAtIndex: 0];
@@ -167,7 +167,8 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController]. Pass the selected object to the new view controller.
-    // if segue.identifier == truc such as: if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"])    BHListViewController *destination = (BHListViewController*) segue.destinationViewController;
+    // if segue.identifier == truc ...
+    // ... such as: if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"])    BHListViewController *destination = (BHListViewController*) segue.destinationViewController;
     
     BHCheckinListViewController *checkinViewController = [segue destinationViewController];
     checkinViewController.toto = @"Check-in";

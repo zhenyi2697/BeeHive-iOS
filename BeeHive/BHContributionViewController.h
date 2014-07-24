@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BHLocation.h"
-#import "BHLocationStat.h"
+@class BHLocation;
+@class BHLocationStat;
 
 @interface BHContributionViewController : UITableViewController
 
