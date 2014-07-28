@@ -18,10 +18,11 @@
 
 @interface BHBeeHiveViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *levelLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *animatedCheckinImage;
+
 @property (nonatomic) int contributedNumber;
 @property (strong, nonatomic) BHProgressView *progressView;
 @property (nonatomic) float progression;
-@property (weak, nonatomic) IBOutlet UIImageView *animatedCheckinImage;
 @property (nonatomic, strong) CLLocation *currentLocation;
 
 @end
@@ -59,6 +60,17 @@
     return self;
 }
 
+- (void) animateTheCheckinImage {
+    [_animatedCheckinImage setAlpha:0.0];
+    [UIView animateWithDuration:7.0
+                          delay:0.0
+                        options:(UIViewAnimationOptionTransitionFlipFromLeft | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat)
+                     animations:^(void) {
+                         [_animatedCheckinImage setAlpha:1.0];
+                     }
+                     completion:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     // Hide NavigationBar
     [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -68,14 +80,7 @@
     self.progressView.progress = self.progression;
     
     // Label animation
-    [_animatedCheckinImage setAlpha:0.0];
-    [UIView animateWithDuration:7.0
-                          delay:0.0
-                        options:(UIViewAnimationOptionTransitionFlipFromLeft | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat)
-                     animations:^(void) {
-                         [_animatedCheckinImage setAlpha:1.0];
-                     }
-                     completion:nil];
+    [self animateTheCheckinImage];
     
     // Stop location services (#### to be moved) 
 //    [self stopLocationServices];
@@ -135,6 +140,14 @@
     // navigation bar transparency
     self.navigationController.navigationBar.translucent = NO;
     
+    // register to a notification UIApplicationWillEnterForegroundNotification to force animation to restart
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(animateTheCheckinImage)
+                                                 name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

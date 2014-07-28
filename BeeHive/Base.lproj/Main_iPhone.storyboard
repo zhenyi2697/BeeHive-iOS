@@ -87,7 +87,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="VeB-FU-VUZ"/>
                     <connections>
-                        <outlet property="animatedCheckinImage" destination="38R-iF-KRl" id="4Y8-Lq-5EO"/>
+                        <outlet property="animatedCheckinImage" destination="38R-iF-KRl" id="RN2-ui-emD"/>
                         <outlet property="levelLabel" destination="w1L-AO-xhE" id="HXr-ra-ScX"/>
                         <segue destination="K6q-ms-Q6j" kind="push" identifier="checkinSegue" id="m9a-26-vGL"/>
                     </connections>
@@ -706,13 +706,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cua-2v-EAb">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cua-2v-EAb">
                                 <rect key="frame" x="18" y="269" width="284" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.98561829329999995" green="0.58005629869999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="31M-Zj-Bw7"/>
-                                </constraints>
                                 <connections>
                                     <action selector="dateSlider:" destination="HoE-Z4-vkZ" eventType="valueChanged" id="Ad5-BW-oGZ"/>
                                 </connections>
@@ -814,7 +811,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </items>
                             </toolbar>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zUw-UB-6Oi">
-                                <rect key="frame" x="0.0" y="65" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="63" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -949,7 +946,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Contribution" id="NXk-6e-HXr">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="1I0-A9-ksf">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="1I0-A9-ksf">
                             <connections>
                                 <action selector="saveContribution:" destination="gor-y4-WpR" id="68t-2Z-A54"/>
                             </connections>

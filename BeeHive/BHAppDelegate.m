@@ -14,6 +14,9 @@
 #import "BHMapViewController.h"
 #import "BHBuildingAnnotation.h"
 #import "BHSetItineraryViewController.h"
+#import "BHBeeHiveViewController.h"
+
+
 #import <GoogleMaps/GoogleMaps.h>
 
 @implementation BHAppDelegate
