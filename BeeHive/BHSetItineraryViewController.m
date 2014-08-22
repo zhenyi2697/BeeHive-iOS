@@ -560,6 +560,7 @@
 
     [self.navigationController popToRootViewControllerAnimated:YES];
     [[[self.navigationController viewControllers] objectAtIndex:0] setToto:@"ItinerarySet"];
+    
 
 }
 

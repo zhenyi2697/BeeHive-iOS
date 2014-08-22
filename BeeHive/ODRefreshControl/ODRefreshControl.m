@@ -2,7 +2,7 @@
 //  ODRefreshControl.m
 //  ODRefreshControl
 //
-//  Created by Fabio Ritrovato on 6/13/12.
+//  Created by Fabio Ritrovato on 6/13/12. Edited by Louis CHEN 8/21/14.
 //  Copyright (c) 2012 orange in a day. All rights reserved.
 //
 // https://github.com/Sephiroth87/ODRefreshControl
@@ -53,11 +53,12 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
 
 - (id)initInScrollView:(UIScrollView *)scrollView activityIndicatorView:(UIView *)activity
 {
-    self = [super initWithFrame:CGRectMake(0, -(kTotalViewHeight + scrollView.contentInset.top), scrollView.frame.size.width, kTotalViewHeight)];
+    self = [super initWithFrame:CGRectMake(0, -(kTotalViewHeight + scrollView.contentInset.top - 65), scrollView.frame.size.width, kTotalViewHeight)]; //  "- 65" for navigation bar fix
     
     if (self) {
         self.scrollView = scrollView;
         self.originalContentInset = scrollView.contentInset;
+//        scrollView.backgroundColor = [UIColor clearColor];
         
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [scrollView addSubview:self];
@@ -171,7 +172,7 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
     if ([keyPath isEqualToString:@"contentInset"]) {
         if (!_ignoreInset) {
             self.originalContentInset = [[change objectForKey:@"new"] UIEdgeInsetsValue];
-            self.frame = CGRectMake(0, -(kTotalViewHeight + self.scrollView.contentInset.top), self.scrollView.frame.size.width, kTotalViewHeight);
+            self.frame = CGRectMake(0, -(kTotalViewHeight + self.scrollView.contentInset.top - 65), self.scrollView.frame.size.width, kTotalViewHeight); //  "- 65" for navigation bar fix 
         }
         return;
     }

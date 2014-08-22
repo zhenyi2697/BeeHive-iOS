@@ -103,7 +103,7 @@
     BHDataController *dataController = [BHDataController sharedDataController];
     [dataController fetchLocationStatForViewController:self];
     
-    self.tabBarController.tabBar.translucent = NO;
+//    self.tabBarController.tabBar.translucent = NO;
     
     // Location manager start scanning
     [self performScanning];
@@ -116,7 +116,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    self.tabBarController.tabBar.translucent = YES;
+//    self.tabBarController.tabBar.translucent = YES;
     [self stopLocationServices];
     self.i = 0;
 }
@@ -284,7 +284,7 @@
     CLLocation *locB = [[CLLocation alloc] initWithLatitude:latB longitude:lonB];
     CLLocationDistance distance = [locA distanceFromLocation:locB];
     
-    if (distance < 50) { // filtering precision ############################################
+    if (distance < 200) { // filtering precision ##################################################################
         NSLog(@"YES - dist %f ", distance);
         return YES;
     } else {

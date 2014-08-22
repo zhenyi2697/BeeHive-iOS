@@ -11,6 +11,10 @@
 #import "BHDataController.h"
 #import "BHProgressView.h"
 #import "BHCheckinListViewController.h"
+#import "BHLocationTableViewCell.h"
+#import "BHLocationStat.h"
+#import "BHLocation.h"
+#import "BHUtils.h"
 
 
 //SDWebImage Library
@@ -25,30 +29,13 @@
 @property (nonatomic) float progression;
 @property (nonatomic, strong) CLLocation *currentLocation;
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 
 @implementation BHBeeHiveViewController
 @synthesize locationManager = _locationManager;
-
-- (IBAction)checkinButtonClicked:(UIButton *)sender {
-    [self performSegueWithIdentifier:@"checkinSegue" sender:self];
-    
-}
-- (IBAction)navigateToDestination:(UIButton *)sender {
-//    CLLocationCoordinate2D coord;
-//    coord.longitude = (CLLocationDegrees)[self.toLocation.longitude doubleValue];
-//    coord.latitude = (CLLocationDegrees)[self.toLocation.latitude doubleValue];
-//    MKPlacemark* place = [[MKPlacemark alloc] initWithCoordinate: coord addressDictionary: nil];
-//    MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark: place];
-//    destination.name = self.toLocation.name;
-//    NSArray* items = [[NSArray alloc] initWithObjects: destination, nil];
-//    NSDictionary* options = [[NSDictionary alloc] initWithObjectsAndKeys:
-//                             MKLaunchOptionsDirectionsModeDriving,
-//                             MKLaunchOptionsDirectionsModeKey, nil];
-//    [MKMapItem openMapsWithItems: items launchOptions: options];
-
-}
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -125,20 +112,21 @@
     self.progressView.color = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0/255 alpha:1.0f];
     self.progressView.flat = @YES;
     self.progressView.showBackgroundInnerShadow = @NO;
-    //    progression = (self.contributedNumber - levelBase) / (levelTop - levelBase);
-//    self.progressView.progress = self.progression;
     self.progressView.animate = @YES;
     
     [self.view addSubview:self.progressView];
+    
+    // configure tableView
+    _tableView.backgroundColor = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]; //orange BeeHive -> UIColor
     
     // button color
     self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
     // tab button color
     self.tabBarController.tabBar.tintColor = [UIColor orangeColor];
     // tab bar transparency 
-    self.tabBarController.tabBar.translucent=YES;
+//    self.tabBarController.tabBar.translucent=YES;
     // navigation bar transparency
-    self.navigationController.navigationBar.translucent = NO;
+//    self.navigationController.navigationBar.translucent = NO;
     
     // register to a notification UIApplicationWillEnterForegroundNotification to force animation to restart
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(animateTheCheckinImage)
@@ -149,6 +137,74 @@
 -(void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 2;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return @"Current mission";
+    } else {
+        return @"Plan B";
+    }
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    if (section == 0) {
+        return 1;
+    } else {
+        return 1;
+    }}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    BHLocationTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"missionCell"];
+    
+//    // Configure the cell here
+//    BHDataController *dataController = [BHDataController sharedDataController];
+//    BHLocation *loc = [bd.locations objectAtIndex:indexPath.row];
+//    
+//    BHLocationStat *locStat = [dataController.locationStats objectForKey:loc.locId];
+//    cell.textLabel.text = loc.name;
+//    
+//    // Determine label color
+//    cell.textLabel.textColor = [BHUtils titleColorForLocationStat:locStat];
+//    
+//    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% of %@ Line: %@ Go: %@", locStat.occupancyPercent, locStat.maxCapacity, locStat.queue, locStat.bestTime];
+//    //    NSLog(@"cell >> %@", locStat.queue);
+//    
+//    cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
+//    
+//    // Using SDWebImage to load image
+//    [cell.imageView setImageWithURL:[NSURL URLWithString:loc.photoUrl]
+//                   placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
+    
+    cell.backgroundColor = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]; //orange BeeHive -> UIColor
+
+    return cell;
+
+}
+
+#pragma mark - Row selected
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        
+    } else {
+    
+    }
+    
+    // Deselect
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
 
 
 #pragma mark - Location services
@@ -193,5 +249,44 @@
 //    checkinViewController.locationManager = self.locationManager;
 //    [self stopLocationServices];
 }
+
+#pragma mark - IBActions
+
+- (IBAction)checkinButtonClicked:(UIButton *)sender {
+    [self performSegueWithIdentifier:@"checkinSegue" sender:self];
+    
+}
+
+
+- (IBAction)rateButtonPressed:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id869869380"]];
+    
+}
+
+- (IBAction)shareButtonPressed:(UIButton *)sender {
+//    // Check if the Facebook app is installed and we can present the share dialog
+//    FBLinkShareParams *params = [[FBLinkShareParams alloc] init];
+//    params.link = [NSURL URLWithString:@"https://developers.facebook.com/docs/ios/share/"];
+//    
+//    // If the Facebook app is installed and we can present the share dialog
+//    if ([FBDialogs canPresentShareDialogWithParams:params]) {
+//        // Present the share dialog
+//    } else {
+//        // Present the feed dialog
+//    }
+    
+    
+    
+    
+}
+
+
+- (IBAction)enhanceButtonPressed:(UIButton *)sender {
+    // write an email
+    
+}
+
+
+
 
 @end
