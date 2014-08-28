@@ -275,7 +275,7 @@
         <scene sceneID="NAC-wz-J5J">
             <objects>
                 <navigationController definesPresentationContext="YES" id="yP5-GF-5Br" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List" image="list-star.png" id="V6Y-ke-z06"/>
+                    <tabBarItem key="tabBarItem" title="List" image="List" id="V6Y-ke-z06"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fkw-sR-NaX">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1027,9 +1027,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="BeeHive" width="30" height="30"/>
         <image name="Beehive_rounded.png" width="1022" height="1021"/>
         <image name="Check-in.png" width="1543" height="1030"/>
+        <image name="List" width="23" height="23"/>
         <image name="Map" width="40" height="40"/>
         <image name="button_background1.png" width="2000" height="400"/>
-        <image name="list-star.png" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

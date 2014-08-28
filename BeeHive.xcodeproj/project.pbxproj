@@ -386,6 +386,21 @@
 			name = List;
 			sourceTree = "<group>";
 		};
+		A9F83DDB19AFD71A00183D56 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				BC676C5E18B2881800A46750 /* BHAppDelegate.h */,
+				BC676C5F18B2881800A46750 /* BHAppDelegate.m */,
+				BCAD56A718CA50AE009436B8 /* BHDataController.h */,
+				BCAD56A818CA50AE009436B8 /* BHDataController.m */,
+				BC129194192A3E0900225A13 /* BHUtils.h */,
+				BC129195192A3E0900225A13 /* BHUtils.m */,
+				A990BBD619510EEC0019BF49 /* UIColor+RGBValues.h */,
+				A990BBD719510EEC0019BF49 /* UIColor+RGBValues.m */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
 		BC066EF918F637A300F96604 /* models */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,14 +495,7 @@
 		BC676C5518B2881800A46750 /* BeeHive */ = {
 			isa = PBXGroup;
 			children = (
-				BC676C5E18B2881800A46750 /* BHAppDelegate.h */,
-				BC676C5F18B2881800A46750 /* BHAppDelegate.m */,
-				BCAD56A718CA50AE009436B8 /* BHDataController.h */,
-				BCAD56A818CA50AE009436B8 /* BHDataController.m */,
-				BC129194192A3E0900225A13 /* BHUtils.h */,
-				BC129195192A3E0900225A13 /* BHUtils.m */,
-				A990BBD619510EEC0019BF49 /* UIColor+RGBValues.h */,
-				A990BBD719510EEC0019BF49 /* UIColor+RGBValues.m */,
+				A9F83DDB19AFD71A00183D56 /* Other */,
 				A9B13EB219A6926F004C6D10 /* Check-In */,
 				A9B13EB519A69292004C6D10 /* Map */,
 				A9B13EBB19A6945B004C6D10 /* List */,
