@@ -91,7 +91,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     int weekday = (int)[comps weekday];
     weekday = (weekday + 5) % 7;
     
-    NSDate *now = [NSDate date];
+    NSDate *now = [NSDate date]; 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"EST"];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
