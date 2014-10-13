@@ -26,7 +26,7 @@
 @property (nonatomic) BOOL isSearchBarHidden;
 @property (strong, nonatomic) BHBuildingAnnotation *selectedAnnotation;
 @property (strong, nonatomic) BHLocationAnnotation *selectedLocationAnnotation;
-- (IBAction)searchLocation:(id)sender;
+//- (IBAction)searchLocation:(id)sender;
 @property (strong, nonatomic) IBOutlet UISearchBar *locationSearchBar;
 @end
 
@@ -36,6 +36,9 @@
 @synthesize refreshButton = _refreshButton;
 @synthesize selectedAnnotation = _selectedAnnotation, selectedLocationAnnotation = _selectedLocationAnnotation;
 @synthesize searchBar = _searchBar, isSearchBarHidden = _isSearchBarHidden;
+@synthesize toto; //incoming segue identifier
+
+#pragma mark - Updates
 
 -(NSMutableArray *)filteredAnnotations
 {
@@ -57,8 +60,8 @@
 {
     _mapView = mapView;
     _mapView.delegate = self;
-    
-//    [self updateMapView];
+//    [_mapView setMapType: MKMapTypeHybrid];
+    [self updateMapView];
 }
 
 - (void)setAnnotations:(NSArray *)annotations
@@ -99,7 +102,6 @@
 //                             [self showLocationAnnotations];
                          }
                      }];
-    
 
 }
 
@@ -108,16 +110,16 @@
     
     [UIView animateWithDuration:0.8
                           delay:0.0
-                        options: UIViewAnimationOptionCurveEaseOut
+                        options: UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          MKCoordinateRegion region;
                          MKCoordinateSpan span;
-                         span.latitudeDelta = 0.02;
-                         span.longitudeDelta = 0.02;
+                         span.latitudeDelta = 0.021;
+                         span.longitudeDelta = 0.021; //0.021;
                          region.span=span;
                          CLLocationCoordinate2D centerLocation;
                          centerLocation.latitude = 33.774179;
-                         centerLocation.longitude = -84.398027;
+                         centerLocation.longitude = -84.397580; //-84.398027;
                          region.center= centerLocation;
                          [self.mapView setCenterCoordinate:centerLocation animated:YES];
                          [self.mapView setRegion:region animated:YES];
@@ -137,7 +139,25 @@
     
     // Don't overwrite current location annotation
     if([annotation isKindOfClass: [MKUserLocation class]]) {
-        return nil;
+        return nil; //default bleu point
+//        // custom user location annotation
+//        static NSString* AnnotationIdentifier = @"Annotation";
+//        MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
+//        
+//        if (!pinView) {
+//            MKPinAnnotationView *customPinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationIdentifier];
+//            if (annotation == mapView.userLocation) customPinView.image = [UIImage imageNamed:@"Buzz.png"];
+////            else customPinView.image = [UIImage imageNamed:@"mySomeOtherImage.png"];
+//            customPinView.animatesDrop = NO;
+//            customPinView.canShowCallout = YES;
+//            return customPinView;
+//            
+//        } else {
+//            
+//            pinView.annotation = annotation;
+//        }
+//        return pinView;
+        
     } else if ([annotation isKindOfClass:[BHBuildingAnnotation class]]) {
 //        MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"BdAnno"];
         
@@ -145,13 +165,19 @@
         aView.canShowCallout = YES;// DON'T FORGET THIS LINE OF CODE !!
         
         // Using SDWebImage to load image
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         [imageView setImageWithURL:[NSURL URLWithString:((BHBuildingAnnotation *)annotation).building.photoUrl] placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
         aView.leftCalloutAccessoryView = imageView;
             
         // create right view
-        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
-        UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+//        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
+//        UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeCustom];
+////        [showDetailButton setBackgroundImage:[UIImage imageNamed:@"disclosure.png"] forState:UIControlStateNormal];
+//        [showDetailButton setTitle:@">" forState:UIControlStateNormal];
+//        [aView.rightCalloutAccessoryView addSubview:showDetailButton];
+        
+        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
         [aView.rightCalloutAccessoryView addSubview:showDetailButton];
         
         [showDetailButton addTarget:self action:@selector(showLocationsForBuilding) forControlEvents:UIControlEventTouchUpInside];
@@ -173,7 +199,7 @@
         aView.image = [UIImage imageNamed:pinName];
         
         aView.calloutOffset = CGPointMake(0, 0);
-
+        
         return aView;
         
     } else if ([annotation isKindOfClass:[BHLocationAnnotation class]]) {
@@ -187,7 +213,7 @@
 //        locView.annotationLabel.text = @"Test";
 //        locView.canShowCallout = YES;
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         [imageView setImageWithURL:[NSURL URLWithString:((BHLocationAnnotation *)annotation).location.photoUrl] placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
         aView.leftCalloutAccessoryView = imageView;
         
@@ -195,6 +221,8 @@
         BHDataController *dataController = [BHDataController sharedDataController];
         NSString *locId = ((BHLocationAnnotation *)annotation).location.locId;
         NSString *pinName = @"pin_orange";
+        
+//        NSLog(@"pin_orange");
         
         if (dataController.locationStats) {
             BHLocationStat *locStat = [dataController.locationStats objectForKey:locId];
@@ -204,7 +232,7 @@
         }
         
         // create right view
-        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30,30)];
+        aView.rightCalloutAccessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         UIButton *showDetailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [aView.rightCalloutAccessoryView addSubview:showDetailButton];
         [showDetailButton addTarget:self action:@selector(showLocationDetailFromMapView) forControlEvents:UIControlEventTouchUpInside];
@@ -228,6 +256,31 @@
     
     return nil;
 }
+
+// useful to pop pins with spinTech selector
+//- (void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
+//    for (id<MKAnnotation> currentAnnotation in mapView.annotations) {
+//        if ([currentAnnotation isEqual:[[mapView annotations] lastObject]]) {
+//            [mapView selectAnnotation:currentAnnotation animated:FALSE];
+//        }
+//    }
+//    
+//}
+
+
+// pin drop annimation delegate methode 
+//- (void)mapView:(MKMapView *)mapView
+//didAddAnnotationViews:(NSArray *)annotationViews
+//{
+//    for (MKAnnotationView *annView in annotationViews)
+//    {
+//        CGRect endFrame = annView.frame;
+//        annView.frame = CGRectOffset(endFrame, 0, -500);
+//        [UIView animateWithDuration:0.5
+//                         animations:^{ annView.frame = endFrame; }];
+//    }
+//}
+
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
@@ -255,12 +308,16 @@
 {
     self.annotations = self.buildingAnnotations;
     [self updateMapView];
+//    NSLog(@"> %@", self.annotations);
+
 }
 
 -(void)showLocationAnnotations
 {
     self.annotations = self.locationAnnotations;
     [self updateMapView];
+//    NSLog(@"> %@", self.annotations);
+
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
@@ -287,6 +344,8 @@
     
 }
 
+#pragma mark - Begin
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -300,9 +359,13 @@
 {
     [super viewDidLoad];
     
+    // bar and button color
+    self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
+    self.locationSearchBar.tintColor = [UIColor orangeColor];
+//    self.locationSearchBar.barTintColor = [UIColor colorWithWhite: 0.95 alpha:1];
+    
     self.locationSearchBar.hidden = YES;
     self.isSearchBarHidden = YES;
-    
     self.locationSearchBar.delegate = self;
     
     // Update annotations if is not been set
@@ -316,8 +379,27 @@
         }
         self.annotations = annotations;
     }
-    
+//    NSLog(@">load: %@", self.annotations);
+//    [self updateMapView];
     [self centerToGT];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    if ([toto isEqual:@"ItinerarySet"]){
+        [UIView transitionFromView:self.tabBarController.selectedViewController.view
+                            toView:[[self.tabBarController.viewControllers objectAtIndex:0] view]
+                          duration:2.0
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        completion:^(BOOL finished) {
+                            if (finished) {
+                                self.tabBarController.selectedIndex = 0;
+                            }
+                        }];
+        
+    }
+    
+    toto = @"Map";
+    NSLog(@"*** %@ ***", toto);
 }
 
 // triggered when user location changed
@@ -330,23 +412,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([[segue identifier] isEqualToString:@"showLocationDetailFromMapView"]) {
-        
-        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
-        BHDataController *dataController = [BHDataController sharedDataController];
-        detailViewController.location = self.selectedLocationAnnotation.location;
-        
-        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
-        detailViewController.weeklyStat = weeklyStat;
-        
-        if (!weeklyStat) {
-            [dataController fetchStatForLocation:detailViewController];
-        }
-    }
 }
 
 - (IBAction)refreshMap:(UIBarButtonItem *)sender {
@@ -369,14 +434,37 @@
     
 }
 
+# pragma mark - Segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([[segue identifier] isEqualToString:@"showLocationDetailFromMapView"]) {
+        
+        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
+        BHDataController *dataController = [BHDataController sharedDataController];
+        detailViewController.location = self.selectedLocationAnnotation.location;
+        
+        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
+        detailViewController.weeklyStat = weeklyStat;
+        
+        if (!weeklyStat) {
+            [dataController fetchStatForLocation:detailViewController];
+        }
+    }
+}
+
+# pragma mark - Research
+
 - (IBAction)searchLocation:(id)sender {
-    if (self.isSearchBarHidden) {
+    if (self.isSearchBarHidden) { // if hidden then reveal
         self.locationSearchBar.hidden = NO;
         self.isSearchBarHidden = NO;
         [self.locationSearchBar becomeFirstResponder];
-    } else {
-        self.locationSearchBar.hidden = YES;
-        self.isSearchBarHidden = YES;
+    } else { // if not hidden then cancel
+//        self.locationSearchBar.hidden = YES;
+//        self.isSearchBarHidden = YES;
+        [self exitedSearchMode];
+        self.searchBar.text = @"";
         [self.locationSearchBar resignFirstResponder];
     }
 }
@@ -396,8 +484,10 @@
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    [searchBar resignFirstResponder];
     [self exitedSearchMode];
+    self.searchBar.text = @"";
+    [searchBar resignFirstResponder];
+
 }
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
@@ -416,7 +506,9 @@
     [self.filteredAnnotations removeAllObjects];
 
     for (BHLocationAnnotation *anno in self.locationAnnotations) {
-        if ([anno.location.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
+        if ([anno.location.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound ||
+            [anno.location.description rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound)
+        {
             [self.filteredAnnotations addObject:anno];
         }
     }
@@ -424,29 +516,29 @@
     [self updateMapView];
 }
 
--(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    //Hide the keyboard.
-    [searchBar resignFirstResponder];
-    self.isInSearchMode = YES;
-}
-
 
 // When not click on the keyboard area, hide the keyboard
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    UITouch *touch = [[event allTouches] anyObject];
-    
-    if (![[touch view] isKindOfClass:[UITextField class]]) {
-        [self.view endEditing:YES];
-        if ([self.searchBar.text isEqual:@""] && self.isInSearchMode) {
-            [self exitedSearchMode];
-        } else {
-            // still in search mode
-        }
-        
-    }
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
+//    NSLog(@"%hhd", self.isInSearchMode);
+    
+    [self.view endEditing:YES];
+    if ([self.searchBar.text isEqual:@""] && self.isInSearchMode) {
+        [self exitedSearchMode];
+    } else {
+        // still in search mode
+    }
+    
+//    UITouch *touch = [[event allTouches] anyObject];
+//    if (![[touch view] isKindOfClass:[UITextField class]]){
+//        
+//    }
+    
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    // click on key board search button
+    [searchBar resignFirstResponder];
 }
 
 @end

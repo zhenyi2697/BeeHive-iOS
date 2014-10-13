@@ -13,14 +13,20 @@
 #import "BHLocation.h"
 #import "BHMapViewController.h"
 #import "BHBuildingAnnotation.h"
+#import "BHSetItineraryViewController.h"
+#import "BHBeeHiveViewController.h"
+
+
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation BHAppDelegate
+//@synthesize contributedNumber;
 
 - (void)loadDataFromRemoteServer
 {
     BHDataController *dataController = [BHDataController sharedDataController];
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
-    UINavigationController *navigationController = [[tabBarController viewControllers] objectAtIndex:0];
+    UINavigationController *navigationController = [[tabBarController viewControllers] objectAtIndex:1]; // map in second position 
     BHMapViewController *mapViewController = [[navigationController viewControllers] objectAtIndex:0];
     
     // Set up logging level for RestKit
@@ -45,12 +51,35 @@
     // Override point for customization after application launch.
     
     self.window.frame = CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
-    
     [self loadDataFromRemoteServer];
+    [GMSServices provideAPIKey:@"AIzaSyBCe9eLi04OPVY4hSrjw6p80dM9iKTM2WM"];
+    
+    // remove badge
+    application.applicationIconBadgeNumber = 0;
     
     return YES;
 }
-							
+
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm"];
+    NSString *textDate = [NSString stringWithFormat:@"It's %@, time to go!", [dateFormatter stringFromDate:[NSDate date]]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:textDate
+                                                    message:@"Your current missions begins."
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    // the user clicked OK
+    if (buttonIndex == 0) {
+        // remove badge
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    }
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -71,11 +100,16 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // remove badge
+    application.applicationIconBadgeNumber = 0;
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
 
 @end

@@ -15,6 +15,7 @@
 #import "BHLocationDetailViewController.h"
 #import "BHUtils.h"
 
+
 //RefreshControl Library
 #import "ODRefreshControl.h"
 
@@ -25,6 +26,7 @@
 @synthesize tableView = _tableView;
 @synthesize refreshControl = _refreshControl;
 @synthesize locationSearchBar = _locationSearchBar, filteredLocations = _filteredLocations, filteredBuildings = _filteredBuildings;
+@synthesize toto; //incoming segue identifier
 
 -(ODRefreshControl *)refreshControl
 {
@@ -54,61 +56,103 @@
 {
     [super viewDidLoad];
     
-    [self.locationSearchBar setShowsScopeBar:NO];
-    [self.locationSearchBar sizeToFit];
+    // bar and button color
+    self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
+    self.locationSearchBar.tintColor = [UIColor orangeColor];
+    
+    // background colors
+//    self.navigationController.view.backgroundColor = [UIColor colorWithWhite: 0.80 alpha:1];
+//    self.locationSearchBar.backgroundColor = [UIColor colorWithWhite: 0.80 alpha:1];
+    CGRect frame = self.tableView.bounds;
+    frame.origin.y = -frame.size.height;
+    UIView* viewBackground = [[UIView alloc] initWithFrame:frame];
+    [viewBackground setBackgroundColor:[UIColor whiteColor]];
+    [self.tableView addSubview:viewBackground]; // fix for the top of search bar
+    
+    //Refresh Control
+    [self.refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
     
     // Hide the search bar until user scrolls up
-    CGRect newBounds = self.tableView.bounds;
-    newBounds.origin.y = newBounds.origin.y + self.locationSearchBar.bounds.size.height;
-    self.tableView.bounds = newBounds;
-    
+    [self hideSearchBar];
+
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     // IMPORTANT!
     // Added this line so that refresh control can properly be showed
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+//    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+//    }
     
-//    self.edgesForExtendedLayout=UIRectEdgeNone;
-//    self.extendedLayoutIncludesOpaqueBars=NO;
-    self.automaticallyAdjustsScrollViewInsets=YES;
     
-    // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
-    int footerHeight = 0;
-    if (IS_IPHONE_5) {
-//        footerHeight = 120;
-        footerHeight = 0;
-    } else if ( IS_IPHONE) {
-//        footerHeight = 212;
-        footerHeight = 0;
-    } else if (IS_IPAD){
-        footerHeight = 0;
-    }
     
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, footerHeight)];
-    footer.backgroundColor = [UIColor clearColor];
-    self.tableView.tableFooterView = footer;
+//    // Add a footer so that the tabbar do not cover the tableView bottom if is not iphone5
+//    int footerHeight = 0;
+//    if (IS_IPHONE_5) {
+////        footerHeight = 120;
+//        footerHeight = 0;
+//    } else if ( IS_IPHONE) {
+////        footerHeight = 212;
+//        footerHeight = 0;
+//    } else if (IS_IPAD){
+//        footerHeight = 0;
+//    }
+//    
+//    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, footerHeight)];
+//    footer.backgroundColor = [UIColor whiteColor];
+//    self.tableView.tableFooterView = footer;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    //Refresh Control
-    [self.refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
 
+    
+    // background color for animation cosmetic searchbar
+//    self.navigationController.view.backgroundColor = [UIColor whiteColor];
+//    _locationSearchBar.barTintColor = [UIColor whiteColor]; // search bar color customization 
+//    for (UIView *subView in _locationSearchBar.subviews) {
+//        for (UIView *secondLevelSubview in subView.subviews){
+//            if ([secondLevelSubview isKindOfClass:[UITextField class]]) {
+//                UITextField *searchBarTextField = (UITextField *)secondLevelSubview;
+//                //set  color here
+//                searchBarTextField.backgroundColor = [UIColor colorWithWhite: 0.95 alpha:1];
+////                searchBarTextField.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.2];
+//                break;
+//            }
+//        }
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    BHDataController *dataController = [BHDataController sharedDataController];
-    [dataController fetchLocationStatForViewController:self];
+    if ([toto isEqual:@"ItinerarySet"]){
+        [UIView transitionFromView:self.tabBarController.selectedViewController.view
+                            toView:[[self.tabBarController.viewControllers objectAtIndex:0] view]
+                          duration:2.0
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        completion:^(BOOL finished) {
+                            if (finished) {
+                                self.tabBarController.selectedIndex = 0;
+                            }
+                        }];
+        
+    } else {
+        BHDataController *dataController = [BHDataController sharedDataController];
+        [dataController fetchLocationStatForViewController:self];
+        
+        // bar transparency fix
+//        self.navigationController.navigationBar.translucent = NO;
+//        self.tabBarController.tabBar.translucent = NO;
+    }
+    toto = @"List";
+    NSLog(@"*** %@ ***", toto);
 }
 
-- (void)viewDidAppear
-{
-//    [self.tableView reloadData];
+- (void)viewWillDisappear:(BOOL)animated {
+//    self.navigationController.navigationBar.translucent = YES;
+//    self.tabBarController.tabBar.translucent = YES;
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -132,7 +176,6 @@
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         BHBuilding *bd = [self.filteredBuildings objectAtIndex:section];
         return bd.name;
@@ -188,51 +231,121 @@
     // Determine label color
     cell.textLabel.textColor = [BHUtils titleColorForLocationStat:locStat];
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% Line: %@ Go: %@", locStat.occupancyPercent, locStat.queue, locStat.bestTime];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Oc: %@%% of %@ Line: %@ Go: %@", locStat.occupancyPercent, locStat.maxCapacity, locStat.queue, locStat.bestTime];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
     
     // Using SDWebImage to load image
     [cell.imageView setImageWithURL:[NSURL URLWithString:loc.photoUrl]
                    placeholderImage:[UIImage imageNamed:@"Beehive.png"]];
-    
     return cell;
 }
 
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return 45;
+//}
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Perform segue to candy detail
-    [self performSegueWithIdentifier:@"showLocationDetailFromListView" sender:tableView];
+    [self performSegueWithIdentifier:@"showLocationDetailFromListView" sender:tableView]; 
+    
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"]) {
+#pragma mark - Search Bar
 
-        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
-        BHDataController *dataController = [BHDataController sharedDataController];
-        NSIndexPath *indexPath;
-        BHBuilding *bd;
+- (void) hideSearchBar {
+    CGRect newBounds = self.tableView.bounds;
+    newBounds.origin.y = newBounds.origin.y + self.searchDisplayController.searchBar.bounds.size.height;
+    self.tableView.bounds = newBounds;
+
+}
+
+//- (void) unhideSearchBar {
+//    CGRect newBounds = self.tableView.bounds;
+//    newBounds.origin.y = newBounds.origin.y - self.searchDisplayController.searchBar.bounds.size.height;
+//    self.tableView.bounds = newBounds;
+//
+//}
+
+
+// search delegate method
+#pragma mark - Content Filtering
+-(void)filterContentForSearchText:(NSString*)searchText {
+    
+    // Update the filtered array based on the search text and scope.
+    // Remove all objects from the filtered search array
+    [self.filteredLocations removeAllObjects];
+    [self.filteredBuildings removeAllObjects];
+    
+    
+    BHDataController *dataController = [BHDataController sharedDataController];
+    
+    NSArray *buildingList = dataController.buildingList;
+    
+    for (BHBuilding *bud in buildingList) {
+        BOOL addBuilding = NO;
+        // copy the old building object
+        BHBuilding *newBud = [[BHBuilding alloc] init];
+        newBud.name = bud.name;
+        newBud.description = bud.description;
         
-        if (sender == self.searchDisplayController.searchResultsTableView) {
-            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-            bd = [self.filteredBuildings objectAtIndex:indexPath.section];
-            
+        if ([bud.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
+            newBud.locations = bud.locations;
+            [self.filteredBuildings addObject:newBud];
         } else {
-            indexPath = [self.tableView indexPathForSelectedRow];
-            bd = [dataController.buildingList objectAtIndex:indexPath.section];
+            NSMutableArray *newLocList = [[NSMutableArray alloc] init];
+            for (BHLocation *loc in bud.locations) {
+                if ([loc.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound ||
+                    [loc.description rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                    [newLocList addObject:loc];
+                    addBuilding = YES;
+                    
+                }
+            }
             
+            if (addBuilding) {
+                newBud.locations = newLocList;
+                [self.filteredBuildings addObject:newBud];
+            }
         }
-        
-        detailViewController.location = [bd.locations objectAtIndex:indexPath.row];
-        
-        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
-        detailViewController.weeklyStat = weeklyStat;
-        
-        if (!weeklyStat) {
-            [dataController fetchStatForLocation:detailViewController];
-        }
-        
     }
+    
 }
+
+#pragma mark - UISearchDisplayController Delegate Methods
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    // Tells the table data source to reload when text changes
+    //    [self filterContentForSearchText:searchString scope:
+    //     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    [self filterContentForSearchText:searchString];
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+//-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+//    // Tells the table data source to reload when scope bar selection changes
+//    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
+//     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+//    // Return YES to cause the search result table view to be reloaded.
+//    return YES;
+//}
+
+- (IBAction)searchLocation:(id)sender {
+    // display searchbar
+//    self.edgesForExtendedLayout = UIRectEdgeTop;
+    [self.locationSearchBar becomeFirstResponder];
+    
+}
+
+//-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+//{
+//    [searchBar setShowsCancelButton:YES animated:YES];
+//    [searchBar setShowsScopeBar:YES];
+//}
+
+
+#pragma mark - Refresh
 
 // Refresh when dropping down
 - (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
@@ -261,85 +374,52 @@
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [spinner startAnimating];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
-    
+
     BHDataController *dataController = [BHDataController sharedDataController];
     
     if (dataController.connectionLost) {
-        //Fetch building List for mapView
+        //Fetch building List
         [dataController fetchBuildingsForViewController:self];
     }
     
-    //Fetch locations statistic for mapView
+    //Fetch locations statistic 
     [dataController fetchLocationStatForViewController:self];
     
 }
 
 
-// search delegate method
-#pragma mark Content Filtering
-#pragma mark Content Filtering
--(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
-    
-    // Update the filtered array based on the search text and scope.
-    // Remove all objects from the filtered search array
-    [self.filteredLocations removeAllObjects];
-    [self.filteredBuildings removeAllObjects];
-    
 
-    BHDataController *dataController = [BHDataController sharedDataController];
-
-    NSArray *buildingList = dataController.buildingList;
-    
-    for (BHBuilding *bud in buildingList) {
-        BOOL addBuilding = NO;
-        // copy the old building object
-        BHBuilding *newBud = [[BHBuilding alloc] init];
-        newBud.name = bud.name;
-        newBud.description = bud.description;
+#pragma mark - Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showLocationDetailFromListView"]) {
         
-        if ([bud.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
-            newBud.locations = bud.locations;
-            [self.filteredBuildings addObject:newBud];
-        } else {
-            NSMutableArray *newLocList = [[NSMutableArray alloc] init];
-            for (BHLocation *loc in bud.locations) {
-                if ([loc.name rangeOfString:searchText options:NSCaseInsensitiveSearch].location != NSNotFound) {
-                    [newLocList addObject:loc];
-                    addBuilding = YES;
-                    
-                }
-            }
+        BHLocationDetailViewController *detailViewController = [segue destinationViewController];
+        BHDataController *dataController = [BHDataController sharedDataController];
+        NSIndexPath *indexPath;
+        BHBuilding *bd;
+        
+        if (sender == self.searchDisplayController.searchResultsTableView) {
+            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+            bd = [self.filteredBuildings objectAtIndex:indexPath.section];
             
-            if (addBuilding) {
-                newBud.locations = newLocList;
-                [self.filteredBuildings addObject:newBud];
-            }
+        } else {
+            indexPath = [self.tableView indexPathForSelectedRow];
+            bd = [dataController.buildingList objectAtIndex:indexPath.section];
+            
         }
+        
+        detailViewController.location = [bd.locations objectAtIndex:indexPath.row];
+        
+        NSArray *weeklyStat = [dataController.locationHourlyStats objectForKey:detailViewController.location.locId];
+        detailViewController.weeklyStat = weeklyStat;
+        
+        if (!weeklyStat) {
+            [dataController fetchStatForLocation:detailViewController];
+        }
+        
     }
-    
 }
-
-#pragma mark - UISearchDisplayController Delegate Methods
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    // Tells the table data source to reload when text changes
-    [self filterContentForSearchText:searchString scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
-
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
-    // Tells the table data source to reload when scope bar selection changes
-    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
-
-- (IBAction)searchLocation:(id)sender {
-    [self.locationSearchBar becomeFirstResponder];
-}
-
 
 
 /*
@@ -380,7 +460,6 @@
  return YES;
  }
  */
-
 
 
 @end

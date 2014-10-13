@@ -33,7 +33,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.imageView.frame = CGRectMake(5,5,40,40);
+    self.imageView.frame = CGRectMake(5,3,38,38);
     float limgW =  self.imageView.image.size.width;
     if(limgW > 0) {
         self.textLabel.frame = CGRectMake(55,self.textLabel.frame.origin.y,self.textLabel.frame.size.width,self.textLabel.frame.size.height);

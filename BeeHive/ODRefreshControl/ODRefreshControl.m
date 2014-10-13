@@ -2,7 +2,7 @@
 //  ODRefreshControl.m
 //  ODRefreshControl
 //
-//  Created by Fabio Ritrovato on 6/13/12.
+//  Created by Fabio Ritrovato on 6/13/12. Edited by Louis CHEN 8/21/14.
 //  Copyright (c) 2012 orange in a day. All rights reserved.
 //
 // https://github.com/Sephiroth87/ODRefreshControl
@@ -53,11 +53,12 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
 
 - (id)initInScrollView:(UIScrollView *)scrollView activityIndicatorView:(UIView *)activity
 {
-    self = [super initWithFrame:CGRectMake(0, -(kTotalViewHeight + scrollView.contentInset.top), scrollView.frame.size.width, kTotalViewHeight)];
+    self = [super initWithFrame:CGRectMake(0, -(kTotalViewHeight + scrollView.contentInset.top - 65), scrollView.frame.size.width, kTotalViewHeight)]; //  "- 65" for navigation bar fix
     
     if (self) {
         self.scrollView = scrollView;
         self.originalContentInset = scrollView.contentInset;
+//        scrollView.backgroundColor = [UIColor clearColor];
         
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [scrollView addSubview:self];
@@ -79,11 +80,13 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
         _ignoreOffset = NO;
         _didSetInset = NO;
         _hasSectionHeaders = NO;
-        _tintColor = [UIColor colorWithRed:155.0 / 255.0 green:162.0 / 255.0 blue:172.0 / 255.0 alpha:1.0];
+        _tintColor = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f];
+
+//        _tintColor = [UIColor colorWithRed:155.0 / 255.0 green:162.0 / 255.0 blue:172.0 / 255.0 alpha:1.0];
         
         _shapeLayer = [CAShapeLayer layer];
         _shapeLayer.fillColor = [_tintColor CGColor];
-        _shapeLayer.strokeColor = [[[UIColor darkGrayColor] colorWithAlphaComponent:0.5] CGColor];
+        _shapeLayer.strokeColor = [[UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]CGColor]; //orange BeeHive
         _shapeLayer.lineWidth = 0.5;
         _shapeLayer.shadowColor = [[UIColor blackColor] CGColor];
         _shapeLayer.shadowOffset = CGSizeMake(0, 1);
@@ -92,7 +95,8 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
         [self.layer addSublayer:_shapeLayer];
         
         _arrowLayer = [CAShapeLayer layer];
-        _arrowLayer.strokeColor = [[[UIColor darkGrayColor] colorWithAlphaComponent:0.5] CGColor];
+//        _arrowLayer.strokeColor = [[[UIColor darkGrayColor] colorWithAlphaComponent:0.5] CGColor];
+        _arrowLayer.strokeColor = [[UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]CGColor]; //orange BeeHive
         _arrowLayer.lineWidth = 0.5;
         _arrowLayer.fillColor = [[UIColor whiteColor] CGColor];
         [_shapeLayer addSublayer:_arrowLayer];
@@ -168,7 +172,7 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
     if ([keyPath isEqualToString:@"contentInset"]) {
         if (!_ignoreInset) {
             self.originalContentInset = [[change objectForKey:@"new"] UIEdgeInsetsValue];
-            self.frame = CGRectMake(0, -(kTotalViewHeight + self.scrollView.contentInset.top), self.scrollView.frame.size.width, kTotalViewHeight);
+            self.frame = CGRectMake(0, -(kTotalViewHeight + self.scrollView.contentInset.top - 65), self.scrollView.frame.size.width, kTotalViewHeight); //  "- 65" for navigation bar fix 
         }
         return;
     }

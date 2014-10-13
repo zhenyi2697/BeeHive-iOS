@@ -9,6 +9,8 @@
 #import "BHLocationAnnotation.h"
 #import "BHDataController.h"
 
+
+
 @implementation BHLocationAnnotation
 
 @synthesize location = _location, locationStat = _locationStat;

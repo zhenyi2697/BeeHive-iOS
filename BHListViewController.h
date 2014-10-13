@@ -19,4 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @property IBOutlet UISearchBar *locationSearchBar;
 - (IBAction)searchLocation:(id)sender;
+
+@property NSString *toto;
+
 @end

@@ -7,6 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57A0861019E1F7B60053FFC4 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57A0860D19E1F7910053FFC4 /* libCorePlot-CocoaTouch.a */; };
+		A9024DED196F675100C510E5 /* Buzz.png in Resources */ = {isa = PBXBuildFile; fileRef = A9024DEC196F675100C510E5 /* Buzz.png */; };
+		A93A6DC8194A172C00251669 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DC7194A172C00251669 /* GoogleMaps.framework */; };
+		A93A6DCA194A177400251669 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A93A6DC9194A177400251669 /* GoogleMaps.bundle */; };
+		A93A6DCC194A17D000251669 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DCB194A17D000251669 /* AVFoundation.framework */; };
+		A93A6DCE194A180E00251669 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DCD194A180E00251669 /* CoreText.framework */; };
+		A93A6DD0194A182000251669 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DCF194A182000251669 /* GLKit.framework */; };
+		A93A6DD2194A184F00251669 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DD1194A184F00251669 /* libc++.dylib */; };
+		A93A6DD4194A185D00251669 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DD3194A185D00251669 /* libicucore.dylib */; };
+		A93A6DD6194A186D00251669 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DD5194A186D00251669 /* libz.dylib */; };
+		A93A6DD8194A187800251669 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93A6DD7194A187800251669 /* OpenGLES.framework */; };
+		A97293E0197C9AE900495470 /* BHSetItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A97293DF197C9AE900495470 /* BHSetItineraryViewController.m */; };
+		A990BBCD19510BD70019BF49 /* BHProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A990BBCC19510BD70019BF49 /* BHProgressView.m */; };
+		A990BBD819510EEC0019BF49 /* UIColor+RGBValues.m in Sources */ = {isa = PBXBuildFile; fileRef = A990BBD719510EEC0019BF49 /* UIColor+RGBValues.m */; };
+		A99778D6196A669200739A8F /* Check-in.png in Resources */ = {isa = PBXBuildFile; fileRef = A99778D5196A669200739A8F /* Check-in.png */; };
+		A99778DB196CB70E00739A8F /* BHSetArrivalTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A99778DA196CB70E00739A8F /* BHSetArrivalTimeViewController.m */; };
+		A999CC271961F4A20082018A /* BHCheckinListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A999CC261961F4A20082018A /* BHCheckinListViewController.m */; };
+		A9B13EBE19A695A9004C6D10 /* BHTipCalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B13EBD19A695A9004C6D10 /* BHTipCalculatorViewController.m */; };
+		A9D89484196DEF2E00FCE714 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9D89483196DEF2E00FCE714 /* Images.xcassets */; };
+		A9E919B4195390BA0049D60C /* BHBeeHiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E919B3195390BA0049D60C /* BHBeeHiveViewController.m */; };
 		BC066EFC18F637CA00F96604 /* BHQueueRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066EFB18F637CA00F96604 /* BHQueueRequest.m */; };
 		BC066EFF18F6382E00F96604 /* BHQueueResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066EFE18F6382E00F96604 /* BHQueueResponse.m */; };
 		BC066F0718F6418A00F96604 /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = BC066F0218F6418900F96604 /* JDStatusBarNotification.m */; };
@@ -24,7 +44,6 @@
 		BC2AA54F18BC68CE0001BA98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */; };
 		BC2AA55118BC68D50001BA98 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AA55018BC68D50001BA98 /* CoreData.framework */; };
 		BC324E5718BD1A9A005997C5 /* Beehive.png in Resources */ = {isa = PBXBuildFile; fileRef = BC324E5618BD1A9A005997C5 /* Beehive.png */; };
-		BC3CAAC718F718E0003FF73B /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3CAAC618F7183C003FF73B /* libCorePlot-CocoaTouch.a */; };
 		BC3EFE08190B562600E0BC30 /* Beehive_rounded.png in Resources */ = {isa = PBXBuildFile; fileRef = BC3EFE07190B562600E0BC30 /* Beehive_rounded.png */; };
 		BC3EFE12190B5B0C00E0BC30 /* BHSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3EFE11190B5B0C00E0BC30 /* BHSettingViewController.m */; };
 		BC3EFE15190B5B2300E0BC30 /* BHAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3EFE14190B5B2300E0BC30 /* BHAboutViewController.m */; };
@@ -41,7 +60,6 @@
 		BC676C6018B2881800A46750 /* BHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC676C5F18B2881800A46750 /* BHAppDelegate.m */; };
 		BC676C6318B2881800A46750 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC676C6118B2881800A46750 /* Main_iPhone.storyboard */; };
 		BC676C6618B2881800A46750 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC676C6418B2881800A46750 /* Main_iPad.storyboard */; };
-		BC676C6E18B2881900A46750 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC676C6D18B2881900A46750 /* Images.xcassets */; };
 		BC676C7518B2881900A46750 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C7418B2881900A46750 /* XCTest.framework */; };
 		BC676C7618B2881900A46750 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C4F18B2881800A46750 /* Foundation.framework */; };
 		BC676C7718B2881900A46750 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC676C5318B2881800A46750 /* UIKit.framework */; };
@@ -84,11 +102,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BC3CAAC518F7183C003FF73B /* PBXContainerItemProxy */ = {
+		57A0860C19E1F7910053FFC4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */;
+			containerPortal = 57A0860619E1F7900053FFC4 /* CorePlot-CocoaTouch.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		57A0860E19E1F7B00053FFC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57A0860619E1F7900053FFC4 /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 		BC676C7818B2881900A46750 /* PBXContainerItemProxy */ = {
@@ -101,8 +126,35 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		255ED402BD14E4D2AA703445 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		57A0860619E1F7900053FFC4 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../core-plot-master/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		8538B954861740A5B5E1D500 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B95F5CF4F9F34E78B42E7B38 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		A9024DEC196F675100C510E5 /* Buzz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Buzz.png; sourceTree = "<group>"; };
+		A93A6DC7194A172C00251669 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
+		A93A6DC9194A177400251669 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
+		A93A6DCB194A17D000251669 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A93A6DCD194A180E00251669 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		A93A6DCF194A182000251669 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		A93A6DD1194A184F00251669 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		A93A6DD3194A185D00251669 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		A93A6DD5194A186D00251669 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		A93A6DD7194A187800251669 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		A97293DE197C9AE900495470 /* BHSetItineraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHSetItineraryViewController.h; sourceTree = "<group>"; };
+		A97293DF197C9AE900495470 /* BHSetItineraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHSetItineraryViewController.m; sourceTree = "<group>"; };
+		A990BBCB19510BD70019BF49 /* BHProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHProgressView.h; sourceTree = "<group>"; };
+		A990BBCC19510BD70019BF49 /* BHProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHProgressView.m; sourceTree = "<group>"; };
+		A990BBD619510EEC0019BF49 /* UIColor+RGBValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RGBValues.h"; sourceTree = "<group>"; };
+		A990BBD719510EEC0019BF49 /* UIColor+RGBValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RGBValues.m"; sourceTree = "<group>"; };
+		A99778D5196A669200739A8F /* Check-in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Check-in.png"; sourceTree = "<group>"; };
+		A99778D9196CB70E00739A8F /* BHSetArrivalTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHSetArrivalTimeViewController.h; sourceTree = "<group>"; };
+		A99778DA196CB70E00739A8F /* BHSetArrivalTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHSetArrivalTimeViewController.m; sourceTree = "<group>"; };
+		A999CC251961F4A20082018A /* BHCheckinListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHCheckinListViewController.h; sourceTree = "<group>"; };
+		A999CC261961F4A20082018A /* BHCheckinListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHCheckinListViewController.m; sourceTree = "<group>"; };
+		A9B13EBC19A695A9004C6D10 /* BHTipCalculatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHTipCalculatorViewController.h; sourceTree = "<group>"; };
+		A9B13EBD19A695A9004C6D10 /* BHTipCalculatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHTipCalculatorViewController.m; sourceTree = "<group>"; };
+		A9D89483196DEF2E00FCE714 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A9E919B2195390BA0049D60C /* BHBeeHiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBeeHiveViewController.h; sourceTree = "<group>"; };
+		A9E919B3195390BA0049D60C /* BHBeeHiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHBeeHiveViewController.m; sourceTree = "<group>"; };
 		BC066EFA18F637CA00F96604 /* BHQueueRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHQueueRequest.h; sourceTree = "<group>"; };
 		BC066EFB18F637CA00F96604 /* BHQueueRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHQueueRequest.m; sourceTree = "<group>"; };
 		BC066EFD18F6382E00F96604 /* BHQueueResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHQueueResponse.h; sourceTree = "<group>"; };
@@ -128,7 +180,6 @@
 		BC2AA54E18BC68CE0001BA98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC2AA55018BC68D50001BA98 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BC324E5618BD1A9A005997C5 /* Beehive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Beehive.png; sourceTree = "<group>"; };
-		BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../../Downloads/core-plot-master/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		BC3EFE07190B562600E0BC30 /* Beehive_rounded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Beehive_rounded.png; sourceTree = "<group>"; };
 		BC3EFE10190B5B0C00E0BC30 /* BHSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHSettingViewController.h; sourceTree = "<group>"; };
 		BC3EFE11190B5B0C00E0BC30 /* BHSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHSettingViewController.m; sourceTree = "<group>"; };
@@ -136,7 +187,7 @@
 		BC3EFE14190B5B2300E0BC30 /* BHAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHAboutViewController.m; sourceTree = "<group>"; };
 		BC3EFE16190B618500E0BC30 /* button_background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_background1.png; sourceTree = "<group>"; };
 		BC61406D190BF98300B7E45F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		BC620D9718D28B7100D409A2 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
+		BC620D9718D28B7100D409A2 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = BeeHive/SDWebImage.framework; sourceTree = "<group>"; };
 		BC620D9B18D28BAF00D409A2 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		BC620D9D18D28D6000D409A2 /* BHLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationTableViewCell.h; sourceTree = "<group>"; };
 		BC620D9E18D28D6000D409A2 /* BHLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationTableViewCell.m; sourceTree = "<group>"; };
@@ -152,7 +203,6 @@
 		BC676C5F18B2881800A46750 /* BHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BHAppDelegate.m; sourceTree = "<group>"; };
 		BC676C6218B2881800A46750 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		BC676C6518B2881800A46750 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		BC676C6D18B2881900A46750 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BC676C7318B2881900A46750 /* BeeHiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeeHiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC676C7418B2881900A46750 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		BC676C7C18B2881900A46750 /* BeeHiveTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BeeHiveTests-Info.plist"; sourceTree = "<group>"; };
@@ -207,6 +257,7 @@
 		BCED5F00190A240D00B8BACB /* TWMessageBarManager.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TWMessageBarManager.podspec; sourceTree = "<group>"; };
 		BCF24B5F18CB6D35006BA03A /* BHLocationStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHLocationStat.h; sourceTree = "<group>"; };
 		BCF24B6018CB6D35006BA03A /* BHLocationStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHLocationStat.m; sourceTree = "<group>"; };
+		D98A283D8717D524A12011DC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,21 +266,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC2AA54F18BC68CE0001BA98 /* SystemConfiguration.framework in Frameworks */,
+				BCAE8B7C18B66768006D052D /* QuartzCore.framework in Frameworks */,
+				A93A6DD8194A187800251669 /* OpenGLES.framework in Frameworks */,
+				A93A6DD6194A186D00251669 /* libz.dylib in Frameworks */,
+				A93A6DD4194A185D00251669 /* libicucore.dylib in Frameworks */,
+				A93A6DD2194A184F00251669 /* libc++.dylib in Frameworks */,
+				BC620D9C18D28BAF00D409A2 /* ImageIO.framework in Frameworks */,
+				A93A6DD0194A182000251669 /* GLKit.framework in Frameworks */,
+				A93A6DCE194A180E00251669 /* CoreText.framework in Frameworks */,
+				BC2AA55118BC68D50001BA98 /* CoreData.framework in Frameworks */,
+				A93A6DCC194A17D000251669 /* AVFoundation.framework in Frameworks */,
 				BC2AA54D18BC68C40001BA98 /* CFNetwork.framework in Frameworks */,
 				BC2AA54B18BC68BC0001BA98 /* Security.framework in Frameworks */,
 				BC61406E190BF98300B7E45F /* MobileCoreServices.framework in Frameworks */,
-				BC3CAAC718F718E0003FF73B /* libCorePlot-CocoaTouch.a in Frameworks */,
-				BC620D9C18D28BAF00D409A2 /* ImageIO.framework in Frameworks */,
 				BC6AA28E18BDA1D6004674F2 /* CoreLocation.framework in Frameworks */,
 				BC676C5218B2881800A46750 /* CoreGraphics.framework in Frameworks */,
 				BC676C5018B2881800A46750 /* Foundation.framework in Frameworks */,
 				BC676C5418B2881800A46750 /* UIKit.framework in Frameworks */,
 				BC620D9818D28B7100D409A2 /* SDWebImage.framework in Frameworks */,
-				BC2AA55118BC68D50001BA98 /* CoreData.framework in Frameworks */,
 				BCAE8B7E18B66772006D052D /* Accelerate.framework in Frameworks */,
-				BCAE8B7C18B66768006D052D /* QuartzCore.framework in Frameworks */,
+				A93A6DC8194A172C00251669 /* GoogleMaps.framework in Frameworks */,
 				BC676C9118B28A1000A46750 /* MapKit.framework in Frameworks */,
 				BEEA1C9C13F34734A2A57CB3 /* libPods.a in Frameworks */,
+				57A0861019E1F7B60053FFC4 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +305,103 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57A0860719E1F7900053FFC4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				57A0860D19E1F7910053FFC4 /* libCorePlot-CocoaTouch.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A9B13EB219A6926F004C6D10 /* Check-In */ = {
+			isa = PBXGroup;
+			children = (
+				A9E919B2195390BA0049D60C /* BHBeeHiveViewController.h */,
+				A9E919B3195390BA0049D60C /* BHBeeHiveViewController.m */,
+				A999CC251961F4A20082018A /* BHCheckinListViewController.h */,
+				A999CC261961F4A20082018A /* BHCheckinListViewController.m */,
+				BC74DD8E18CF84B0002359B7 /* BHContributionViewController.h */,
+				BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */,
+				A990BBCB19510BD70019BF49 /* BHProgressView.h */,
+				A990BBCC19510BD70019BF49 /* BHProgressView.m */,
+			);
+			name = "Check-In";
+			sourceTree = "<group>";
+		};
+		A9B13EB519A69292004C6D10 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				BC676C8A18B2893B00A46750 /* BHMapViewController.h */,
+				BC676C8B18B2893B00A46750 /* BHMapViewController.m */,
+				BC6AA28818BDA190004674F2 /* BHBuildingAnnotation.h */,
+				BC6AA28918BDA190004674F2 /* BHBuildingAnnotation.m */,
+				BCAD56BF18CADD90009436B8 /* BHLocationAnnotation.h */,
+				BCAD56C018CADD90009436B8 /* BHLocationAnnotation.m */,
+				BC83438518F485F20023BC9B /* BHLocationAnnotationView.h */,
+				BC83438618F485F20023BC9B /* BHLocationAnnotationView.m */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		A9B13EB719A692A6004C6D10 /* Location Details and Stats */ = {
+			isa = PBXGroup;
+			children = (
+				BC74DD8918CF82D6002359B7 /* BHLocationDetailViewController.h */,
+				BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */,
+			);
+			name = "Location Details and Stats";
+			sourceTree = "<group>";
+		};
+		A9B13EB819A692D7004C6D10 /* Mission */ = {
+			isa = PBXGroup;
+			children = (
+				A99778D9196CB70E00739A8F /* BHSetArrivalTimeViewController.h */,
+				A99778DA196CB70E00739A8F /* BHSetArrivalTimeViewController.m */,
+				A97293DE197C9AE900495470 /* BHSetItineraryViewController.h */,
+				A97293DF197C9AE900495470 /* BHSetItineraryViewController.m */,
+			);
+			name = Mission;
+			sourceTree = "<group>";
+		};
+		A9B13EB919A692F1004C6D10 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				BC3EFE10190B5B0C00E0BC30 /* BHSettingViewController.h */,
+				BC3EFE11190B5B0C00E0BC30 /* BHSettingViewController.m */,
+				BC3EFE13190B5B2300E0BC30 /* BHAboutViewController.h */,
+				BC3EFE14190B5B2300E0BC30 /* BHAboutViewController.m */,
+				A9B13EBC19A695A9004C6D10 /* BHTipCalculatorViewController.h */,
+				A9B13EBD19A695A9004C6D10 /* BHTipCalculatorViewController.m */,
+			);
+			name = More;
+			sourceTree = "<group>";
+		};
+		A9B13EBB19A6945B004C6D10 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				BCB30E6418B3CEF6009A3669 /* BHListViewController.h */,
+				BCB30E6518B3CEF6009A3669 /* BHListViewController.m */,
+				BC620D9D18D28D6000D409A2 /* BHLocationTableViewCell.h */,
+				BC620D9E18D28D6000D409A2 /* BHLocationTableViewCell.m */,
+			);
+			name = List;
+			sourceTree = "<group>";
+		};
+		A9F83DDB19AFD71A00183D56 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				BC676C5E18B2881800A46750 /* BHAppDelegate.h */,
+				BC676C5F18B2881800A46750 /* BHAppDelegate.m */,
+				BCAD56A718CA50AE009436B8 /* BHDataController.h */,
+				BCAD56A818CA50AE009436B8 /* BHDataController.m */,
+				BC129194192A3E0900225A13 /* BHUtils.h */,
+				BC129195192A3E0900225A13 /* BHUtils.m */,
+				A990BBD619510EEC0019BF49 /* UIColor+RGBValues.h */,
+				A990BBD719510EEC0019BF49 /* UIColor+RGBValues.m */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
 		BC066EF918F637A300F96604 /* models */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,23 +438,18 @@
 			path = JDStatusBarNotification;
 			sourceTree = "<group>";
 		};
-		BC3CAAC018F7183C003FF73B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BC3CAAC618F7183C003FF73B /* libCorePlot-CocoaTouch.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		BC676C4318B2881800A46750 = {
 			isa = PBXGroup;
 			children = (
+				BC676C6118B2881800A46750 /* Main_iPhone.storyboard */,
+				BC676C6418B2881800A46750 /* Main_iPad.storyboard */,
 				BCD05DC118B6D94A005077AA /* Starter Files */,
 				BC676C5518B2881800A46750 /* BeeHive */,
+				57A0860619E1F7900053FFC4 /* CorePlot-CocoaTouch.xcodeproj */,
 				BC676C7A18B2881900A46750 /* BeeHiveTests */,
 				BC676C4E18B2881800A46750 /* Frameworks */,
 				BC676C4D18B2881800A46750 /* Products */,
-				B95F5CF4F9F34E78B42E7B38 /* Pods.xcconfig */,
+				D8FD7DB4EABB26D9D2DE93F0 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -314,6 +465,16 @@
 		BC676C4E18B2881800A46750 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A93A6DD7194A187800251669 /* OpenGLES.framework */,
+				A93A6DD5194A186D00251669 /* libz.dylib */,
+				A93A6DD3194A185D00251669 /* libicucore.dylib */,
+				A93A6DD1194A184F00251669 /* libc++.dylib */,
+				A93A6DCF194A182000251669 /* GLKit.framework */,
+				A93A6DCD194A180E00251669 /* CoreText.framework */,
+				A93A6DCB194A17D000251669 /* AVFoundation.framework */,
+				A93A6DC9194A177400251669 /* GoogleMaps.bundle */,
+				A93A6DC7194A172C00251669 /* GoogleMaps.framework */,
+				BC620D9718D28B7100D409A2 /* SDWebImage.framework */,
 				BC61406D190BF98300B7E45F /* MobileCoreServices.framework */,
 				BC620D9B18D28BAF00D409A2 /* ImageIO.framework */,
 				BC6AA28D18BDA1D6004674F2 /* CoreLocation.framework */,
@@ -336,42 +497,19 @@
 		BC676C5518B2881800A46750 /* BeeHive */ = {
 			isa = PBXGroup;
 			children = (
-				BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */,
-				BC620D9718D28B7100D409A2 /* SDWebImage.framework */,
-				BCED5EF6190A240D00B8BACB /* TWMessageBarManager */,
-				BCAD56B918CA82C7009436B8 /* ODRefreshControl */,
+				A9F83DDB19AFD71A00183D56 /* Other */,
+				A9B13EB219A6926F004C6D10 /* Check-In */,
+				A9B13EB519A69292004C6D10 /* Map */,
+				A9B13EBB19A6945B004C6D10 /* List */,
+				A9B13EB719A692A6004C6D10 /* Location Details and Stats */,
+				A9B13EB819A692D7004C6D10 /* Mission */,
+				A9B13EB919A692F1004C6D10 /* More */,
+				A9D89483196DEF2E00FCE714 /* Images.xcassets */,
+				BC676C5618B2881800A46750 /* Supporting Files */,
 				BC066F0018F6418900F96604 /* JDStatusBarNotification */,
 				BC066EF918F637A300F96604 /* models */,
-				BC6AA28818BDA190004674F2 /* BHBuildingAnnotation.h */,
-				BC6AA28918BDA190004674F2 /* BHBuildingAnnotation.m */,
-				BCAD56BF18CADD90009436B8 /* BHLocationAnnotation.h */,
-				BCAD56C018CADD90009436B8 /* BHLocationAnnotation.m */,
-				BC83438518F485F20023BC9B /* BHLocationAnnotationView.h */,
-				BC83438618F485F20023BC9B /* BHLocationAnnotationView.m */,
-				BCB30E6418B3CEF6009A3669 /* BHListViewController.h */,
-				BCB30E6518B3CEF6009A3669 /* BHListViewController.m */,
-				BC676C8A18B2893B00A46750 /* BHMapViewController.h */,
-				BC676C8B18B2893B00A46750 /* BHMapViewController.m */,
-				BC620D9D18D28D6000D409A2 /* BHLocationTableViewCell.h */,
-				BC620D9E18D28D6000D409A2 /* BHLocationTableViewCell.m */,
-				BC74DD8918CF82D6002359B7 /* BHLocationDetailViewController.h */,
-				BC74DD8A18CF82D6002359B7 /* BHLocationDetailViewController.m */,
-				BC74DD8E18CF84B0002359B7 /* BHContributionViewController.h */,
-				BC74DD8F18CF84B0002359B7 /* BHContributionViewController.m */,
-				BC3EFE10190B5B0C00E0BC30 /* BHSettingViewController.h */,
-				BC3EFE11190B5B0C00E0BC30 /* BHSettingViewController.m */,
-				BC3EFE13190B5B2300E0BC30 /* BHAboutViewController.h */,
-				BC3EFE14190B5B2300E0BC30 /* BHAboutViewController.m */,
-				BCAD56A718CA50AE009436B8 /* BHDataController.h */,
-				BCAD56A818CA50AE009436B8 /* BHDataController.m */,
-				BC129194192A3E0900225A13 /* BHUtils.h */,
-				BC129195192A3E0900225A13 /* BHUtils.m */,
-				BC676C5E18B2881800A46750 /* BHAppDelegate.h */,
-				BC676C5F18B2881800A46750 /* BHAppDelegate.m */,
-				BC676C6118B2881800A46750 /* Main_iPhone.storyboard */,
-				BC676C6418B2881800A46750 /* Main_iPad.storyboard */,
-				BC676C6D18B2881900A46750 /* Images.xcassets */,
-				BC676C5618B2881800A46750 /* Supporting Files */,
+				BCAD56B918CA82C7009436B8 /* ODRefreshControl */,
+				BCED5EF6190A240D00B8BACB /* TWMessageBarManager */,
 			);
 			path = BeeHive;
 			sourceTree = "<group>";
@@ -379,6 +517,8 @@
 		BC676C5618B2881800A46750 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A9024DEC196F675100C510E5 /* Buzz.png */,
+				A99778D5196A669200739A8F /* Check-in.png */,
 				BC7C177118F4D8E500DF1ACA /* Default.png */,
 				BC3EFE16190B618500E0BC30 /* button_background1.png */,
 				BC3EFE07190B562600E0BC30 /* Beehive_rounded.png */,
@@ -462,6 +602,15 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
+		D8FD7DB4EABB26D9D2DE93F0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D98A283D8717D524A12011DC /* Pods.debug.xcconfig */,
+				255ED402BD14E4D2AA703445 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -478,6 +627,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				57A0860F19E1F7B00053FFC4 /* PBXTargetDependency */,
 			);
 			name = BeeHive;
 			productName = BeeHive;
@@ -513,7 +663,7 @@
 				ORGANIZATIONNAME = "Zhenyi Zhang";
 				TargetAttributes = {
 					BC676C4B18B2881800A46750 = {
-						DevelopmentTeam = 4RB9N5385L;
+						DevelopmentTeam = 89JRG4TE28;
 					};
 					BC676C7218B2881900A46750 = {
 						TestTargetID = BC676C4B18B2881800A46750;
@@ -533,8 +683,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = BC3CAAC018F7183C003FF73B /* Products */;
-					ProjectRef = BC3CAABF18F7183C003FF73B /* CorePlot-CocoaTouch.xcodeproj */;
+					ProductGroup = 57A0860719E1F7900053FFC4 /* Products */;
+					ProjectRef = 57A0860619E1F7900053FFC4 /* CorePlot-CocoaTouch.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -546,11 +696,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		BC3CAAC618F7183C003FF73B /* libCorePlot-CocoaTouch.a */ = {
+		57A0860D19E1F7910053FFC4 /* libCorePlot-CocoaTouch.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = BC3CAAC518F7183C003FF73B /* PBXContainerItemProxy */;
+			remoteRef = 57A0860C19E1F7910053FFC4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -560,17 +710,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9024DED196F675100C510E5 /* Buzz.png in Resources */,
 				BC324E5718BD1A9A005997C5 /* Beehive.png in Resources */,
 				BC83438F18F49B240023BC9B /* pin_orange_small.png in Resources */,
 				BC6AA29018BDAC75004674F2 /* disclosure.png in Resources */,
+				A9D89484196DEF2E00FCE714 /* Images.xcassets in Resources */,
 				BC676C6618B2881800A46750 /* Main_iPad.storyboard in Resources */,
 				BCED5F06190A240D00B8BACB /* icon-success@2x.png in Resources */,
+				A99778D6196A669200739A8F /* Check-in.png in Resources */,
 				BCAD56B718CA5982009436B8 /* list-star.png in Resources */,
 				BC7C177218F4D8E500DF1ACA /* Default.png in Resources */,
 				BCE6326B18F79AA20031ADB6 /* pin_orange.png in Resources */,
 				BCED5F02190A240D00B8BACB /* icon-error@2x.png in Resources */,
+				A93A6DCA194A177400251669 /* GoogleMaps.bundle in Resources */,
 				BCAD56B518CA5952009436B8 /* map-paper.png in Resources */,
-				BC676C6E18B2881900A46750 /* Images.xcassets in Resources */,
 				BC12918F192A06AA00225A13 /* pin_red_small.png in Resources */,
 				BC12918D192A06AA00225A13 /* pin_green_small.png in Resources */,
 				BCED5F05190A240D00B8BACB /* icon-success.png in Resources */,
@@ -625,7 +778,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -636,6 +789,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC70B83A18E73DFD00B4F33E /* BHHourlyStat.m in Sources */,
+				A990BBD819510EEC0019BF49 /* UIColor+RGBValues.m in Sources */,
 				BC066EFC18F637CA00F96604 /* BHQueueRequest.m in Sources */,
 				BC70B83518E73DB400B4F33E /* BHDailyStat.m in Sources */,
 				BC676C6018B2881800A46750 /* BHAppDelegate.m in Sources */,
@@ -646,18 +800,24 @@
 				BC066EFF18F6382E00F96604 /* BHQueueResponse.m in Sources */,
 				BC676C5C18B2881800A46750 /* main.m in Sources */,
 				BCAD56A918CA50AE009436B8 /* BHDataController.m in Sources */,
+				A99778DB196CB70E00739A8F /* BHSetArrivalTimeViewController.m in Sources */,
+				A97293E0197C9AE900495470 /* BHSetItineraryViewController.m in Sources */,
 				BC066F0718F6418A00F96604 /* JDStatusBarNotification.m in Sources */,
 				BCD05DC718B6D94A005077AA /* CPDStockPriceStore.m in Sources */,
 				BC3EFE12190B5B0C00E0BC30 /* BHSettingViewController.m in Sources */,
 				BC3EFE15190B5B2300E0BC30 /* BHAboutViewController.m in Sources */,
 				BCF24B6118CB6D35006BA03A /* BHLocationStat.m in Sources */,
+				A999CC271961F4A20082018A /* BHCheckinListViewController.m in Sources */,
 				BCED5F07190A240D00B8BACB /* TWMessageBarManager.m in Sources */,
 				BC129196192A3E0900225A13 /* BHUtils.m in Sources */,
+				A9B13EBE19A695A9004C6D10 /* BHTipCalculatorViewController.m in Sources */,
 				BCB30E6618B3CEF6009A3669 /* BHListViewController.m in Sources */,
 				BCAD56BC18CA82C7009436B8 /* ODRefreshControl.m in Sources */,
+				A9E919B4195390BA0049D60C /* BHBeeHiveViewController.m in Sources */,
 				BC066F0918F6418A00F96604 /* JDStatusBarView.m in Sources */,
 				BC620D9F18D28D6000D409A2 /* BHLocationTableViewCell.m in Sources */,
 				BC676C8C18B2893B00A46750 /* BHMapViewController.m in Sources */,
+				A990BBCD19510BD70019BF49 /* BHProgressView.m in Sources */,
 				BCAD56C118CADD90009436B8 /* BHLocationAnnotation.m in Sources */,
 				BC0A377318C8FE4000566D5D /* BHBuilding.m in Sources */,
 				BCD05DC618B6D94A005077AA /* CPDConstants.m in Sources */,
@@ -678,6 +838,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		57A0860F19E1F7B00053FFC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot-CocoaTouch";
+			targetProxy = 57A0860E19E1F7B00053FFC4 /* PBXContainerItemProxy */;
+		};
 		BC676C7918B2881900A46750 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BC676C4B18B2881800A46750 /* BeeHive */;
@@ -700,6 +865,7 @@
 				BC676C6218B2881800A46750 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
+			path = BeeHive;
 			sourceTree = "<group>";
 		};
 		BC676C6418B2881800A46750 /* Main_iPad.storyboard */ = {
@@ -708,6 +874,7 @@
 				BC676C6518B2881800A46750 /* Base */,
 			);
 			name = Main_iPad.storyboard;
+			path = BeeHive;
 			sourceTree = "<group>";
 		};
 		BC676C7D18B2881900A46750 /* InfoPlist.strings */ = {
@@ -753,6 +920,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../core-plot-master/framework\"/**",
+					"\"$(SRCROOT)/Pods/Headers\"/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -787,7 +960,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../core-plot-master/framework\"/**",
+					"\"$(SRCROOT)/Pods/Headers\"/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited)";
@@ -797,23 +977,20 @@
 		};
 		BC676C8518B2881900A46750 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B95F5CF4F9F34E78B42E7B38 /* Pods.xcconfig */;
+			baseConfigurationReference = D98A283D8717D524A12011DC /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhenyi Zhang (4RB9N5385L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhenyi Zhang (4RB9N5385L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BeeHive",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeeHive/BeeHive-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)/**",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/zhenyi2697/Downloads/core-plot-master/framework/**",
-				);
+				HEADER_SEARCH_PATHS = "/Users/louischen/Documents/DEV_iOS/core-plot-master/framework/**";
 				INFOPLIST_FILE = "BeeHive/BeeHive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -831,7 +1008,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1C0048D1-50D0-4984-9FF4-F43E490EAAC7";
+				PROVISIONING_PROFILE = "82D1F680-D847-4372-A72F-F2431F4C53BE";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -839,23 +1016,20 @@
 		};
 		BC676C8618B2881900A46750 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B95F5CF4F9F34E78B42E7B38 /* Pods.xcconfig */;
+			baseConfigurationReference = 255ED402BD14E4D2AA703445 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhenyi Zhang (4RB9N5385L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhenyi Zhang (4RB9N5385L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BeeHive",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeeHive/BeeHive-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)/**",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/zhenyi2697/Downloads/core-plot-master/framework/**",
-				);
+				HEADER_SEARCH_PATHS = "/Users/louischen/Documents/DEV_iOS/core-plot-master/framework/**";
 				INFOPLIST_FILE = "BeeHive/BeeHive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -868,7 +1042,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1C0048D1-50D0-4984-9FF4-F43E490EAAC7";
+				PROVISIONING_PROFILE = "82D1F680-D847-4372-A72F-F2431F4C53BE";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

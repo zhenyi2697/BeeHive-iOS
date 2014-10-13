@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BHLocationStat.h"
+@class BHLocationStat;
 
 @interface BHUtils : NSObject
 
 +(UIColor *)titleColorForLocationStat:(BHLocationStat *)locStat;
++(CPTColor *)titleColorForLocationStat2:(BHLocationStat *)locStat;
 +(NSString *)pinNameforLocationStat:(BHLocationStat *)locStat;
 +(NSString *)pinNameForBuilding:(NSString *)bdId;
+
 @end

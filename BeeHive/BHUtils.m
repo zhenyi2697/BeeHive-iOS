@@ -8,6 +8,8 @@
 
 #import "BHUtils.h"
 #import "BHDataController.h"
+#import "BHLocationStat.h"
+
 
 @implementation BHUtils
 
@@ -21,9 +23,26 @@
     if (percentage <= lowThreshold) {
         titleColor = [UIColor colorWithRed:0.0f/255.0f green:128.0f/255.0f blue:0.0f/255.0f alpha:1.0f]; //green
     } else if(percentage > lowThreshold && percentage < highThreshold) {
-        titleColor = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]; //orange
+        titleColor = [UIColor colorWithRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]; //orange BeeHive -> UIColor
     } else {
         titleColor = [UIColor colorWithRed:255.0f/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:1.0f]; //red
+    }
+    return titleColor;
+}
+
++(CPTColor *)titleColorForLocationStat2:(BHLocationStat *)locStat
+{
+    CPTColor *titleColor;
+    int percentage = (int)[locStat.occupancyPercent integerValue];
+    int lowThreshold = (int)[locStat.thresholdMin integerValue];
+    int highThreshold = (int)[locStat.thresholdMax integerValue];
+    
+    if (percentage <= lowThreshold) {
+        titleColor = [CPTColor colorWithComponentRed:0.0f/255.0f green:128.0f/255.0f blue:0.0f/255.0f alpha:1.0f]; //green
+    } else if(percentage > lowThreshold && percentage < highThreshold) {
+        titleColor = [CPTColor colorWithComponentRed:247.0f/255.0f green:148.0/255.0f blue:30.0f/255.0f alpha:1.0f]; //orange BeeHive for titleColorForLocationStat2 -> CPTColor
+    } else {
+        titleColor = [CPTColor colorWithComponentRed:255.0f/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:1.0f]; //red
     }
     return titleColor;
 }
@@ -42,6 +61,7 @@
     } else {
         pinName = @"pin_red";
     }
+//    NSLog(@"pin_custom");
     return pinName;
 }
 
@@ -63,5 +83,6 @@
     }
     return pinName;
 }
+
 
 @end

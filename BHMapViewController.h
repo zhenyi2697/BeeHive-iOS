@@ -17,6 +17,8 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)refreshMap:(UIBarButtonItem *)sender;
--(void)updateMapView;
+- (void)updateMapView;
+
+@property NSString *toto;
 
 @end
